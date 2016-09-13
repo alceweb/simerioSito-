@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace SantImerio.Models
 {
@@ -18,6 +20,31 @@ namespace SantImerio.Models
         }
     }
 
+    public class Eventi
+    {
+        [Key]
+        public int Evento_Id { get; set; }
+        [Display(Name = "Nome evento")]
+        public string Titolo { get; set; }
+        [Display(Name = "Descrizione")]
+        [DataType(DataType.Text)]
+        public string Descrizione { get; set; }
+        [Display(Name = "Data evento")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/mmyyyy}", ApplyFormatInEditMode = true)]
+        public DateTime Data { get; set; }
+        [Display(Name = "Data inizio pubblicazione")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DataI { get; set; }
+        [Display(Name = "Data fine pubblicazione")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DataF { get; set; }
+        [Display(Name = "Pubblica")]
+        public bool Pubblica { get; set; }
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -29,5 +56,7 @@ namespace SantImerio.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<SantImerio.Models.Eventi> Eventis { get; set; }
+
     }
 }

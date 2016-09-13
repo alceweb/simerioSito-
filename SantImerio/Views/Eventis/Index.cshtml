@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SantImerio.Models.Eventi>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="navbar-header">
+    @Html.ActionLink("Create New", "Create")
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pubblica)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titolo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descrizione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Data)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pubblica)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Evento_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Evento_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Evento_Id })
+        </td>
+    </tr>
+}
+
+</table>

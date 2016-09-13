@@ -1,0 +1,45 @@
+﻿@model SantImerio.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Gestione utenti";
+}
+
+<h2>@ViewBag.Title</h2>
+<div>
+    <hr class="hr1" />
+    <div class="row">
+        <div class="col col-md-2">
+            <img class="img-responsive" src="@Url.Content("~/Content/Immagini/Utenti/" + Model.Id + ".jpg")" />
+
+        </div>
+        <div class="col col-md-3">
+            @Html.DisplayFor(model => model.UserName)<br />
+        </div>
+    </div>
+</div>
+<hr class="hr1" />
+<h4>Ruoli di appartenenza</h4>
+@Html.Display(User.Identity.Name.ToString())
+@if (ViewBag.RoleNames.Count == 0)
+{
+    <hr />
+    <p>Nessun ruolo assegnato a questo utente</p>
+}
+
+<table class="table">
+
+    @foreach (var item in ViewBag.RoleNames)
+    {
+        <tr>
+            <td>
+                @item
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Torna alla lista", "Index")
+</p>
+
+

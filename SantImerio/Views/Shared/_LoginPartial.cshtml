@@ -5,18 +5,39 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right ">
         <li>
-            @Html.ActionLink("Salve " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <div>
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="glyphicon glyphicon-log-out text-danger"></a>
+
+            </div>
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Disconnetti</a></li>
+        <li>
+            <div>
+                <a href="@Url.Action("Index", "Manage")">
+                    @if (File.Exists(Server.MapPath("~/Content/Immagini/Utenti/" + @User.Identity.GetUserId() + ".jpg")))
+                    {
+                        <img class="img-login" src="@Url.Content("~/Content/Immagini/Utenti/" + @User.Identity.GetUserId() + ".jpg")" />
+
+                    }
+                    else
+                    {
+                        <img class="img-login" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
+                    }
+                </a>
+
+            </div>
+        </li>
     </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Registrazione", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Accedi", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <ul class="nav navbar-nav navbar-right ">
+        <li>
+            <div>
+                <a id="loginlink" class="glyphicon glyphicon-log-in" href="@Url.Action("Login", "Account")"></a>
+            </div>
+        </li>
     </ul>
 }

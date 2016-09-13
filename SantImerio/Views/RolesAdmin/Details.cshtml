@@ -1,0 +1,34 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+
+@{
+    ViewBag.Title = "Dettaglio ruolo";
+}
+
+<h2>@ViewBag.Title</h2>
+<h3>@Model.Name</h3>
+<h3>Id @ViewBag.Id usr @ViewBag.Usr Users @ViewBag.Users</h3>
+<hr />
+@if (ViewBag.UserCount == 0)
+{
+    <p>No users found in this role.</p>
+    <hr />
+}
+
+<table class="table table-hover">
+
+    @foreach (var item in ViewBag.Users)
+    {
+        <tr>
+            <td>
+                <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/" + @item.Id + ".jpg")" /> - @item.Nome
+            </td>
+        </tr>
+    }
+</table>
+<hr />
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

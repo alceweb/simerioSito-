@@ -1,0 +1,140 @@
+﻿@model SantImerio.Models.EditUserViewModel
+
+@{
+    ViewBag.Title = "Gestione utenti";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h4>Modifica</h4>
+<hr class="hr1" />
+<div class="row">
+    <div class="col col-md-4 text-center">
+        <img class="img-thumbnail" src='@Url.Content("~/Content/Immagini/Utenti/" + ViewBag.Uid + ".jpg")' />
+    </div>
+    <div class="col col-md-8">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nome, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Nome)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cognome, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Cognome, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Cognome)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DataNascita, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @*Incompatibilità jquery validation date per Chrome e FireFox*@
+                        @{ if (Request.Browser.Browser != "IE")
+                            {
+                                Html.EnableClientValidation(false);
+                            }
+
+                        }
+                        @Html.TextBoxFor(model => model.DataNascita, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
+                        @Html.ValidationMessageFor(model => model.DataNascita)
+                        @{ Html.EnableClientValidation(true);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AnnoInizio, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.AnnoInizio, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.AnnoInizio)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Grado, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Grado, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Grado)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Kata, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Kata, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Kata)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Frase, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(m => m.Frase, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Frase)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Livello</label>
+                    <div class="col-md-10">
+                        @Html.LabelFor(model => model.Maestro, new { @class = "control-label" })
+                        @Html.CheckBoxFor(m => m.Maestro, new { @class = "checkbox-inline" })
+                        @Html.ValidationMessageFor(model => model.Maestro)
+                        @Html.LabelFor(model => model.Istruttore, new { @class = "control-label" })
+                        @Html.CheckBoxFor(m => m.Istruttore, new { @class = "checkbox-inline" })
+                        @Html.ValidationMessageFor(model => model.Istruttore)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        @Html.Label("Roles", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @foreach (var item in Model.RolesList)
+                {
+                                <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected" class="checkbox-inline" />
+                                    @Html.Label(item.Value, new { @class = "control-label" })<br />
+
+                            }
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+                            }
+
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $('.datepicker').datepicker("option", "dateFormat", "dd/mm/yyyy");
+    </script>
+
+}
+
+

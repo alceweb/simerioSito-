@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Applicazione ASP.NET</title>
@@ -10,23 +10,43 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
+            @if (ViewBag.Title == "Home Page")
+            {
+                <img class="img-responsive img-int" src="~/Content/Immagini/Intestazione.png" />
+            }
+            else{
+            <img class="img-responsive img-int" src="~/Content/Immagini/Intestazione1.png" />
+            }
+
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nome applicazione", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink("Nome applicazione", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Chi siamo", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contatti", "Contact", "Home")</li>
+            <div class="navbar-collapse collapse navi" style="z-index:1">
+                <ul class="nav navbar-nav navbar-right navi">
+                    <li><div><a href="@Url.Action("Index", "Home")" class="glyphicon glyphicon-home"></a></div></li>
+                    <li><div><a href="@Url.Action("Appuntamenti", "Home")" class="glyphicon glyphicon-calendar"></a></div></li>
+                    <li><div><a href="@Url.Action("Eventi", "Home")" class="glyphicon glyphicon-picture"><span>Galleria</span></a></div></li>
+                    <li><div><a href="@Url.Action("Eventi", "Home")" class="glyphicon glyphicon-phone-alt"><span>Contatti</span></a></div></li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li><div><a href="@Url.Action("Download", "Home")" class="glyphicon glyphicon-download-alt"><span>Download</span></a></div></li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag text-success"><span>Gestione ruoli</span></a></div></li>
+                            <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user text-success"><span>Gestione utenti</span></a></div></li>
+                            <li><div><a href="@Url.Action("Index", "Eventis")" class="glyphicon glyphicon-list-alt text-success"><span>Gestione eventi</span></a></div></li>
+                            <li><div><a href="@Url.Action("Index", "Documentis")" class="glyphicon glyphicon-folder-open text-success"><span>Gestione documenti</span></a></div></li>
+                    }
+                    @Html.Partial("_LoginPartial")
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>

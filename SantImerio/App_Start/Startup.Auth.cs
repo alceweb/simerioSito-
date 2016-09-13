@@ -18,6 +18,7 @@ namespace SantImerio
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             // Consentire all'applicazione di utilizzare un cookie per memorizzare informazioni relative all'utente connesso
             // e per memorizzare temporaneamente le informazioni relative a un utente che accede tramite un provider di accesso di terze parti
