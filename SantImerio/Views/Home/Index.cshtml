@@ -6,50 +6,52 @@
     <tr>
         <td rowspan="2">
             <a target="_blank" href="~/Content/Documenti/TurnibarSettembre20161.pdf">
-                <img src="~/Content/Immagini/demo2.jpg" /><br />
-                Turni<br />BAR
-
+                <img src="~/Content/Immagini/bar.jpg" />
+                <div>Turni bar</div>
             </a>
         </td>
         <td colspan="3">
-            <img src="~/Content/Immagini/demo1.jpg" /><br />
-            FOTO
+            <img src="~/Content/Immagini/foto.jpg" />
+            <div>Galleria fotografica</div>
         </td>
         <td>
-            <img src="~/Content/Immagini/demo3.jpg" /><br />
-            Calendario
+            <a href="@Url.Action("Appuntamenti", "Home")"><img src="~/Content/Immagini/calendario.jpg" /></a>
+            <div>Calendario</div>
         </td>
     </tr>
     <tr>
         <td colspan="2">
-            <img style="height:40px" src="~/Content/Immagini/demo4.jpg" /><br />
-           Orario messe
+            <img src="~/Content/Immagini/messa.jpg" />
+            <div>Orari S. Messe</div>
         </td>
         <td rowspan="4" colspan="2">
-            <img src="~/Content/Immagini/demo5.jpg" /><br />
-           Articoli in evidenza
+            <div>Articoli in evidenza</div>
         </td>
     </tr>
     <tr>
         <td colspan="2">
-            <img src="~/Content/Immagini/demo1.jpg" /><br />
-           Prossimi appuntamenti
+            <a href="@Url.Action("IndexUt", "Eventis")">
+                <img src="~/Content/Immagini/eventi.jpg" />
+            </a><br />
+            <div>Eventi</div>
         </td>
         <td rowspan="2">
-            <img src="~/Content/Immagini/demo2.jpg" /><br />
-          Associazione<br />Amici di S. Imerio 
+            <div>
+                <img src="~/Content/Immagini/associazione.png" /><br/>
+                <button type="button" class="btn btn-primary btn-lg btn-block">5 x mille</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block">Donazioni</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block">Iscrizioni</button>
+            </div>
         </td>
     </tr>
     <tr>
         <td colspan="2">
-            <img src="~/Content/Immagini/demo3.jpg" /><br />
-       Storia
+            <a href="#nogo"><img src="~/Content/Immagini/storia.png" /></a>
         </td>
     </tr>
     <tr>
         <td colspan="3">
-            <img src="~/Content/Immagini/demo4.jpg" /><br />
-        Contatti
+            <a href="@Url.Action("About", "Home")"><img src="~/Content/Immagini/contatti.jpg" /></a>
         </td>
     </tr>
 </table>

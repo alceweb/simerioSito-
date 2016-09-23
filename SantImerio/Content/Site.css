@@ -221,6 +221,7 @@ textarea {
 }
 
     .tbl1 td {
+        vertical-align:top;
         padding: 5px;
         border-radius: 3px;
         text-align: center;
@@ -229,7 +230,14 @@ textarea {
 
     .tbl1 img {
         display: block;
-        height: auto;
-        max-width: 100%;
-        margin:auto;
+        width: 100%;
+        height:100%;
+    }
+    .tbl1 div{
+        position:relative;
+        display:block;
+        width:100%;
+    }
+    .tbl1 h1{
+        font-size:3em;
     }

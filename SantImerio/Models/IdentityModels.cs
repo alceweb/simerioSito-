@@ -43,6 +43,8 @@ namespace SantImerio.Models
         public DateTime DataF { get; set; }
         [Display(Name = "Pubblica")]
         public bool Pubblica { get; set; }
+        [Display(Name = "Galleria")]
+        public bool Galleria { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

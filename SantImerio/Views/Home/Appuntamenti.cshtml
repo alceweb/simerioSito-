@@ -6,7 +6,6 @@
 
 <h2>@ViewBag.Message</h2>
 
-<div class="label-info">Prima modalità. Per questa non è necessario inserire immagini ogni appuntamento</div>
 @foreach (var item in Model)
 {
     <hr class="hr1" />
@@ -38,39 +37,4 @@
                     </div>
                 </div>
 }
-<div class="label-info">Seconda modalità.</div>
 
-<div class="div4">
-
-    @foreach (var item in Model)
-    {
-        <hr class="hr1" />
-        <div class="row">
-            <div class="col ">
-                <a data-toggle="modal" data-target="#@item.Evento_Id" href="@Url.Action("Evento", "Home", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" class="img-circle" alt="" /></a>
-
-            </div>
-            <div class="col ">
-                <h4>@Html.ValueFor(modelItem => item.Data, "{0:dddd dd MMM yyyy}")</h4>
-                <a data-toggle="modal" data-target="#@item.Evento_Id" href="@Url.Action("Evento", "Home", new { id = item.Evento_Id })">
-                    <h2>@Html.DisplayFor(modelItem => item.Titolo)</h2>
-
-                </a>
-
-            </div>
-        </div>
-    }
-</div>
-
-<div class="label-info">Terza modalità.</div>
-
-<div class="div1 content">
-
-    @foreach (var item in Model)
-    {
-        <div class="text-center">
-            <a data-toggle="modal" data-target="#@item.Evento_Id" href="@Url.Action("Evento", "Home", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>            <h3>@item.Titolo</h3>
-        </div>
-
-    }
-</div>

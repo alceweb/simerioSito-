@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SantImerio.Models;
+using System.IO;
 
 namespace SantImerio.Controllers
 {
@@ -17,11 +18,31 @@ namespace SantImerio.Controllers
         // GET: Eventis
         public ActionResult Index()
         {
-            ViewBag.EventiCount = db.Eventis.Count();
-            var eventi = db.Eventis.OrderByDescending(d => d.Data);
-            return View(eventi);
+            return View(db.Eventis.ToList());
         }
 
+        public ActionResult IndexUt()
+        {
+            return View(db.Eventis.Where(g=>g.Galleria == true).ToList());
+        }
+
+        public ActionResult Evento(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Eventi/" + id + "/"));
+            ViewBag.Immagini = immagini.ToList();
+            Eventi eventi = db.Eventis.Find(id);
+            if (eventi == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(eventi);
+
+        }
         // GET: Eventis/Details/5
         public ActionResult Details(int? id)
         {
@@ -48,7 +69,7 @@ namespace SantImerio.Controllers
         // Per ulteriori dettagli, vedere http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Evento_Id,Titolo,Descrizione,Data,DataI,DataF,Pubblica")] Eventi eventi)
+        public ActionResult Create([Bind(Include = "Evento_Id,Titolo,Descrizione,Data,DataI,DataF,Pubblica,Galleria")] Eventi eventi)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +101,7 @@ namespace SantImerio.Controllers
         // Per ulteriori dettagli, vedere http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Evento_Id,Titolo,Descrizione,Data,DataI,DataF,Pubblica")] Eventi eventi)
+        public ActionResult Edit([Bind(Include = "Evento_Id,Titolo,Descrizione,Data,DataI,DataF,Pubblica,Galleria")] Eventi eventi)
         {
             if (ModelState.IsValid)
             {
