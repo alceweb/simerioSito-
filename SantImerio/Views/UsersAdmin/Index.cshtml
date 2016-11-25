@@ -7,7 +7,7 @@
 <h2>@ViewBag.Title</h2>
 <div class="row">
     <div class="col col-md-8">
-        <div class="btn btn-primary"><span class="badge">@ViewBag.UtentiCount</span> Registrati</div>
+        <div class="btn btn-primary"><span class="badge">@ViewBag.UtentiCount</span> Registràti</div>
     </div>
     <div class="col col-md-4 text-right">
         @Html.ActionLink(" ", "Index", "Squadres", null, new { @class = "glyphicon glyphicon-knight", title = "Gestione squadre" })
@@ -23,8 +23,10 @@
         <th>
             @Html.DisplayNameFor(model => model.UserName)
         </th>
+        <th>@Html.DisplayNameFor(model => model.Nome)</th>
+        <th>@Html.DisplayNameFor(model => model.Cognome)</th>
         <th></th>
-    </tr>
+   </tr>
 
     @foreach (var item in Model)
     {
@@ -32,22 +34,29 @@
             <td>
                 @if (File.Exists(@Server.MapPath("/Content/Immagini/Utenti/" + @Html.DisplayFor(modelItem => item.Id) + ".jpg")))
                 {
+                    <a class="text-danger" href="@Url.Action("FotoProfilo1", "UsersAdmin", new { id = item.Id })" title="Modifica foto profilo"><span class="glyphicon glyphicon-pencil"></span></a>
                     <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/" + @Html.DisplayFor(modelItem => item.Id) + ".jpg")" />
                 }
                 else
                 {
-                    <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
+                    <a class="text-danger" href="@Url.Action("FotoProfilo1", "UsersAdmin", new { id = item.Id })" title="Aggiungi foto profilo"><span class="glyphicon glyphicon-plus"></span></a>
+                   <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
                 }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                @Html.ActionLink(" ", "CreateUt", "Medaglieres", new { id = item.Id }, new { @class = "glyphicon glyphicon-cd", title = "Inserisci risultato" }) |
-                @Html.ActionLink(" ", "Album", "Home", new { id = item.Id }, new { @class = "glyphicon glyphicon-picture", title = "Album personale" })
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cognome)
+            </td>
+          <td>
+              @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "glyphicon glyphicon-pencil", @title="Modifica" })  
+                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "glyphicon glyphicon-remove text-danger", @title = "Cancella" })
+
+
             </td>
         </tr>
     }

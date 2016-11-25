@@ -1,0 +1,26 @@
+﻿@model SantImerio.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Gestione profilo";
+}
+
+<h2>@ViewBag.Title</h2>
+<h4>Modifica la foto del tuo profilo di <span class="text-success">@Model.Nome @Model.Cognome</span></h4>
+
+@using (Html.BeginForm("FotoProfilo1", "UsersAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input id="file" name="file" type="file" /><br />
+    <label class="alert-warning"> Solo file immagini JPG. Dimensione ottimale in pixel 200x200</label><br />
+    <span class="alert-danger">@ViewBag.Message</span><br />
+    if (File.Exists(@Server.MapPath("~/Content/Immagini/Utenti/" + Model.Id + ".jpg")))
+    {
+        <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/" + Model.Id + ".jpg")" /><br />
+
+    }
+    else
+    {
+        <img class="img-responsive" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" /><br />
+    }
+    <input id="Button1" class="btn btn-primary" type="submit" value="Carica" />
+    @Html.ActionLink("Torna a gestione profilo", "Index", null, new { @class = "btn btn-danger" })
+}

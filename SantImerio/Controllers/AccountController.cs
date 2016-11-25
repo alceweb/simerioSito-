@@ -152,6 +152,8 @@ namespace SantImerio.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.Nome = model.Nome;
+                user.Cognome = model.Cognome;
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

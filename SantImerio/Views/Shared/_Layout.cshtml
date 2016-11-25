@@ -4,62 +4,90 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Applicazione ASP.NET</title>
+    <link href="~/Content/lightbox.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <title>@ViewBag.Title - Parrocchia Sant'Imerio</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            @if (ViewBag.Title == "Home Page")
-            {
-                <img class="img-responsive img-int" src="~/Content/Immagini/Intestazione.png" />
-            }
-            else{
-            <img class="img-responsive img-int" src="~/Content/Immagini/Intestazione1.png" />
-            }
+<body >
 
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @*@Html.ActionLink("Nome applicazione", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-            </div>
-            <div class="navbar-collapse collapse navi" style="z-index:1">
-                <ul class="nav navbar-nav navbar-right navi">
-                    <li><div><a href="@Url.Action("Index", "Home")" class="glyphicon glyphicon-home"></a></div></li>
-                    <li><div><a href="@Url.Action("Appuntamenti", "Home")" class="glyphicon glyphicon-calendar"></a></div></li>
-                    <li><div><a href="@Url.Action("Eventi", "Home")" class="glyphicon glyphicon-picture"><span>Galleria</span></a></div></li>
-                    <li><div><a href="@Url.Action("About", "Home")" class="glyphicon glyphicon-phone-alt"><span>Contatti</span></a></div></li>
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li><div><a href="@Url.Action("Download", "Home")" class="glyphicon glyphicon-download-alt"><span>Download</span></a></div></li>
-                    }
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag text-success"><span>Gestione ruoli</span></a></div></li>
-                            <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user text-success"><span>Gestione utenti</span></a></div></li>
-                            <li><div><a href="@Url.Action("Index", "Eventis")" class="glyphicon glyphicon-list-alt text-success"><span>Gestione eventi</span></a></div></li>
-                            <li><div><a href="@Url.Action("Index", "Documentis")" class="glyphicon glyphicon-folder-open text-success"><span>Gestione documenti</span></a></div></li>
-                    }
-                    @Html.Partial("_LoginPartial")
-                </ul>
-            </div>
-        </div>
+          <div class="navbar navbar-default navbar-fixed-top">
+              <div class="container">
+                  @if (ViewBag.Title == "Home")
+                  {
+                      <img class="img-responsive img-int" src="~/Content/Immagini/Intestazione.png" />
+                  }
+                  else
+                  {
+                      <img class="img-responsive img-int" src="~/Content/Immagini/Intestazione1.png" />
+                  }
+
+                  <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                      @*@Html.ActionLink("Nome applicazione", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                  </div>
+                  <div class="navbar-collapse collapse navi" style="z-index:1">
+                      <ul class="nav navbar-nav navbar-right navi">
+                          <li><div><a href="@Url.Action("Index", "Home")" class="glyphicon glyphicon-home"></a></div></li>
+                          <li><div><a href="@Url.Action("Comunità", "Home")" class="fa fa-users"><span>La nostra comunità</span></a></div></li>
+                          <li><div><a href="@Url.Action("Appuntamenti", "Home")" class="glyphicon glyphicon-time"><span>Attività e orari</span></a></div></li>
+                          <li><div><a href="@Url.Action("IndexUt", "Eventis")" class="glyphicon glyphicon-globe"><span>Eventi</span></a></div></li>
+                          <li><div><a href="@Url.Action("About", "Home")" class="glyphicon glyphicon-phone-alt"><span>Contatti</span></a></div></li>
+                          @if (Request.IsAuthenticated)
+                          {
+                              <li><div><a href="@Url.Action("Download", "Home")" class="glyphicon glyphicon-download-alt"><span>Download</span></a></div></li>
+                          }
+                          @if (User.IsInRole("Admin"))
+                          {
+                              <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag text-success"><span>Gestione ruoli</span></a></div></li>
+                              <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user text-success"><span>Gestione utenti</span></a></div></li>
+                              <li><div><a href="@Url.Action("Index", "Eventis")" class="glyphicon glyphicon-list-alt text-success"><span>Gestione eventi</span></a></div></li>
+                              <li><div><a href="@Url.Action("Index", "Documentis")" class="glyphicon glyphicon-folder-open text-success"><span>Gestione documenti</span></a></div></li>
+                          }
+                          @Html.Partial("_LoginPartial")
+                      </ul>
+                  </div>
+              </div>
     </div>
     <div class="container body-content">
+        @if (ViewBag.Title == "Home")
+        {
+            <div id="bg">
+
+            </div>
+        }
+        else
+        {
+            <div id="bg1">
+
+            </div>
+        }
+
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET</p>
-        </footer>
+        @*<footer >
+            <p>&copy; @DateTime.Now.Year - Parrocchia Sant'Imerio via Realdo Colombo, 6 CREMONA tel.037229436</p>
+        </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @Scripts.Render("~/Scripts/lightbox-plus-jquery.min.js")
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
+    <script src="~/Scripts/jquery.filtertable.min.js"></script>
+    <script>
+	$(document).ready(function() {
+		$('table').filterTable();
+	});
+    </script>
+
+
+    @*<script src="~/Scripts/ckeditor/ckeditor.js"></script>*@
 </body>
 </html>

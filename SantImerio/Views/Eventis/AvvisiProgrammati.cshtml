@@ -1,0 +1,67 @@
+﻿@model IEnumerable<SantImerio.Models.Eventi>
+
+@{
+    ViewBag.Title = "Avvisi programmati";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col col-md-8">
+        <a href="@Url.Action("Create", "Eventis")" class="btn btn-primary"><span class="badge">@ViewBag.EventiCount</span> Nuovo</a>
+    </div>
+    <div class="col col-md-4 text-right">
+        <h4>
+            @Html.ActionLink(" ", "AvvisiObsoletii", "Eventis", null, new { @class = "glyphicon glyphicon-thumbs-down", title = "Avvisi obsoleti" }) |
+            @Html.ActionLink("Orari messe", "EditOrariMesse", "Home", new { id = 1 }, new { @class = "pull-right", title = "Avvisi programmati" })
+        </h4>
+    </div>
+</div>
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pubblica)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Galleria)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titolo)
+            </td>
+            <td>
+                @item.DataI.ToString("dddd dd MMM yyyy")
+            </td>
+            <td>
+                @item.DataF.ToString("dddd dd MMM yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pubblica)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Galleria)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Evento_Id }, new { @class = "text-success" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Evento_Id }, new { @class = "text-danger" }) |
+                @Html.ActionLink(" ", "EditImg", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-camera", title = "Galleria" }) |
+                @Html.ActionLink(" ", "EditImgP", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-picture", title = "Foto bacheca" })
+            </td>
+        </tr>
+    }
+
+</table>

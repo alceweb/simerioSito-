@@ -7,26 +7,41 @@
 <h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>Cancella</h4>
     <h3>Sei sicuro di voler cancellare questo utente?</h3>
     <hr class="hr1" />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
+    <div class="row">
+        <div class="col col-md-3">
+            @if (File.Exists(@Server.MapPath("~/Content/Immagini/Utenti/" + Model.Id + ".jpg")))
+            {
+            <img class="img-responsive" src="@Url.Content("~/Content/Immagini/Utenti/" + Model.Id + ".jpg")" /><br />
 
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-    </dl>
+            }
+            else
+            {
+            <img class="img-responsive" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" /><br />
+            }
+
+        </div>
+        <div class="col col-md-9">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+            </dl>
+
+        </div>
+    </div>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Cancella" class="btn btn-danger" />
+            @Html.ActionLink("Annulla", "Index", null, new {@class="btn btn-success" })
         </div>
     }
 </div>

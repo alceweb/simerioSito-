@@ -6,13 +6,24 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<div class="row">
+    <div class="col col-md-8">
+        <a href="@Url.Action("Create", "Eventis")" class="btn btn-primary"><span class="badge">@ViewBag.EventiCount</span> Nuovo</a>
+    </div>
+    <div class="col col-md-4 text-right">
+        <h4>
+            @Html.ActionLink(" ", "AvvisiObsoletii", "Eventis", null, new { @class = "glyphicon glyphicon-thumbs-down", title = "Avvisi obsoleti" }) |
+            @Html.ActionLink(" ", "AvvisiProgrammati", "Eventis", null, new { @class = "glyphicon glyphicon-thumbs-up", title = "Avvisi programmati" })
+        </h4>
+    </div>
+</div>
+<table class="table table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Titolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SottoTitolo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descrizione)
@@ -32,6 +43,10 @@
         <th>
             @Html.DisplayNameFor(model => model.Galleria)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Home)
+        </th>
+        <th></th>
         <th></th>
     </tr>
 
@@ -41,16 +56,19 @@
             @Html.DisplayFor(modelItem => item.Titolo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Descrizione)
+            @Html.DisplayFor(modelItem => item.SottoTitolo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Data)
+            @Html.Raw(item.Descrizione.Replace(Environment.NewLine, "<br/>"))
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataI)
+            @item.Data.ToString("dd-MMM-yyyy")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataF)
+            @item.DataI.ToString("dd-MMM-yyyy")
+        </td>
+        <td>
+            @item.DataF.ToString("dd-MMM-yyyy")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Pubblica)
@@ -59,9 +77,15 @@
             @Html.DisplayFor(modelItem => item.Galleria)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Evento_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Evento_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Evento_Id })
+            @Html.DisplayFor(modelItem => item.Home)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-pencil" })
+            @Html.ActionLink(" ", "Delete", new { id = item.Evento_Id }, new { @class = "text-danger glyphicon glyphicon-remove" })
+        </td>
+        <td>
+            @Html.ActionLink(" ", "EditImg", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-camera", title = "Galleria" })
+            @Html.ActionLink(" ", "EditImgP", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-picture", title = "Foto bacheca" })
         </td>
     </tr>
 }

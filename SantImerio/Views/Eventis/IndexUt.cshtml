@@ -4,14 +4,16 @@
     ViewBag.Title = "IndexUt";
 }
 
-<h2>IndexUt</h2>
+<h2>Eventi</h2>
 <div class="table table-responsive div1 content">
     @foreach (var item in Model)
     {
         <div class="text-center">
 
-            <h4 class="text-center">@Html.DisplayFor(modelItem => item.Titolo)</h4>
-            <h5 class="text-center">@item.Data.ToString("dddd dd MMM yyyy")</h5>
+            <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })">
+                <h4 class="text-center">@Html.DisplayFor(modelItem => item.Titolo)</h4>
+                <h5 class="text-center">@item.Data.ToString("dddd dd MMM yyyy")</h5>
+            </a>
             <span>
                 <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>
             </span>

@@ -79,6 +79,14 @@ namespace SantImerio.Models
         [Display(Name = "Conferma password")]
         [Compare("Password", ErrorMessage = "La password e la password di conferma non corrispondono.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Nome")]
+        public string Nome { get; set; }
+        [Required]
+        [Display(Name = "Cognome")]
+        public string Cognome { get; set; }
+
     }
 
     public class ResetPasswordViewModel

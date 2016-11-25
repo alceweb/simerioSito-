@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color:#eeeef4;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -23,6 +24,17 @@ textarea {
     max-width: 280px;
 }
 
+.hr1{
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+.hr2{
+     border: 0;
+     height: 0;
+     border-top: 1px solid rgba(0, 0, 0, 0.1);
+     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
 .div1 {
     margin: auto;
     text-align: center;
@@ -85,6 +97,9 @@ textarea {
     }
 
 .div4 {
+    position:absolute;
+    top:100%;
+    width:100%;
 }
 
     .div4 div {
@@ -111,6 +126,15 @@ textarea {
             -moz-box-shadow: 0px 0px 200px #fff;
         }
 
+.div5{
+    width:100%;
+    margin-top:10%;
+    text-align:center;
+    left:0;
+    bottom:0;
+    height:100%;
+    top:50%
+}
 .content {
     font-size: 0.9em;
     display: table;
@@ -126,8 +150,9 @@ textarea {
 }
 
 .navbar-default {
-    background-color: #fff !important;
-    border-color: #fff !important;
+    color:rgba(255, 255, 255, 0.00) !important;
+    background-color:rgba(255, 255, 255, 0.0) !important;
+    border:none !important;
 }
 
 .navbar-collapse {
@@ -241,3 +266,102 @@ textarea {
     .tbl1 h1{
         font-size:3em;
     }
+
+
+#bg{
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0px;
+    bottom:0px;
+  background: url(Immagini/GalleriaHome/Sfondo/Home.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  z-index:-10000;
+}
+
+#bg1{
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0px;
+    bottom:0px;
+    background: -webkit-linear-gradient(#b1b1b1, #eeeef4); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#b1b1b1, #eeeef4); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#b1b1b1, #eeeef4); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#b1b1b1, #eeeef4); /* Standard syntax */  /*background: url(Immagini/LogoVerticale.png) no-repeat center left fixed;*/ 
+    z-index:-10000;
+}
+
+footer{
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    background-color:rgba(255, 255, 255, 0.49);
+}
+
+.body-content{
+    margin-top:5px;
+}
+.spot{
+    color:#3c7598;
+    font-size:3em;
+    text-shadow:0px 0px 4px #fff;
+}
+.galla {
+}
+.galla span:hover img{
+-webkit-transform:scale(1.1); /*Webkit: Scale up image to 1.2x original size*/
+-moz-transform:scale(1.1); /*Mozilla scale version*/
+-o-transform:scale(1.1); /*Opera scale version*/
+z-index:0;
+ -ms-transform: scale(1.1); /* IE 9 */
+ transition:all 1s ease;
+}
+.galla img {
+    height:120px;
+    margin:5px;
+    text-align: center;
+    vertical-align: bottom;
+    border-radius:4px;
+    -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.75);
+    box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.75);
+    float:left;
+ transition:all 1s ease;
+}
+
+
+.galla1 {
+    background-color:#fff;
+    border-radius:5px;
+    margin:5px;
+    padding:5px;
+    border:solid 1px #b1b1b1;
+ }
+.galla1:hover img{
+-webkit-transform:scale(0.8); /*Webkit: Scale up image to 1.2x original size*/
+-moz-transform:scale(0.8); /*Mozilla scale version*/
+-o-transform:scale(0.8); /*Opera scale version*/
+ -ms-transform: scale(0.8); /* IE 9 */
+-moz-box-shadow:1px 1px 30px gray; /*Mozilla shadow version*/
+z-index:0;
+            opacity: 0.2; 
+            box-shadow: 0px 0px 10px 5px #716556;
+            -webkit-box-shadow: 0px 0px 10px 5px #716556;
+            -moz-box-shadow: 0px 0px 10px 5px #716556;
+ transition:all 1s ease;
+}
+.galla1 img {
+    height:120px;
+    margin:5px;
+    text-align: center;
+    vertical-align: bottom;
+    border-radius:4px;
+    -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.75);
+    box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.75);
+ transition:all 1s ease;
+}

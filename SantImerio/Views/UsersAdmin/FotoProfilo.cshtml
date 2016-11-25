@@ -11,7 +11,7 @@
     <input id="file" name="file" type="file" /><br />
     <label class="alert-warning"> Solo file immagini JPG. Dimensione ottimale in pixel 200x200</label><br />
     <span class="alert-danger">@ViewBag.Message</span><br />
-    <img class="img-responsive" src="@Url.Content("~/Content/Immagini/Utenti/" + @ViewBag.uid + ".jpg")" /><br />
+    <img class="img-thumbnail" src="@Url.Content("~/Content/Immagini/Utenti/" + @ViewBag.uid + ".jpg")" /><br />
     <input id="Button1" class="btn btn-primary" type="submit" value="Carica" />
     @Html.ActionLink("Torna a gestione profilo", "IndexUs", null, new { @class = "btn btn-danger" })
 }

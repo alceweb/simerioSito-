@@ -25,6 +25,15 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.SottoTitolo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SottoTitolo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SottoTitolo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Descrizione, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Descrizione, new { htmlAttributes = new { @class = "form-control" } })
@@ -42,7 +51,7 @@
                     }
 
                 }
-                @Html.TextBoxFor(model => model.Data, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
+                @Html.TextBoxFor(model => model.Data, "{0:dd/MM/yyyy}", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
                 @{ Html.EnableClientValidation(true);}
             </div>
@@ -58,7 +67,7 @@
                     }
 
                 }
-                @Html.TextBoxFor(model => model.DataI, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
+                @Html.TextBoxFor(model => model.DataI, "{0:dd/MM/yyyy}", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DataI, "", new { @class = "text-danger" })
                 @{ Html.EnableClientValidation(true);}
             </div>
@@ -74,7 +83,7 @@
                     }
 
                 }
-                @Html.TextBoxFor(model => model.DataF, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
+                @Html.TextBoxFor(model => model.DataF, "{0:dd/MM/yyyy}", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DataF, "", new { @class = "text-danger" })
                 @{ Html.EnableClientValidation(true);}
             </div>
@@ -84,7 +93,7 @@
             @Html.LabelFor(model => model.Pubblica, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Pubblica)
+                    @Html.EditorFor(model => model.Pubblica) 
                     @Html.ValidationMessageFor(model => model.Pubblica, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -99,6 +108,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Home, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Home)
+                    @Html.ValidationMessageFor(model => model.Home, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

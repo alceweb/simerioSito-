@@ -1,0 +1,34 @@
+﻿@model IEnumerable<SantImerio.Models.Documenti>
+
+@{
+    ViewBag.Title = "Download";
+}
+
+<h2>Download</h2>
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titolo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descrizione)
+            </td>
+            <td>
+                <a href="@Url.Content("~/Content/Documenti/" + item.Documenti_Id + ".pdf")" target="_blank" class="btn btn-sm btn-danger glyphicon glyphicon-save"></a>
+            </td>
+        </tr>
+    }
+
+</table>

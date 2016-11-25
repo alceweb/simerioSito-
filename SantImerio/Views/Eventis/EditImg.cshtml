@@ -1,0 +1,43 @@
+﻿@model SantImerio.Models.Eventi
+
+@{
+    ViewBag.Title = "Gestione eventi";
+}
+
+<h2>@ViewBag.Title</h2>
+<h4>Galleria fotografica</h4><hr />
+<div>
+    <h3>
+        @Html.ActionLink(" ", "Index", null, new { @class = "glyphicon glyphicon-arrow-left" })
+        <span class="badge">Id: @Html.DisplayFor(model => model.Evento_Id, null)</span>
+        @Html.DisplayFor(model => model.Titolo)
+    </h3>
+</div>
+@using (Html.BeginForm("EditImg", "Eventis", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="files" id="file" multiple />
+    <h3 class="badge">Dimensione massima file o gruppo di file 40M</h3><br />
+    <input type="submit" value="Upload Image" class="btn btn-primary" />
+    <br>
+    <h4>@ViewBag.Message</h4>
+}
+<div class="row">
+</div>
+<hr />
+<div class="row">
+    @foreach (var item in ViewBag.Immagini)
+    {
+        var filename = Path.GetFileName(item);
+        <div class="col col-md-2 text-center galla1">
+            <div>
+                <a href="@Url.Action("DeleteImg", "Eventis", new { id = Model.Evento_Id, file = @filename})"><span class="glyphicon glyphicon-remove pull-left text-danger">Cancella</span></a>
+                <a href="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)"><span class="glyphicon glyphicon-download-alt">Scarica</span></a>
+                <a href="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" data-lightbox="example-set"><img class="example-image" src="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" alt="" /></a>
+            </div>
+        </div>
+    }
+
+</div>
+<h3>
+    @Html.ActionLink(" ", "Index", null, new { @class = "glyphicon glyphicon-arrow-left" })
+</h3>

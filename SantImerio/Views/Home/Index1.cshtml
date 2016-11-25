@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Index1";
+}
+
+<h2>Index1</h2>
+
+<table class="table-bordered tbl1">
+        <tr>
+            <td rowspan="2">
+                <a target="_blank" href="~/Content/Documenti/TurnibarSettembre20161.pdf">
+                    <img src="~/Content/Immagini/bar.jpg" />
+                    <div>Turni bar</div>
+                </a>
+            </td>
+            <td colspan="3">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img src="~/Content/Immagini/GalleriaHome/1.jpg" />
+                            <div class="carousel-caption">
+                                Fotografia numero uno
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="~/Content/Immagini/GalleriaHome/2.jpg" />
+                            <div class="carousel-caption">
+                                Fotografica numero due
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="~/Content/Immagini/GalleriaHome/3.jpg" />
+                            <div class="carousel-caption">
+                                Fotografia numero tre
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>        </td>
+            <td>
+                <a href="@Url.Action("Appuntamenti", "Home")"><img src="~/Content/Immagini/calendario.jpg" /></a>
+                <div>Calendario</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <img src="~/Content/Immagini/messa.jpg" />
+                <div>Orari S. Messe</div>
+            </td>
+            <td rowspan="4" colspan="2">
+                <div>Articoli in evidenza</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a href="@Url.Action("IndexUt", "Eventis")">
+                    <img src="~/Content/Immagini/eventi.jpg" />
+                </a><br />
+                <div>Eventi</div>
+            </td>
+            <td rowspan="2">
+                <div>
+                    <img src="~/Content/Immagini/associazione.png" /><br/>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">5 x mille</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Donazioni</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Iscrizioni</button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a href="#nogo"><img src="~/Content/Immagini/storia.png" /></a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <a href="@Url.Action("About", "Home")"><img src="~/Content/Immagini/contatti.jpg" /></a>
+            </td>
+        </tr>
+    </table>

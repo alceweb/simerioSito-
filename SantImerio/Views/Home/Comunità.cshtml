@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SantImerio.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Comunità";
+}
+
+<h1>Comunità</h1>
+
+<div class="row galla">
+    <img src="~/Content/Immagini/DonNevi.JPG" />
+    <h3>Parroco</h3>
+    <h4>Don Giuseppe Nevi</h4>
+    <p>Via Aporti, 5 Cremona <br/><span class="fa fa-phone">Tel. 335-5555555</span>  -  <a href="mail to:dongiuseppe.nevi@santimerio.it"><span class="glyphicon glyphicon-envelope">dongiuseppe.nevi@santimerio.it</span></a></p>
+</div>
+<div class="row galla">
+    <img src="~/Content/Immagini/Mik.JPG" />
+    <h3>Vicario</h3>
+    <h4>Don Michele Rocchetti</h4>
+    <p>Via Aporti, 5 Cremona <br /><span class="fa fa-phone">Tel. 335-5555555</span>  -  <a href="mail to:donmichele.rocchetti@santimerio.it"><span class="glyphicon glyphicon-envelope">donmichele.rocchetti@santimerio.it</span></a></p>
+</div>
+<hr class="hr1" />
+<h2>I catechisti</h2>
+<div class="row galla">
+    <img src="~/Content/Immagini/Utenti/anonimous.JPG" />
+    <h3>1 elemntare</h3>
+    <h4>Pippo Franco</h4>
+    <p>Via Aporti, 5 Cremona <br /><span class="fa fa-phone">Tel. 335-5555555</span>  -  <a href="mail to:catechista@santimerio.it"><span class="glyphicon glyphicon-envelope">catechista@santimerio.it</span></a></p>
+</div>
+<div class="row galla">
+    <img src="~/Content/Immagini/Utenti/anonimous.JPG" />
+    <h3>2 elementare</h3>
+    <h4>Pippo Franco</h4>
+    <p>Via Aporti, 5 Cremona <br /><span class="fa fa-phone">Tel. 335-5555555</span>  -  <a href="mail to:catechista@santimerio.it"><span class="glyphicon glyphicon-envelope">catechista@santimerio.it</span></a></p>
+</div>
+<div class="row galla">
+    <img src="~/Content/Immagini/Utenti/anonimous.JPG" />
+    <h3>1 media</h3>
+    <h4>Pippo Franco</h4>
+    <p>Via Aporti, 5 Cremona <br /><span class="fa fa-phone">Tel. 335-5555555</span>  -  <a href="mail to:catechista@santimerio.it"><span class="glyphicon glyphicon-envelope">catechista@santimerio.it</span></a></p>
+</div>
+<div class="row galla">
+    <img src="~/Content/Immagini/Utenti/anonimous.JPG" />
+   <h3>2 media</h3>
+    <h4>Pippo Franco</h4>
+    <p>Via Aporti, 5 Cremona <br /><span class="fa fa-phone">Tel. 335-5555555</span>  -  <a href="mail to:catechista@santimerio.it"><span class="glyphicon glyphicon-envelope">catechista@santimerio.it</span></a></p>
+</div>
+<hr class="hr1" />
+<table class="table table-hover">
+    <thead>
+        @ViewBag.UtentiCount Iscritti al sito
+    </thead>
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (File.Exists(@Server.MapPath("/Content/Immagini/Utenti/" + @Html.DisplayFor(modelItem => item.Id) + ".jpg")))
+                {
+                    <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/" + @Html.DisplayFor(modelItem => item.Id) + ".jpg")" />
+                }
+                else
+                {
+                    <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+        </tr>
+    }
+
+</table>

@@ -3,8 +3,52 @@
 @{
     ViewBag.Title = "Appuntamenti";
 }
+<div>
+    <h2>Eventi ed orari</h2>
+</div>
+<div class="row">
+    <div class="col col-md-6">
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="@Url.Action("EditOrariMesse", "Home", new {id = 1 })" ><span class="h3 text-danger glyphicon glyphicon-pencil"></span></a>
+        }
+        <a href="#messe" data-toggle="collapse" class="h4"><span class="glyphicon glyphicon-time"></span>  Orari SS. Messe</a>
 
-<h2>@ViewBag.Message</h2>
+    </div>
+    <div class="col col-md-6">
+        @if (User.IsInRole("Admin") | User.IsInRole("Bar"))
+        {
+            <a href="@Url.Action("EditOrariMesse", "Home", new {id = 2 })"><span class="h3 text-danger glyphicon glyphicon-pencil"></span></a>
+        }
+        <a href="#turnibar" data-toggle="collapse" class="h4"><span class="glyphicon glyphicon-time"></span>  Turni bar</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-md-12">
+        <div class="collapse" id="messe">
+            <div class="well">
+                @foreach (var item in ViewBag.Orari)
+                {
+                    @Html.Raw(item.Descrizione)
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col col-md-12">
+        <div class="collapse" id="turnibar">
+            <div class="well">
+                @foreach (var item in ViewBag.Orari1)
+                {
+                    @Html.Raw(item.Descrizione)
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
 
 @foreach (var item in Model)
 {

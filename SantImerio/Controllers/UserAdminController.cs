@@ -157,6 +157,8 @@ namespace SantImerio.Controllers
             {
                 Id = user.Id,
                 Email = user.Email,
+                Nome = user.Nome,
+                Cognome = user.Cognome,
                 RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
                 {
                     Selected = userRoles.Contains(x.Name),
@@ -170,7 +172,7 @@ namespace SantImerio.Controllers
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,Nome,Cognome,DataNascita,AnnoInizio,Grado,Frase,Kata,Maestro,Istruttore")] EditUserViewModel editUser, params string[] selectedRole)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,Nome,Cognome")] EditUserViewModel editUser, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
@@ -182,6 +184,8 @@ namespace SantImerio.Controllers
 
                 user.UserName = editUser.Email;
                 user.Email = editUser.Email;
+                user.Nome = editUser.Nome;
+                user.Cognome = editUser.Cognome;
                 
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 
@@ -206,6 +210,58 @@ namespace SantImerio.Controllers
             ModelState.AddModelError("", "Something failed.");
             return View();
         }
+
+
+        public async Task<ActionResult> EditUs(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = await UserManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var userRoles = await UserManager.GetRolesAsync(user.Id);
+
+            return View(new EditUsViewModel()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Nome = user.Nome,
+                Cognome = user.Cognome,
+            });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditUs([Bind(Include = "Id,Email,Nome,Cognome")] EditUsViewModel editUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByIdAsync(editUser.Id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                user.UserName = editUser.Email;
+                user.Email = editUser.Email;
+                user.Nome = editUser.Nome;
+                user.Cognome = editUser.Cognome;
+
+                await UserManager.UpdateAsync(user);
+                return RedirectToAction("IndexUs");
+            }
+            ModelState.AddModelError("", "Something failed.");
+            return View();
+        }
+
+
+
+
 
         //
         // GET: /Users/Delete/5
@@ -288,5 +344,42 @@ namespace SantImerio.Controllers
 
             return View();
         }
+
+        public async Task<ActionResult> FotoProfilo1(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = await UserManager.FindByIdAsync(id);
+            return View(user);
+        }
+        [HttpPost]
+        public async Task<ActionResult> FotoProfilo1(HttpPostedFileBase file, string id)
+        {
+                 var user = await UserManager.FindByIdAsync(id);
+           if (ModelState.IsValid)
+            {
+                if (file != null && file.ContentLength > 0)
+                    try
+                    {
+                        string estensione = Path.GetExtension(file.FileName).ToLower();
+                        file.SaveAs(Server.MapPath("/Content/Immagini/Utenti/" + user.Id + estensione));
+                        ViewBag.Message = "Foto caricata correttamente";
+                        return RedirectToAction("Index", "UsersAdmin");
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                    }
+                else
+                {
+                    ViewBag.Message = "Non hai selezionato nessun file. Puoi usare solo file JPG";
+                }
+            }
+
+            return View(user);
+        }
+
     }
 }

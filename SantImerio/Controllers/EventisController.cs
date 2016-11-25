@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SantImerio.Models;
 using System.IO;
+using System.Web.Helpers;
 
 namespace SantImerio.Controllers
 {
@@ -18,7 +19,9 @@ namespace SantImerio.Controllers
         // GET: Eventis
         public ActionResult Index()
         {
-            return View(db.Eventis.ToList());
+            ViewBag.EventiCount = db.Eventis.Count();
+            var eventi = db.Eventis.OrderByDescending(d => d.Data);
+            return View(eventi);
         }
 
         public ActionResult IndexUt()
@@ -69,12 +72,15 @@ namespace SantImerio.Controllers
         // Per ulteriori dettagli, vedere http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Evento_Id,Titolo,Descrizione,Data,DataI,DataF,Pubblica,Galleria")] Eventi eventi)
+        public ActionResult Create([Bind(Include = "Evento_Id,Titolo,Data,DataI,DataF,Pubblica,Galleria,Home,SottoTitolo", Exclude = "Descrizione")] Eventi eventi)
         {
+            FormCollection collection = new FormCollection(Request.Unvalidated().Form);
+            eventi.Descrizione = collection["Descrizione"];
             if (ModelState.IsValid)
             {
                 db.Eventis.Add(eventi);
                 db.SaveChanges();
+                Directory.CreateDirectory(Server.MapPath("~/Content/Immagini/Eventi/" + eventi.Evento_Id));
                 return RedirectToAction("Index");
             }
 
@@ -101,7 +107,7 @@ namespace SantImerio.Controllers
         // Per ulteriori dettagli, vedere http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Evento_Id,Titolo,Descrizione,Data,DataI,DataF,Pubblica,Galleria")] Eventi eventi)
+        public ActionResult Edit([Bind(Include = "Evento_Id,Titolo,Descrizione,Data,DataI,DataF,Pubblica,Galleria,Home,SottoTitolo")] Eventi eventi)
         {
             if (ModelState.IsValid)
             {
@@ -111,6 +117,176 @@ namespace SantImerio.Controllers
             }
             return View(eventi);
         }
+
+        //Gestione immagine evento
+        public ActionResult EditImgP(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Eventi/" + id + "/"));
+            ViewBag.Immagini = immagini.ToList();
+            Eventi eventi = db.Eventis.Find(id);
+            if (eventi == null)
+            {
+                return HttpNotFound();
+            }
+            return View(eventi);
+        }
+
+        [HttpPost]
+        public ActionResult EditImgP(HttpPostedFileBase file, int? id)
+        {
+            if (file != null)
+                try
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Content/Immagini/Eventi/" + id + "/"), id + ".jpg");
+                    WebImage img = new WebImage(file.InputStream);
+                    var larghezza = img.Width;
+                    var altezza = img.Height;
+                    var rapportoO = larghezza / altezza;
+                    var rapportoV = altezza / larghezza;
+                    if (altezza > 1900 | larghezza > 1900)
+                    {
+                        if (rapportoO >= 1)
+                        {
+                            ViewBag.Message = "Attendi la fine del download...";
+                            img.Resize(1900, 1900 / rapportoO);
+                            img.Save(path);
+                            ViewBag.Message = "Download immagine orizzontale avvenuto con successo. Dimensione immagine originale: larghezza " + larghezza + " Altezza " + altezza;
+                        }
+                        else
+                        {
+                            img.Resize(800 / rapportoV, 800);
+                            img.Save(path);
+                            ViewBag.Message = "Download immagine verticale avvenuto con successo. Dimensione immagine: larghezza " + larghezza + "Altezza" + altezza;
+                        }
+                    }
+                    else
+                    {
+                        if (rapportoO >= 1)
+                        {
+                            ViewBag.Message = "Attendi la fine del download...";
+                            img.Save(path);
+                            ViewBag.Message = "Download immagine orizzontale avvenuto con successo. Dimensione immagine originale: larghezza " + larghezza + " Altezza " + altezza;
+                        }
+                        else
+                        {
+                            ViewBag.Message = "Attendi la fine del download...";
+                            img.Save(path);
+                            ViewBag.Message = "Download immagine verticale avvenuto con successo. Dimensione immagine: larghezza " + larghezza + "Altezza" + altezza;
+                        }
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "Devi scegliere un file";
+            }
+            var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Eventi/" + id + "/"));
+            ViewBag.Immagini = immagini.ToList();
+            Eventi eventi = db.Eventis.Find(id);
+            if (eventi == null)
+            {
+                return HttpNotFound();
+            }
+            return View(eventi);
+
+        }
+
+        //Gestione immagini galleria fotografica
+        public ActionResult EditImg(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Eventi/" + id + "/"));
+            ViewBag.Immagini = immagini.ToList();
+            Eventi eventi = db.Eventis.Find(id);
+            if (eventi == null)
+            {
+                return HttpNotFound();
+            }
+            return View(eventi);
+        }
+
+        [HttpPost]
+        public ActionResult EditImg(IEnumerable<HttpPostedFileBase> files, int? id)
+        {
+            foreach (var file in files)
+            {
+                if (file != null)
+                    try
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Content/Immagini/Eventi/" + id + "/"), fileName);
+                        WebImage img = new WebImage(file.InputStream);
+                        var larghezza = img.Width;
+                        var altezza = img.Height;
+                        var rapportoO = larghezza / altezza;
+                        var rapportoV = altezza / larghezza;
+                        if (altezza > 1900 | larghezza > 1900)
+                        {
+                            if (rapportoO >= 1)
+                            {
+                                ViewBag.Message = "Attendi la fine del download...";
+                                img.Resize(1900, 1900 / rapportoO);
+                                img.Save(path);
+                                ViewBag.Message = "Download immagine orizzontale avvenuto con successo. Dimensione immagine originale: larghezza " + larghezza + " Altezza " + altezza;
+                            }
+                            else
+                            {
+                                ViewBag.Message = "Attendi la fine del download...";
+                                img.Resize(800 / rapportoV, 800);
+                                img.Save(path);
+                                ViewBag.Message = "Download immagine verticale avvenuto con successo. Dimensione immagine: larghezza " + larghezza + "Altezza" + altezza;
+                            }
+                        }
+                        else
+                        {
+                            if (rapportoO >= 1)
+                            {
+                                ViewBag.Message = "Attendi la fine del download...";
+                                img.Save(path);
+                                ViewBag.Message = "Download immagine orizzontale avvenuto con successo. Dimensione immagine originale: larghezza " + larghezza + " Altezza " + altezza;
+                            }
+                            else
+                            {
+                                ViewBag.Message = "Attendi la fine del download...";
+                                img.Save(path);
+                                ViewBag.Message = "Download immagine verticale avvenuto con successo. Dimensione immagine: larghezza " + larghezza + "Altezza" + altezza;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                    }
+                else
+                {
+                    ViewBag.Message = "Devi scegliere un file";
+                }
+            }
+            var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Eventi/" + id + "/"));
+            ViewBag.Immagini = immagini.ToList();
+            Eventi eventi = db.Eventis.Find(id);
+            if (eventi == null)
+            {
+                return HttpNotFound();
+            }
+            return View(eventi);
+
+        }
+
+
 
         // GET: Eventis/Delete/5
         public ActionResult Delete(int? id)
@@ -146,5 +322,18 @@ namespace SantImerio.Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult AvvisiProgrammati()
+        {
+            ViewBag.EventiCount = db.Eventis.Where(e => e.DataI < DateTime.Now && e.DataF > DateTime.Now).Count();
+            var eventi = db.Eventis.Where(e => e.DataI < DateTime.Now && e.DataF > DateTime.Now).OrderByDescending(d => d.Data);
+            return View(eventi);
+        }
+        public ActionResult AvvisiObsoletii()
+        {
+            ViewBag.EventiCount = db.Eventis.Where(e => e.DataF < DateTime.Now).Count();
+            var eventi = db.Eventis.Where(e => e.DataF < DateTime.Now).OrderByDescending(d => d.Data);
+            return View(eventi);
+        }
+
     }
 }

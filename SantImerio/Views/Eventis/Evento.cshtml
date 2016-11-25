@@ -8,13 +8,13 @@
     <h1>@Html.DisplayFor(model => model.Titolo)</h1>
     @if (Model.Data != Convert.ToDateTime("01/01/2050"))
     {
-        <h4>@Html.DisplayFor(model => model.Data)</h4>
+        <h4>@Model.Data.ToString("dddd dd MMM yyyy")</h4>
 
     }
     <p>
         @Html.Raw(Model.Descrizione)
     </p>
-</div>
+</div><hr class="hr1" />
 <div class="galla">
     @foreach (var item in ViewBag.Immagini)
     {

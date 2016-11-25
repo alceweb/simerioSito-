@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "DeleteSfondo";
+}
+
+<h2>Cancella sfondo</h2>
+<div class="row">
+    <div class="col col-md-6">
+        <img class="img-thumbnail" src="@Url.Content("~/Content/Immagini/GalleriaHome/" + @ViewBag.File)" />
+
+    </div>
+    <div class="col col-md-6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Cancella" class="btn btn-danger" />
+                @Html.ActionLink("Annulla", "Sfondo", "Home", new { @Class = "btn btn-primary" })
+            </div>
+        }
+
+    </div>
+</div>
+<hr />

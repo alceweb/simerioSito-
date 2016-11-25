@@ -1,57 +1,49 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<SantImerio.Models.Eventi>
+
+@{
+    ViewBag.Title = "Home";
 }
-<h1></h1>
-<table class="table-bordered tbl1">
-    <tr>
-        <td rowspan="2">
-            <a target="_blank" href="~/Content/Documenti/TurnibarSettembre20161.pdf">
-                <img src="~/Content/Immagini/bar.jpg" />
-                <div>Turni bar</div>
-            </a>
-        </td>
-        <td colspan="3">
-            <img src="~/Content/Immagini/foto.jpg" />
-            <div>Galleria fotografica</div>
-        </td>
-        <td>
-            <a href="@Url.Action("Appuntamenti", "Home")"><img src="~/Content/Immagini/calendario.jpg" /></a>
-            <div>Calendario</div>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <img src="~/Content/Immagini/messa.jpg" />
-            <div>Orari S. Messe</div>
-        </td>
-        <td rowspan="4" colspan="2">
-            <div>Articoli in evidenza</div>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <a href="@Url.Action("IndexUt", "Eventis")">
-                <img src="~/Content/Immagini/eventi.jpg" />
-            </a><br />
-            <div>Eventi</div>
-        </td>
-        <td rowspan="2">
-            <div>
-                <img src="~/Content/Immagini/associazione.png" /><br/>
-                <button type="button" class="btn btn-primary btn-lg btn-block">5 x mille</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block">Donazioni</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block">Iscrizioni</button>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <a href="#nogo"><img src="~/Content/Immagini/storia.png" /></a>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="3">
-            <a href="@Url.Action("About", "Home")"><img src="~/Content/Immagini/contatti.jpg" /></a>
-        </td>
-    </tr>
-</table>
+    <div class="div5">
+    <div >
+
+        @if (User.IsInRole("Admin"))
+            {
+            <div><a href="@Url.Action("Sfondo", "Home")"><h2 class="glyphicon glyphicon-pencil pull-left text-danger"></h2></a></div>
+
+        }
+        @foreach (var item in Model)
+            {
+
+            <div class="spot">@item.Titolo</div>
+            <h1>
+                <a href="@Url.Action("Evento", "Eventis", new {id = item.Evento_Id })" class="btn btn-lg btn-primary">@item.SottoTitolo<span class="glyphicon glyphicon-chevron-right"></span></a>
+            </h1>
+
+        }
+    </div>
+    <div class="div4 text-left">
+
+        @foreach (var item in ViewBag.Eventi)
+            {
+            <hr class="hr1" />
+                <div class="row">
+                    <div class="col col-md-2">
+                        <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" class="img-circle" alt="" /></a>
+
+                    </div>
+                    <div class="col col-md-10">
+                        <h4>@item.Data.ToString("dddd dd MMM yyyy")</h4>
+                        <a href="@Url.Action("Evento", "Home", new { id = item.Evento_Id })">
+                            <h2>@item.Titolo <span class="h4">@item.SottoTitolo</span></h2>
+
+                        </a>
+
+                    </div>
+                </div>
+        }
+    </div>
+</div>
+
+
+
+

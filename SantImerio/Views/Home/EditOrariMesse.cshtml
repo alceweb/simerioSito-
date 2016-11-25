@@ -1,0 +1,32 @@
+﻿@model SantImerio.Models.OrariMesseBar
+
+@{
+    ViewBag.Title = "EditOrariMesse";
+}
+
+<h2>EditOrariMesse</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+        <h4>OrariMesseBar</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Messe_Id)
+        @Html.HiddenFor(model => model.Tipo)
+
+
+        <div >
+                <h3>@Model.Tipo</h3>
+                @Html.TextAreaFor(model => model.Descrizione, new { @class = "ckeditor" })
+                @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="row">
+            <div class="col-md-offset-1">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a href="@Url.Action("Appuntamenti", "Home")" class="btn btn-danger">Annulla</a>
+            </div>
+       </div>
+}

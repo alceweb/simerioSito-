@@ -3,40 +3,46 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right ">
-        <li>
-            <div>
-                <a href="javascript:document.getElementById('logoutForm').submit()" class="glyphicon glyphicon-log-out text-danger"></a>
+        <ul class="nav navbar-nav navbar-right navi">
 
-            </div>
-        </li>
-        <li>
-            <div>
-                <a href="@Url.Action("Index", "Manage")">
-                    @if (File.Exists(Server.MapPath("~/Content/Immagini/Utenti/" + @User.Identity.GetUserId() + ".jpg")))
-                    {
-                        <img class="img-login" src="@Url.Content("~/Content/Immagini/Utenti/" + @User.Identity.GetUserId() + ".jpg")" />
+            <li>
+                <div>
+                    <a href="@Url.Action("IndexUs", "UsersAdmin")">
+                        @if (File.Exists(Server.MapPath("~/Content/Immagini/Utenti/" + @User.Identity.GetUserId() + ".jpg")))
+                        {
+                            <img class="img-login" src="@Url.Content("~/Content/Immagini/Utenti/" + @User.Identity.GetUserId() + ".jpg")" /><span>Gestisci profilo</span>
 
-                    }
-                    else
-                    {
-                        <img class="img-login" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
-                    }
-                </a>
+                        }
+                        else
+                        {
+                            <img class="img-login" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" /><span>Gestisci profilo</span>
+                        }
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <h5><a href="javascript:document.getElementById('logoutForm').submit()" class="glyphicon glyphicon-log-out"><span>Logout</span></a></h5>
+                </div>
+            </li>
 
-            </div>
-        </li>
-    </ul>
+        </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right ">
+    <ul class="nav navbar-nav navbar-right navi">
         <li>
             <div>
-                <a id="loginlink" class="glyphicon glyphicon-log-in" href="@Url.Action("Login", "Account")"></a>
+                <h6>@Html.ActionLink("Registrazione", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", })</h6>
+            </div>
+        </li>
+
+        <li>
+            <div>
+                <h5><a id="loginlink" class="glyphicon glyphicon-log-in" href="@Url.Action("Login", "Account")"><span>Login</span></a></h5>
             </div>
         </li>
     </ul>
