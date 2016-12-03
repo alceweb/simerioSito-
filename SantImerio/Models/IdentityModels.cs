@@ -54,6 +54,10 @@ namespace SantImerio.Models
         public bool Galleria { get; set; }
         [Display(Name ="Visualizza nella home")]
         public bool Home { get; set; }
+        [Display(Name ="Visualizza il volantino")]
+        public bool Volantino { get; set; }
+        [Display(Name = "Evento dell'anno pastorale")]
+        public bool Pastorale { get; set; }
     }
 
     public class OrariMesseBar
@@ -75,6 +79,29 @@ namespace SantImerio.Models
         public string Descrizione { get; set; }
 
     }
+
+    public class Incarichi
+    {
+        [Key]
+        public int Incarichi_Id { get; set; }
+        [Display(Name ="Incarico")]
+        public string Incarico { get; set; }
+        [Display(Name ="Nome")]
+        public string Nome { get; set; }
+        [Display(Name ="Cognome")]
+        public string Cognome { get; set; }
+        [Display(Name ="Telefono")]
+        public string Telefono { get; set; }
+        [Display(Name ="Email")]
+        [DataType(DataType.EmailAddress, ErrorMessage ="Email non valida")]
+        public string Email { get; set; }
+        [Display(Name ="Indirizzo")]
+        public string Indirizzo { get; set; }
+        [Display(Name ="Città")]
+        public string Città { get; set; }
+        [Display(Name ="CAP")]
+        public string Cap { get; set; }
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -89,6 +116,7 @@ namespace SantImerio.Models
         public DbSet<SantImerio.Models.Eventi> Eventis { get; set; }
         public DbSet<SantImerio.Models.OrariMesseBar> OrariMesseBars { get; set; }
         public DbSet<SantImerio.Models.Documenti> Documentis { get; set; }
+        public DbSet<SantImerio.Models.Incarichi> Incarichis { get; set; }
 
     }
 }

@@ -23,7 +23,7 @@
                 @Html.DisplayFor(modelItem => item.Titolo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Descrizione)
+                @Html.Raw(item.Descrizione.Replace(Environment.NewLine, "<br/>"))
             </td>
             <td>
                 <a href="@Url.Content("~/Content/Documenti/" + item.Documenti_Id + ".pdf")" target="_blank" class="btn btn-sm btn-danger glyphicon glyphicon-save"></a>

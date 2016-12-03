@@ -35,10 +35,9 @@
                   <div class="navbar-collapse collapse navi" style="z-index:1">
                       <ul class="nav navbar-nav navbar-right navi">
                           <li><div><a href="@Url.Action("Index", "Home")" class="glyphicon glyphicon-home"></a></div></li>
-                          <li><div><a href="@Url.Action("Comunità", "Home")" class="fa fa-users"><span>La nostra comunità</span></a></div></li>
+                          <li><div><a href="@Url.Action("IndexUt", "Incarichis")" class="fa fa-users"><span>La nostra comunità</span></a></div></li>
                           <li><div><a href="@Url.Action("Appuntamenti", "Home")" class="glyphicon glyphicon-time"><span>Attività e orari</span></a></div></li>
                           <li><div><a href="@Url.Action("IndexUt", "Eventis")" class="glyphicon glyphicon-globe"><span>Eventi</span></a></div></li>
-                          <li><div><a href="@Url.Action("About", "Home")" class="glyphicon glyphicon-phone-alt"><span>Contatti</span></a></div></li>
                           @if (Request.IsAuthenticated)
                           {
                               <li><div><a href="@Url.Action("Download", "Home")" class="glyphicon glyphicon-download-alt"><span>Download</span></a></div></li>
@@ -47,8 +46,11 @@
                           {
                               <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag text-success"><span>Gestione ruoli</span></a></div></li>
                               <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user text-success"><span>Gestione utenti</span></a></div></li>
-                              <li><div><a href="@Url.Action("Index", "Eventis")" class="glyphicon glyphicon-list-alt text-success"><span>Gestione eventi</span></a></div></li>
-                              <li><div><a href="@Url.Action("Index", "Documentis")" class="glyphicon glyphicon-folder-open text-success"><span>Gestione documenti</span></a></div></li>
+                          }
+                          @if (User.IsInRole("Admin")|| User.IsInRole("Collaboratore"))
+                          {
+                            <li><div><a href="@Url.Action("Index", "Eventis")" class="glyphicon glyphicon-list-alt text-success"><span>Gestione eventi</span></a></div></li>
+                            <li><div><a href="@Url.Action("Index", "Documentis")" class="glyphicon glyphicon-folder-open text-success"><span>Gestione documenti</span></a></div></li>
                           }
                           @Html.Partial("_LoginPartial")
                       </ul>

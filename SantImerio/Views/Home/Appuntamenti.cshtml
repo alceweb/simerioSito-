@@ -6,13 +6,14 @@
 <div>
     <h2>Eventi ed orari</h2>
 </div>
-<div class="row">
+<hr class="hr1" />
+<div class="row text-center">
     <div class="col col-md-6">
         @if (User.IsInRole("Admin"))
         {
-            <a href="@Url.Action("EditOrariMesse", "Home", new {id = 1 })" ><span class="h3 text-danger glyphicon glyphicon-pencil"></span></a>
+            <a href="@Url.Action("EditOrariMesse", "Home", new {id = 1 })"><span class="h3 text-danger glyphicon glyphicon-pencil"></span></a>
         }
-        <a href="#messe" data-toggle="collapse" class="h4"><span class="glyphicon glyphicon-time"></span>  Orari SS. Messe</a>
+        <a href="#messe" data-toggle="collapse" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-time"></span>  Orari SS. Messe</a>
 
     </div>
     <div class="col col-md-6">
@@ -20,9 +21,10 @@
         {
             <a href="@Url.Action("EditOrariMesse", "Home", new {id = 2 })"><span class="h3 text-danger glyphicon glyphicon-pencil"></span></a>
         }
-        <a href="#turnibar" data-toggle="collapse" class="h4"><span class="glyphicon glyphicon-time"></span>  Turni bar</a>
+        <a href="#turnibar" data-toggle="collapse" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-time"></span>  Turni bar</a>
     </div>
 </div>
+<hr class="hr1" />
 <div class="row">
     <div class="col col-md-12">
         <div class="collapse" id="messe">
@@ -49,20 +51,24 @@
 
     </div>
 </div>
+<div class="h2 pull-left"><span class="glyphicon glyphicon-search"></span></div>
+<table class="table table-responsive">
 
-@foreach (var item in Model)
-{
-    <hr class="hr1" />
+    @foreach (var item in Model)
+    {
         <!-- Button trigger modal -->
-        <div class="col col-md-2">
-            <button class="btn btn-primary" id="Button1" type="button" data-toggle="modal" data-target="#@item.Evento_Id">
-                @item.Data.ToString("dd MMM yyyy")
-            </button>
-        </div>
-                <div class="col col-md8">
-                    <h2>@Html.DisplayFor(modelItem => item.Titolo)</h2>
-                </div>
-            <!-- Modal -->
+        <tr>
+            <td>
+                <button class="btn btn-sm btn-primary" id="Button1" type="button" data-toggle="modal" data-target="#@item.Evento_Id">
+                    @item.Data.ToString("dd MMM yyyy")
+                </button>
+                <span class="h4">@Html.DisplayFor(modelItem => item.Titolo) </span><span class="fa fa-angle-double-right"></span><span class=""> @item.SottoTitolo</span>
+            </td>
+            <td class="text-left">
+
+           </td>
+                <!-- Modal -->
+            <td>
                 <div class="modal fade" id="@item.Evento_Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -80,5 +86,8 @@
                         </div>
                     </div>
                 </div>
-}
-
+            </td>
+        </tr>
+    }
+    
+</table>

@@ -4,14 +4,14 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Pubblica un nuovo documento</h2>
 
 @using (Html.BeginForm("Create", "Documentis", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Documenti</h4>
+        <p class="badge">Per convenzione si possono pubblicare solo documenti in PDF</p>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

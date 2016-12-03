@@ -48,7 +48,7 @@ namespace SantImerio.Controllers
         public ActionResult Index()
         {
             var eventiH = db.Eventis.Where(p => p.Home == true).OrderByDescending(d => d.Data);
-            var eventi = db.Eventis.Where(g => g.Galleria == true).OrderByDescending(d => d.Data);
+            var eventi = db.Eventis.Where(g => g.Pastorale == true).OrderByDescending(d => d.Data);
             ViewBag.Eventi = eventi;
             return View(eventiH);
         }
@@ -221,6 +221,11 @@ namespace SantImerio.Controllers
             ViewBag.DocumentiCount = db.Documentis.Count();
             var documenti = db.Documentis.OrderByDescending(d => d.Titolo);
             return View(documenti);
+        }
+
+        public ActionResult Storia()
+        {
+            return View();
         }
     }
 }

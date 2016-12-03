@@ -32,8 +32,8 @@
 				inputName:         '',                  // name of filter input field
 				inputType:         'search',            // tag name of the filter input tag
 				label:             '',           // text to precede the filter input tag
-				minRows:           8,                   // don't show the filter on tables with less than this number of rows
-				placeholder:       'filtro tabella', // HTML5 placeholder text for the filter field
+				minRows:           4,                   // don't show the filter on tables with less than this number of rows
+				placeholder:       'cerca', // HTML5 placeholder text for the filter field
 				quickList:         [],                  // list of phrases to quick fill the search
 				quickListClass:    'quick',             // class of each quick list item
 				quickListGroupTag: '',                  // tag surrounding quick list items (e.g., ul)

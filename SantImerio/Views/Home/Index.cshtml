@@ -6,9 +6,9 @@
     <div class="div5">
     <div >
 
-        @if (User.IsInRole("Admin"))
+        @if (User.IsInRole("Admin") || User.IsInRole("Collaboratore"))
             {
-            <div><a href="@Url.Action("Sfondo", "Home")"><h2 class="glyphicon glyphicon-pencil pull-left text-danger"></h2></a></div>
+            <div><a href="@Url.Action("Sfondo", "Home")" title="modifica immagine di sfondo"><h2 class="glyphicon glyphicon-pencil pull-left text-danger"></h2></a></div>
 
         }
         @foreach (var item in Model)
@@ -17,31 +17,29 @@
             <div class="spot">@item.Titolo</div>
             <h1>
                 <a href="@Url.Action("Evento", "Eventis", new {id = item.Evento_Id })" class="btn btn-lg btn-primary">@item.SottoTitolo<span class="glyphicon glyphicon-chevron-right"></span></a>
-            </h1>
+            </h1><hr class="hr1" />
 
         }
     </div>
     <div class="div4 text-left">
+        <h1 class="text-center">Anno pastorale corrente</h1><hr class="hr1" />
+        <div class="div1 content">
 
-        @foreach (var item in ViewBag.Eventi)
+            @foreach (var item in ViewBag.Eventi)
             {
-            <hr class="hr1" />
-                <div class="row">
-                    <div class="col col-md-2">
-                        <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" class="img-circle" alt="" /></a>
+                <div class="text-center">
 
-                    </div>
-                    <div class="col col-md-10">
-                        <h4>@item.Data.ToString("dddd dd MMM yyyy")</h4>
-                        <a href="@Url.Action("Evento", "Home", new { id = item.Evento_Id })">
-                            <h2>@item.Titolo <span class="h4">@item.SottoTitolo</span></h2>
-
-                        </a>
-
-                    </div>
-                </div>
-        }
-    </div>
+                    <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })">
+                        <h4 class="text-center">@item.Titolo</h4>
+                    <h5 class="text-center">@item.Data.ToString("dddd dd MMM yyyy")</h5>
+                </a>
+                <span>
+                    <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>
+                </span>
+            </div>
+            }
+            </div>
+        </div>
 </div>
 
 

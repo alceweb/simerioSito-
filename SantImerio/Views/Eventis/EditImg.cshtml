@@ -31,7 +31,7 @@
         <div class="col col-md-2 text-center galla1">
             <div>
                 <a href="@Url.Action("DeleteImg", "Eventis", new { id = Model.Evento_Id, file = @filename})"><span class="glyphicon glyphicon-remove pull-left text-danger">Cancella</span></a>
-                <a href="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)"><span class="glyphicon glyphicon-download-alt">Scarica</span></a>
+                <a href="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" target="_blank"><span class="glyphicon glyphicon-download-alt">Scarica</span></a>
                 <a href="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" data-lightbox="example-set"><img class="example-image" src="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" alt="" /></a>
             </div>
         </div>

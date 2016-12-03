@@ -26,10 +26,7 @@
             @Html.DisplayNameFor(model => model.SottoTitolo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Descrizione)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Data)
+            Data evento prevista
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DataI)
@@ -37,15 +34,22 @@
         <th>
             @Html.DisplayNameFor(model => model.DataF)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.Pubblica)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.Galleria)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.Home)
         </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Volantino)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Pastorale)
+        </th>
+        <th></th>
         <th></th>
         <th></th>
     </tr>
@@ -59,9 +63,6 @@
             @Html.DisplayFor(modelItem => item.SottoTitolo)
         </td>
         <td>
-            @Html.Raw(item.Descrizione.Replace(Environment.NewLine, "<br/>"))
-        </td>
-        <td>
             @item.Data.ToString("dd-MMM-yyyy")
         </td>
         <td>
@@ -70,22 +71,31 @@
         <td>
             @item.DataF.ToString("dd-MMM-yyyy")
         </td>
-        <td>
+        <td class="text-center">
             @Html.DisplayFor(modelItem => item.Pubblica)
         </td>
-        <td>
+        <td class="text-center">
             @Html.DisplayFor(modelItem => item.Galleria)
         </td>
-        <td>
+        <td class="text-center">
             @Html.DisplayFor(modelItem => item.Home)
         </td>
-        <td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.Volantino)
+        </td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.Pastorale)
+        </td>
+       <td>
             @Html.ActionLink(" ", "Edit", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-pencil" })
             @Html.ActionLink(" ", "Delete", new { id = item.Evento_Id }, new { @class = "text-danger glyphicon glyphicon-remove" })
         </td>
         <td>
             @Html.ActionLink(" ", "EditImg", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-camera", title = "Galleria" })
             @Html.ActionLink(" ", "EditImgP", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-picture", title = "Foto bacheca" })
+        </td>
+        <td>
+            @Html.ActionLink(" ", "EditVol", new { id = item.Evento_Id }, new { @class = "fa fa-id-card-o", title = "Volantino" })
         </td>
     </tr>
 }

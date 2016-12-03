@@ -38,7 +38,6 @@ textarea {
 .div1 {
     margin: auto;
     text-align: center;
-    text-align: justify;
 }
 
     .div1 h4 {
@@ -99,7 +98,6 @@ textarea {
 .div4 {
     position:absolute;
     top:100%;
-    width:100%;
 }
 
     .div4 div {
@@ -134,6 +132,19 @@ textarea {
     bottom:0;
     height:100%;
     top:50%
+}
+.divVol{
+    width:100%;
+    margin-top:20px;
+}
+
+.divVol img{
+        -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
+        box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
+        margin: 0px 20px 0px 15px;
+        padding: 0;
+        width: 100%;
 }
 .content {
     font-size: 0.9em;
@@ -306,9 +317,9 @@ footer{
     margin-top:5px;
 }
 .spot{
-    color:#3c7598;
+    color:#fff;
     font-size:3em;
-    text-shadow:0px 0px 4px #fff;
+    text-shadow:0px 0px 4px #000;
 }
 .galla {
 }
@@ -333,6 +344,18 @@ z-index:0;
  transition:all 1s ease;
 }
 
+.gallaDel{
+
+}
+.gallaDel img{
+    max-height:400px;
+    margin:5px;
+    border-radius:4px;
+    -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.75);
+    box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.75);
+
+}
 
 .galla1 {
     background-color:#fff;
@@ -364,4 +387,15 @@ z-index:0;
     -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.75);
     box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.75);
  transition:all 1s ease;
+}
+.gallaVol{
+}
+.gallaVol img{
+
+    margin:5px;
+    border-radius:4px;
+    -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.75);
+    box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.75);
+
 }

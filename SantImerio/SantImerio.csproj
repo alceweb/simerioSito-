@@ -171,6 +171,7 @@
     <Compile Include="Controllers\DocumentisController.cs" />
     <Compile Include="Controllers\EventisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IncarichisController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
@@ -209,6 +210,18 @@
     <Compile Include="Migrations\201611241136116_documenti.Designer.cs">
       <DependentUpon>201611241136116_documenti.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612021113350_volantino.cs" />
+    <Compile Include="Migrations\201612021113350_volantino.Designer.cs">
+      <DependentUpon>201612021113350_volantino.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612021345456_pastorale.cs" />
+    <Compile Include="Migrations\201612021345456_pastorale.Designer.cs">
+      <DependentUpon>201612021345456_pastorale.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612030702005_incarichi.cs" />
+    <Compile Include="Migrations\201612030702005_incarichi.Designer.cs">
+      <DependentUpon>201612030702005_incarichi.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -238,14 +251,15 @@
     <Content Include="Content\Immagini\DonNevi.JPG" />
     <Content Include="Content\Immagini\eventi.jpg" />
     <Content Include="Content\Immagini\foto.jpg" />
-    <Content Include="Content\Immagini\GalleriaHome\Sfondo\Home.jpg" />
     <Content Include="Content\Immagini\Intestazione.png" />
     <Content Include="Content\Immagini\Intestazione1.png" />
     <Content Include="Content\Immagini\loading.gif" />
     <Content Include="Content\Immagini\LogoVerticale.png" />
+    <Content Include="Content\Immagini\Madonna.JPG" />
     <Content Include="Content\Immagini\messa.jpg" />
     <Content Include="Content\Immagini\Mik.JPG" />
     <Content Include="Content\Immagini\next.png" />
+    <Content Include="Content\Immagini\Oratorio2.jpg" />
     <Content Include="Content\Immagini\prev.png" />
     <Content Include="Content\Immagini\simerio.png" />
     <Content Include="Content\Immagini\storia.png" />
@@ -264,7 +278,6 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\Documenti\ADSL1sem2016.pdf" />
     <None Include="Properties\PublishProfiles\simerio - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
@@ -705,10 +718,22 @@
     <Content Include="Views\Documentis\Details.cshtml" />
     <Content Include="Views\Documentis\Edit.cshtml" />
     <Content Include="Views\Documentis\Index.cshtml" />
+    <Content Include="Views\Home\Storia.cshtml" />
+    <Content Include="Views\Eventis\DeleteImg.cshtml" />
+    <Content Include="Views\Eventis\EditVol.cshtml" />
+    <Content Include="Views\Incarichis\Create.cshtml" />
+    <Content Include="Views\Incarichis\Delete.cshtml" />
+    <Content Include="Views\Incarichis\Details.cshtml" />
+    <Content Include="Views\Incarichis\Edit.cshtml" />
+    <Content Include="Views\Incarichis\Index.cshtml" />
+    <Content Include="Views\Incarichis\IndexUt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Documenti\" />
     <Folder Include="Content\Immagini\Eventi\" />
+    <Folder Include="Content\Immagini\GalleriaHome\Sfondo\" />
+    <Folder Include="Content\Immagini\Incarichi\" />
     <Folder Include="Content\Immagini\Utenti\" />
     <Folder Include="Views\UserAdmin\" />
   </ItemGroup>
@@ -744,6 +769,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611241136116_documenti.resx">
       <DependentUpon>201611241136116_documenti.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612021113350_volantino.resx">
+      <DependentUpon>201612021113350_volantino.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612021345456_pastorale.resx">
+      <DependentUpon>201612021345456_pastorale.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612030702005_incarichi.resx">
+      <DependentUpon>201612030702005_incarichi.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

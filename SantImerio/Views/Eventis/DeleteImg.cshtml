@@ -1,0 +1,25 @@
+﻿@model SantImerio.Models.Eventi
+
+@{
+    ViewBag.Title = "Cancella immagine";
+}
+
+<h2>@ViewBag.Title</h2>
+<h3>@Model.Titolo</h3>
+<span class="gallaDel">
+    <img src="@Url.Content("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + @ViewBag.File)" />
+
+</span>
+<hr />
+<div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="DeleteImg" class="btn btn-danger" />
+            @Html.ActionLink("Annulla", "EditImg", "Eventis", new { id = Model.Evento_Id }, new { @Class = "btn btn-primary" })
+        </div>
+    }
+</div>

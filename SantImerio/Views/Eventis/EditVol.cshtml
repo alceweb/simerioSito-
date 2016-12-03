@@ -1,0 +1,34 @@
+﻿@model SantImerio.Models.Eventi
+
+@{
+    ViewBag.Title = "Volatino eventi";
+}
+
+<h2>@ViewBag.Title</h2>
+<h4>Immagine bacheca</h4><hr />
+<div>
+    <h3>
+        @Html.ActionLink(" ", "Index", null, new { @class = "glyphicon glyphicon-arrow-left" })
+        <span class="badge">Id: @Html.DisplayFor(model => model.Evento_Id, null)</span>
+        @Html.DisplayFor(model => model.Titolo)
+    </h3>
+</div>
+@using (Html.BeginForm("EditVol", "Eventis", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" id="file" />
+    <h4>
+        <span class="label label-primary">Immagine ottimale dimensione orizzontale da 1500 a 1900 pixel</span><br />
+    </h4>
+    
+<input type="submit" class="btn btn-success" value="Upload Image" />
+    @ViewBag.Message
+}
+<hr />
+
+<div class="row">
+    <div class="text-left">
+        <span class="gallaDel">
+            <a href="@Url.Content("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Evento_Id + "v.jpg")" data-lightbox="example-set"><img class="example-image" src="@Url.Content("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Evento_Id + "v.jpg")" /></a>
+        </span>
+    </div>
+</div>
