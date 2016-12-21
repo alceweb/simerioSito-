@@ -38,6 +38,7 @@
                           <li><div><a href="@Url.Action("IndexUt", "Incarichis")" class="fa fa-users"><span>La nostra comunità</span></a></div></li>
                           <li><div><a href="@Url.Action("Appuntamenti", "Home")" class="glyphicon glyphicon-time"><span>Attività e orari</span></a></div></li>
                           <li><div><a href="@Url.Action("IndexUt", "Eventis")" class="glyphicon glyphicon-globe"><span>Eventi</span></a></div></li>
+                          <li><div><a href="@Url.Action("IndexUt", "Articolis")" class="glyphicon glyphicon-file"><span>Editoriale</span></a></div></li>
                           @if (Request.IsAuthenticated)
                           {
                               <li><div><a href="@Url.Action("Download", "Home")" class="glyphicon glyphicon-download-alt"><span>Download</span></a></div></li>
@@ -50,6 +51,7 @@
                           @if (User.IsInRole("Admin")|| User.IsInRole("Collaboratore"))
                           {
                             <li><div><a href="@Url.Action("Index", "Eventis")" class="glyphicon glyphicon-list-alt text-success"><span>Gestione eventi</span></a></div></li>
+                            <li><div><a href="@Url.Action("Index", "Articolis")" class="glyphicon glyphicon-file text-success"><span>Gestione editoriale</span></a></div></li>
                             <li><div><a href="@Url.Action("Index", "Documentis")" class="glyphicon glyphicon-folder-open text-success"><span>Gestione documenti</span></a></div></li>
                           }
                           @Html.Partial("_LoginPartial")

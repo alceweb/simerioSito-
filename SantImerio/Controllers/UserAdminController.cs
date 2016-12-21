@@ -15,6 +15,8 @@ using System.Drawing;
 
 namespace SantImerio.Controllers
 {
+    [Authorize(Roles = "Admin")]
+
     public class UsersAdminController : Controller
     {
 

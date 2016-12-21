@@ -1,0 +1,61 @@
+﻿@model IEnumerable<SantImerio.Models.Articoli>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="@Url.Action("Create", "Articolis")" class="btn btn-primary"><span class="badge">@ViewBag.ArticoliCount</span> Nuovo</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SottoTitolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pubblica)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autore)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titolo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SottoTitolo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Data)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pubblica)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Autore)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.Articolo_Id }, new { @class = "glyphicon glyphicon-pencil" })
+            @Html.ActionLink(" ", "Delete", new { id = item.Articolo_Id }, new { @class = "text-danger glyphicon glyphicon-remove" })
+        </td>
+        <td>
+            @Html.ActionLink(" ", "EditImgP", new { id = item.Articolo_Id }, new { @class = "glyphicon glyphicon-picture", title = "Foto articolo" })
+        </td>
+
+    </tr>
+}
+
+</table>

@@ -1,0 +1,66 @@
+﻿@model SantImerio.Models.Articoli
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Articoli</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SottoTitolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SottoTitolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Testo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Testo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pubblica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pubblica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Autore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Autore)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Articolo_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

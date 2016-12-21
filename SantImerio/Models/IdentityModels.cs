@@ -102,6 +102,28 @@ namespace SantImerio.Models
         [Display(Name ="CAP")]
         public string Cap { get; set; }
     }
+
+    public class Articoli
+    {
+        [Key]
+        public int Articolo_Id { get; set; }
+        [Display(Name = "Titolo")]
+        public string Titolo { get; set; }
+        [Display(Name = "Sottotitolo")]
+        public string SottoTitolo { get; set; }
+        [Display(Name = "Testo")]
+        [DataType(DataType.Text)]
+        public string Testo { get; set; }
+        [Display(Name = "Data articolo")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/mmyyyy}", ApplyFormatInEditMode = true)]
+        public DateTime Data { get; set; }
+        [Display(Name = "Pubblica")]
+        public bool Pubblica { get; set; }
+        [Display(Name ="Autore")]
+        public string Autore { get; set; }
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -117,6 +139,7 @@ namespace SantImerio.Models
         public DbSet<SantImerio.Models.OrariMesseBar> OrariMesseBars { get; set; }
         public DbSet<SantImerio.Models.Documenti> Documentis { get; set; }
         public DbSet<SantImerio.Models.Incarichi> Incarichis { get; set; }
+        public DbSet<SantImerio.Models.Articoli> Articolis { get; set; }
 
     }
 }

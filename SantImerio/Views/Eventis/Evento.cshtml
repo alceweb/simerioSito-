@@ -12,18 +12,21 @@
 
     }
 </div>
-        @if (Model.Volantino == true)
-        {
-            <div class="divVol">
-                <img src="@Url.Content("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Evento_Id + "v.jpg")" />
+<div class="div6">
 
-            </div>
-        }
-        else
-        {
-            @Html.Raw(Model.Descrizione)
+    @if (Model.Volantino == true)
+    {
+        <div class="divVol">
+            <img src="@Url.Content("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Evento_Id + "v.jpg")" />
 
-        }
+        </div>
+    }
+    else
+    {
+        @Html.Raw(Model.Descrizione)
+
+    }
+</div>
 <hr class="hr1" />
 <div class="galla">
     @foreach (var item in ViewBag.Immagini)

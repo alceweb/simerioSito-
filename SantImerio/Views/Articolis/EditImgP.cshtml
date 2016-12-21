@@ -1,0 +1,37 @@
+﻿
+@model SantImerio.Models.Articoli
+
+@{
+    ViewBag.Title = "Gestione articolo";
+}
+
+<h2>@ViewBag.Title</h2>
+<h4>Immagine articolo</h4><hr/>
+<div>
+    <h3>
+        @Html.ActionLink(" ", "Index", null, new { @class = "glyphicon glyphicon-arrow-left" })
+        <span class="badge">Id: @Html.DisplayFor(model => model.Articolo_Id, null)</span>
+        @Html.DisplayFor(model => model.Titolo)
+    </h3>
+</div>
+@using (Html.BeginForm("EditImgP", "Articolis", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" id="file" /><br><br>
+    <input type="submit" value="Carica immagine" class="btn btn-success" />
+    <br><br>
+    @ViewBag.Message
+}
+<div class="row">
+</div>
+<hr />
+
+<div class="row">
+    <div class="text-left">
+        <span class="galla1">
+            <a href="@Url.Content("~/Content/Immagini/Articoli/" + Model.Articolo_Id + "/" + Model.Articolo_Id + ".jpg")" data-lightbox="example-set"><img class="example-image" src="@Url.Content("~/Content/Immagini/Articoli/" + Model.Articolo_Id + "/" + Model.Articolo_Id + ".jpg")" /></a>
+        </span>
+    </div>
+</div>
+
+
+

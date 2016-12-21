@@ -17,16 +17,16 @@ namespace SantImerio.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Eventis
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult Index()
         {
             ViewBag.EventiCount = db.Eventis.Count();
             var eventi = db.Eventis.OrderByDescending(d => d.Data);
             return View(eventi);
         }
-
         public ActionResult IndexUt()
         {
-            return View(db.Eventis.Where(g=>g.Galleria == true && g.DataI <= DateTime.Today).OrderByDescending(g=>g.Data).ToList());
+            return View(db.Eventis.Where(g=>g.Galleria == true).OrderByDescending(g=>g.Data).ToList());
         }
 
         public ActionResult Evento(int? id)
@@ -47,6 +47,7 @@ namespace SantImerio.Controllers
 
         }
         // GET: Eventis/Details/5
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -62,6 +63,7 @@ namespace SantImerio.Controllers
         }
 
         // GET: Eventis/Create
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult Create()
         {
             return View();
@@ -72,6 +74,7 @@ namespace SantImerio.Controllers
         // Per ulteriori dettagli, vedere http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult Create([Bind(Include = "Evento_Id,Titolo,Data,DataI,DataF,Pubblica,Galleria,Home,SottoTitolo,Volantino,Pastorale", Exclude = "Descrizione")] Eventi eventi)
         {
             FormCollection collection = new FormCollection(Request.Unvalidated().Form);
@@ -88,6 +91,7 @@ namespace SantImerio.Controllers
         }
 
         // GET: Eventis/Edit/5
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -107,6 +111,7 @@ namespace SantImerio.Controllers
         // Per ulteriori dettagli, vedere http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult Edit([Bind(Include = "Evento_Id,Titolo,Data,DataI,DataF,Pubblica,Galleria,Home,SottoTitolo,Volantino,Pastorale", Exclude ="Descrizione")] Eventi eventi)
         {
             FormCollection collection = new FormCollection(Request.Unvalidated().Form);
@@ -121,6 +126,7 @@ namespace SantImerio.Controllers
         }
 
         //Gestione immagine evento
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult EditImgP(int? id)
         {
             if (id == null)
@@ -138,6 +144,7 @@ namespace SantImerio.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult EditImgP(HttpPostedFileBase file, int? id)
         {
             if (file != null)
@@ -220,6 +227,7 @@ namespace SantImerio.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult EditVol(HttpPostedFileBase file, int? id)
         {
             if (file != null)
@@ -287,6 +295,7 @@ namespace SantImerio.Controllers
 
 
         //Gestione immagini galleria fotografica
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult EditImg(int? id)
         {
             if (id == null)
@@ -304,6 +313,7 @@ namespace SantImerio.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult EditImg(IEnumerable<HttpPostedFileBase> files, int? id)
         {
             foreach (var file in files)
@@ -374,12 +384,16 @@ namespace SantImerio.Controllers
 
 
         // GET: Eventis/Delete/5
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var files = Directory.EnumerateFiles(Server.MapPath("/Content/Immagini/Eventi/" + id));
+            ViewBag.Files = files;
+            ViewBag.FilesCount = files.Count();
             Eventi eventi = db.Eventis.Find(id);
             if (eventi == null)
             {
@@ -391,8 +405,15 @@ namespace SantImerio.Controllers
         // POST: Eventis/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult DeleteConfirmed(int id)
         {
+            string[] filePaths = Directory.GetFiles(Server.MapPath("/Content/Immagini/Eventi/" + id + "/"));
+            foreach (string filePath in filePaths)
+            {
+                System.IO.File.Delete(filePath);
+            } 
+            Directory.Delete(Server.MapPath("/Content/Immagini/Eventi/" + id));
             Eventi eventi = db.Eventis.Find(id);
             db.Eventis.Remove(eventi);
             db.SaveChanges();
@@ -400,6 +421,7 @@ namespace SantImerio.Controllers
         }
 
 
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult DeleteImg(int? id)
         {
             if (id == null)
@@ -417,6 +439,7 @@ namespace SantImerio.Controllers
 
         [HttpPost, ActionName("DeleteImg")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Collaboratore")]
         public ActionResult DeleteImgConfirmed(int id)
         {
             var file = "~/Content/Immagini/Eventi/" + id + "/" + Request.QueryString["file"];

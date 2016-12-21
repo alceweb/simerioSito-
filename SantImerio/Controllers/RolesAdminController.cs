@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace SantImerio.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class RolesAdminController : Controller
     {
         public RolesAdminController()

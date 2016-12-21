@@ -1,0 +1,19 @@
+﻿@model SantImerio.Models.Articoli
+
+@{
+    ViewBag.Title = "Articolo";
+}
+
+<h2>@Model.Titolo</h2>
+<h3>@Model.SottoTitolo</h3>
+<h4 class="badge">@Model.Autore</h4><hr class="hr1" />
+<div class="div6">
+    <div class="galla">
+    @if (File.Exists(@Server.MapPath("/Content/Immagini/Articoli/" + Model.Articolo_Id + "/" + Model.Articolo_Id + ".jpg")))
+    {
+        <span><a href="@Url.Content("~/Content/Immagini/Articoli/" + @Model.Articolo_Id + "/" + @Model.Articolo_Id + ".jpg")" data-lightbox="example-set"><img class="example-image" src="@Url.Content("~/Content/Immagini/Articoli/" + Model.Articolo_Id + "/" + @Model.Articolo_Id + ".jpg")" alt="" /></a></span>
+
+    }
+    </div>
+    @Html.Raw(Model.Testo)
+</div>

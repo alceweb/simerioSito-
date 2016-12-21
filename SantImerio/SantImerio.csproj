@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticolisController.cs" />
     <Compile Include="Controllers\DocumentisController.cs" />
     <Compile Include="Controllers\EventisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -221,6 +222,10 @@
     <Compile Include="Migrations\201612030702005_incarichi.cs" />
     <Compile Include="Migrations\201612030702005_incarichi.Designer.cs">
       <DependentUpon>201612030702005_incarichi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612200905580_articoli.cs" />
+    <Compile Include="Migrations\201612200905580_articoli.Designer.cs">
+      <DependentUpon>201612200905580_articoli.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -278,6 +283,8 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <None Include="Properties\PublishProfiles\ArubaBusiness.pubxml" />
+    <None Include="Properties\PublishProfiles\Azure.pubxml" />
     <None Include="Properties\PublishProfiles\simerio - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
@@ -727,10 +734,20 @@
     <Content Include="Views\Incarichis\Edit.cshtml" />
     <Content Include="Views\Incarichis\Index.cshtml" />
     <Content Include="Views\Incarichis\IndexUt.cshtml" />
+    <Content Include="Views\Incarichis\EditImg.cshtml" />
+    <Content Include="Views\Articolis\Create.cshtml" />
+    <Content Include="Views\Articolis\Delete.cshtml" />
+    <Content Include="Views\Articolis\Details.cshtml" />
+    <Content Include="Views\Articolis\Edit.cshtml" />
+    <Content Include="Views\Articolis\Index.cshtml" />
+    <Content Include="Views\Articolis\EditImgP.cshtml" />
+    <Content Include="Views\Articolis\IndexUt.cshtml" />
+    <Content Include="Views\Articolis\Articolo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Documenti\" />
+    <Folder Include="Content\Immagini\Articoli\" />
     <Folder Include="Content\Immagini\Eventi\" />
     <Folder Include="Content\Immagini\GalleriaHome\Sfondo\" />
     <Folder Include="Content\Immagini\Incarichi\" />
@@ -778,6 +795,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612030702005_incarichi.resx">
       <DependentUpon>201612030702005_incarichi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612200905580_articoli.resx">
+      <DependentUpon>201612200905580_articoli.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

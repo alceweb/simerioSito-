@@ -76,10 +76,11 @@ namespace SantImerio.Controllers
         public ActionResult Appuntamenti()
         {
             ViewBag.Message = "Appuntamenti";
+            var oggi = DateTime.Today;
             var orari = db.OrariMesseBars;
             ViewBag.Orari = orari.Where(o=>o.Messe_Id == 1);
             ViewBag.Orari1 = orari.Where(o => o.Messe_Id == 2);
-            var eventi = db.Eventis.Where(d => d.DataF > DateTime.Now & d.DataI<DateTime.Now & d.Pubblica==true).OrderBy(d => d.Data);
+            var eventi = db.Eventis.Where(d => d.DataI<oggi && d.DataF>oggi && d.Data >oggi && d.Pubblica==true).OrderBy(d => d.Data);
             if (eventi == null)
             {
                 return HttpNotFound();

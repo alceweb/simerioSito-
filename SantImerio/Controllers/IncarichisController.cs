@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using SantImerio.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
+using System.IO;
+using System.Web.Helpers;
 
 namespace SantImerio.Controllers
 {
@@ -36,7 +38,7 @@ namespace SantImerio.Controllers
 
         public async Task<ActionResult> IndexUt()
         {
-            var incarichi = db.Incarichis.ToList();
+            var incarichi = db.Incarichis.OrderBy(i=>i.Incarichi_Id).ToList();
             var iscritti = await UserManager.Users.ToListAsync();
             ViewBag.Iscritti = iscritti;
             return View(incarichi);
@@ -136,6 +138,72 @@ namespace SantImerio.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //Gestione immagine persona incarico
+        public ActionResult EditImg(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Incarichi/"));
+            ViewBag.Immagini = immagini.ToList();
+            Incarichi incarichi = db.Incarichis.Find(id);
+            if (incarichi == null)
+            {
+                return HttpNotFound();
+            }
+            return View(incarichi);
+        }
+
+        [HttpPost]
+        public ActionResult EditImg(HttpPostedFileBase file, int? id)
+        {
+            if (file != null)
+                try
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Content/Immagini/Incarichi/"), id + ".jpg");
+                    WebImage img = new WebImage(file.InputStream);
+                    var larghezza = img.Width;
+                    var altezza = img.Height;
+                    var rapportoO = larghezza / altezza;
+                    var rapportoV = altezza / larghezza;
+                        if (rapportoO >= 1)
+                        {
+                            ViewBag.Message = "Attendi la fine del download...";
+                            img.Resize(400, 400 / rapportoO);
+                            img.Save(path);
+                            ViewBag.Message = "Download immagine orizzontale avvenuto con successo. Dimensione immagine originale: larghezza " + larghezza + " Altezza " + altezza;
+                        }
+                        else
+                        {
+                            img.Resize(200 / rapportoV, 200);
+                            img.Save(path);
+                            ViewBag.Message = "Download immagine verticale avvenuto con successo. Dimensione immagine: larghezza " + larghezza + "Altezza" + altezza;
+                        }
+
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "Devi scegliere un file";
+            }
+            var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Incarichi/"));
+            ViewBag.Immagini = immagini.ToList();
+            Incarichi incarichi = db.Incarichis.Find(id);
+            if (incarichi == null)
+            {
+                return HttpNotFound();
+            }
+            return View(incarichi);
+
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

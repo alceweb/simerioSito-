@@ -10,7 +10,17 @@
 <hr class="hr1" />
 <div class="row">
     <div class="col col-md-4 text-center">
-        <img class="img-thumbnail" src='@Url.Content("~/Content/Immagini/Utenti/" + ViewBag.Uid + ".jpg")' />
+
+    @if (File.Exists(@Server.MapPath("/Content/Immagini/Utenti/" + ViewBag.Uid + ".jpg")))
+    {
+        <a class="text-danger h2" href="@Url.Action("FotoProfilo1", "UsersAdmin", new { id =Model.Id })" title="Modifica foto profilo"><span class="glyphicon glyphicon-pencil"></span></a>
+        <img class="img-thumbnail" src='@Url.Content("~/Content/Immagini/Utenti/" + Model.Id + ".jpg")' />
+    }
+    else
+    {
+        <a class="text-danger h2" href="@Url.Action("FotoProfilo1", "UsersAdmin", new { id = Model.Id})" title="Aggiungi foto profilo"><span class="glyphicon glyphicon-plus"></span></a>
+        <img class="img-thumbnail" src='@Url.Content("~/Content/Immagini/Utenti/anonimous.jpg")' />
+    }
     </div>
     <div class="col col-md-8">
         @using (Html.BeginForm())
@@ -62,17 +72,16 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
+                        <input type="submit" value="Salva" class="btn btn-success" />
+                        @Html.ActionLink("Lista utenti", "Index", null, new { @class="btn btn-danger"})<br/>
+                        @Html.ActionLink(" ", null, null, null, new { href = Request.UrlReferrer, @class= "glyphicon glyphicon-arrow-left h2" })
+
                     </div>
                 </div>
             </div>
                             }
 
     </div>
-</div>
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {

@@ -1,0 +1,88 @@
+﻿@model SantImerio.Models.Articoli
+
+@{
+    ViewBag.Title = "Elimina articolo";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SottoTitolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SottoTitolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Testo)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Testo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pubblica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pubblica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Autore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Autore)
+        </dd>
+
+    </dl>
+    <div class="row">
+        @if (ViewBag.FilesCount > 0)
+        {
+            <h4 class="text-danger">
+                ATTENZIONE!!!<br />
+                Ci sono @ViewBag.FilesCount files agganciati all'articolo... se cancelli l'articolo anche i files verranno cancellati
+            </h4>
+            <div class="galla">
+                @foreach (var fullpath in ViewBag.Files)
+                {
+                    var filename = Path.GetFileName(fullpath);
+                    <img src="@Url.Content("~/Content/Immagini/Articoli/" + Model.Articolo_Id + "/" + @filename)" class="img-thumbnail" />
+                }
+            </div>
+
+        }
+
+    </div>
+    <hr />
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

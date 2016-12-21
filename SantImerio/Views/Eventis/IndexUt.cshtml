@@ -5,8 +5,11 @@
 }
 
 <h2>Eventi</h2>
+<hr class="hr1" />
+@*Visualizzo gli eventi ancora da fare*@
+<h3 class="text-success">In programma</h3>
 <div class="table table-responsive div1 content">
-    @foreach (var item in Model)
+    @foreach (var item in Model.Where(d=>d.Data >= DateTime.Today))
     {
         <div class="text-center">
 
@@ -33,4 +36,36 @@
 </div>
     }
 </div>
+<hr class="hr1" />
+@*Visualizzo gli eventi già fatti*@
+<h3 class="text-danger">Già vissuti</h3>
+<div class="table table-responsive div1 content">
+    @foreach (var item in Model.Where(d => d.Data < DateTime.Today))
+    {
+        <div class="text-center">
+
+            <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })">
+                <h4 class="text-center">@Html.DisplayFor(modelItem => item.Titolo)</h4>
+                <h5 class="text-center">@item.Data.ToString("dddd dd MMM yyyy")</h5>
+            </a>
+            <span>
+                <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>
+            </span>
+            @if (User.IsInRole("Admin") || User.IsInRole("Admin"))
+            {
+                <h4>
+                    @Html.ActionLink(" ", "Edit", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-pencil", title = "Modifica testo" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.Evento_Id }, new { @class = "text-danger glyphicon glyphicon-remove", title = "Elimina" })
+                    @Html.ActionLink(" ", "EditImg", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-camera", title = "Galleria" })
+                    @Html.ActionLink(" ", "EditImgP", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-picture", title = "Foto bacheca" })
+                    @Html.ActionLink(" ", "EditVol", new { id = item.Evento_Id }, new { @class = "fa fa-id-card-o", title = "Volantino" })
+
+
+                </h4>
+
+            }
+        </div>
+    }
+</div>
+
 

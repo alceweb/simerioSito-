@@ -50,7 +50,6 @@ textarea {
 
     .div1 div {
         float: left;
-        border-radius: 10px;
         border: thin solid #E5E5E5;
         margin: 15px;
         padding: 5px;
@@ -64,15 +63,13 @@ textarea {
         -o-transition: all 1s ease;
         transition: all 1s ease;
         transition: all 1s ease;
-        -webkit-box-shadow: 0px 0px 25px #000;
-        -moz-box-shadow: 0px 0px 25px #000;
+        -webkit-box-shadow: 0px 0px 8px #000;
+        -moz-box-shadow: 0px 0px 8px #000;
         box-shadow: 0px 0px 8px #000;
-        border-radius: 0.4em;
         z-index: 1;
     }
 
         .div1 img:hover {
-            border-radius: 0.8em;
             -webkit-transition: all 1s ease;
             -moz-transition: all 1s ease;
             -o-transition: all 1s ease;
@@ -110,7 +107,7 @@ textarea {
         box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
         margin: 0px 20px 0px 15px;
         padding: 0;
-        height: 90px;
+        /*height: 90px;*/
     }
 
         .div4 img:hover {
@@ -132,6 +129,17 @@ textarea {
     bottom:0;
     height:100%;
     top:50%
+}
+.div6{
+
+}
+.div6 h4{
+            color: #628A81;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-weight: bold;
+        font-style: italic;
+
 }
 .divVol{
     width:100%;
@@ -398,4 +406,30 @@ z-index:0;
     -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.75);
     box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.75);
 
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
 }
