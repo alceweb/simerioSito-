@@ -63,7 +63,6 @@
         @if (ViewBag.Title == "Home")
         {
             <div id="bg">
-
             </div>
         }
         else
@@ -78,6 +77,15 @@
             <p>&copy; @DateTime.Now.Year - Parrocchia Sant'Imerio via Realdo Colombo, 6 CREMONA tel.037229436</p>
         </footer>*@
     </div>
+        @*<div class="divCook">
+            <span>
+                Questo sito utilizza cookie di profilazione, propri o di altri. Se accedi a un qualunque elemento del sito acconsenti all'uso del cookie.
+                <a href="@Url.Action("InfoCookie", "Home")" class="btn btn-lg btn-warning">Informazioni</a>
+                <input type="button" id="btnCook" value="acc" />
+                <button id="btnCook" type="button" class="btn btn-lg btn-primary">@Request.Cookies["simerio"] Acconsenti</button>
+                <label id="lblCook"></label>
+            </span>
+        </div>*@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -88,6 +96,10 @@
     <script>
 	$(document).ready(function() {
 		$('table').filterTable();
+	});
+	$('#btnCook').on('click', function () {
+	    $.cookie('simerio', 'letto', { path: '/' });
+	    var valore = $.cookie('simerio');
 	});
     </script>
 

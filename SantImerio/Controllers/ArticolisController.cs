@@ -26,7 +26,7 @@ namespace SantImerio.Controllers
         }
         public ActionResult IndexUt()
         {
-            var articoli = db.Articolis.ToList();
+            var articoli = db.Articolis.Where(a=>a.Pubblica == true).OrderByDescending(a=>a.Data).ToList();
             return View(articoli);
         }
 

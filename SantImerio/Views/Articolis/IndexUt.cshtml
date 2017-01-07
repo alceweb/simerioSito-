@@ -4,31 +4,30 @@
     ViewBag.Title = "Editoriale";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>Due righe per riflettere...</h2>
 @if (User.IsInRole("Admin"))
 {
-    <a href="@Url.Action("Create", "Articolis")" title="Aggiungi articolo"><span class="glyphicon glyphicon-plus text-danger h3"></span></a>
+    <a href="@Url.Action("Create", "Articolis")" title="Aggiungi articolo"><span class="fa fa-plus fa-2x text-danger"></span></a>
 }
-
+<hr class="hr1" />
 
 @foreach (var item in Model)
 {
 
-    <div class="row galla">
+    <div class="row galla divArticoli">
         @if (File.Exists(@Server.MapPath("/Content/Immagini/Articoli/" + item.Articolo_Id + "/" + item.Articolo_Id + ".jpg")))
                 {
             <img class="img-usr" src="@Url.Content("~/Content/Immagini/Articoli/" + item.Articolo_Id + "/" + item.Articolo_Id + ".jpg")" />
         }
-        <h3>
             @if (User.IsInRole("Admin"))
             {
-                <a href="@Url.Action("EditImgP", "Articolis", new { id = item.Articolo_Id })" title="Immagine"><span class="glyphicon glyphicon-picture pull-left"></span></a>
-                <a href="@Url.Action("Edit", "Articolis", new {id = item.Articolo_Id })" title="Modifica dati"><span class="glyphicon glyphicon-pencil pull-left text-danger"></span></a>
+                   <a href="@Url.Action("EditImgP", "Articolis", new { id = item.Articolo_Id })" title="Immagine"> <span class="glyphicon glyphicon-picture"></span> </a>
+                    <a href="@Url.Action("Edit", "Articolis", new {id = item.Articolo_Id })" title="Modifica dati"> <span class="glyphicon glyphicon-pencil text-danger"></span> </a>
+
             }
-            <a href="@Url.Action("Articolo", "Articolis", new {id = @item.Articolo_Id })">@item.Titolo</a>
-        </h3>
-        <h4>@item.SottoTitolo</h4>
-        <div class="badge">@item.Autore</div>
+            <titolo><a href="@Url.Action("Articolo", "Articolis", new {id = @item.Articolo_Id })">@item.Titolo</a></titolo><br/>
+        <sottotitolo>@item.SottoTitolo</sottotitolo>
+        <div><em>@item.Data.ToString("dd MMM yyyy") <span class="badge">@item.Autore</span></em></div>
     </div>
     <hr class="hr1" />
 }

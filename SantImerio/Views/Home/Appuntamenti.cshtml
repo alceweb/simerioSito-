@@ -13,6 +13,7 @@
         {
             <a href="@Url.Action("EditOrariMesse", "Home", new {id = 1 })"><span class="h3 text-danger glyphicon glyphicon-pencil"></span></a>
         }
+        <!---Trigger modal orari messe-->
         <a href="#messe" data-toggle="collapse" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-time"></span>  Orari SS. Messe</a>
 
     </div>
@@ -21,10 +22,12 @@
         {
             <a href="@Url.Action("EditOrariMesse", "Home", new {id = 2 })"><span class="h3 text-danger glyphicon glyphicon-pencil"></span></a>
         }
+        <!---Trigger modal turni bar-->
         <a href="#turnibar" data-toggle="collapse" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-time"></span>  Turni bar</a>
     </div>
 </div>
 <hr class="hr1" />
+<!---Modal orari messe-->
 <div class="row">
     <div class="col col-md-12">
         <div class="collapse" id="messe">
@@ -38,6 +41,7 @@
 
     </div>
 </div>
+<!---Modal turni bar-->
 <div class="row">
     <div class="col col-md-12">
         <div class="collapse" id="turnibar">
@@ -56,21 +60,19 @@
 
     @foreach (var item in Model)
     {
-        <!-- Button trigger modal -->
         <tr>
             <td>
-                <button class="btn btn-circle btn-primary" id="Button1" type="button" data-toggle="modal" data-target="#@item.Evento_Id">
+                <!-- Button trigger modal -->
+               <button class="btn btn-circle btn-primary" id="Button1" type="button" data-toggle="modal" data-target="#@item.Evento_Id">
                     <i class="glyphicon glyphicon-ok"></i>
                 </button>
                 @item.Data.ToString("dddd dd MMM yyyy")
-                </td>
+            </td>
             <td>
                 <span class="h4">@Html.DisplayFor(modelItem => item.Titolo) </span><span class="fa fa-angle-double-right"></span><span class=""> @item.SottoTitolo</span>
             </td>
-            <td class="text-left">
-
-           </td>
-                <!-- Modal -->
+            <td class="text-left"></td>
+            <!-- Modal -->
             <td>
                 <div class="modal fade" id="@item.Evento_Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
@@ -97,5 +99,5 @@
             </td>
         </tr>
     }
-    
+
 </table>

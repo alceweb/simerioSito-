@@ -3,17 +3,15 @@
 @{
     ViewBag.Title = "Articolo";
 }
+<h2 class="text-center">@Model.Titolo</h2>
+<h3 class="text-center"><em>@Model.SottoTitolo</em></h3>
+<span class="badge pull-right">@Model.Autore</span><hr class="hr1" />
 
-<h2>@Model.Titolo</h2>
-<h3>@Model.SottoTitolo</h3>
-<h4 class="badge">@Model.Autore</h4><hr class="hr1" />
-<div class="div6">
-    <div class="galla">
-    @if (File.Exists(@Server.MapPath("/Content/Immagini/Articoli/" + Model.Articolo_Id + "/" + Model.Articolo_Id + ".jpg")))
-    {
-        <span><a href="@Url.Content("~/Content/Immagini/Articoli/" + @Model.Articolo_Id + "/" + @Model.Articolo_Id + ".jpg")" data-lightbox="example-set"><img class="example-image" src="@Url.Content("~/Content/Immagini/Articoli/" + Model.Articolo_Id + "/" + @Model.Articolo_Id + ".jpg")" alt="" /></a></span>
+    <div class="divArticolo">
+        @if (File.Exists(@Server.MapPath("/Content/Immagini/Articoli/" + Model.Articolo_Id + "/" + Model.Articolo_Id + ".jpg")))
+        {
+            <span><a href="@Url.Content("~/Content/Immagini/Articoli/" + @Model.Articolo_Id + "/" + @Model.Articolo_Id + ".jpg")" data-lightbox="example-set"><img class="img-thumbnail pull-left" src="@Url.Content("~/Content/Immagini/Articoli/" + Model.Articolo_Id + "/" + @Model.Articolo_Id + ".jpg")" alt="" /></a></span>
 
-    }
+        }
+        @Html.Raw(Model.Testo)
     </div>
-    @Html.Raw(Model.Testo)
-</div>

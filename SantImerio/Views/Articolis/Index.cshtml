@@ -39,7 +39,7 @@
             @Html.DisplayFor(modelItem => item.SottoTitolo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Data)
+            @item.Data.ToString("dd-MMM-yyyy")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Pubblica)

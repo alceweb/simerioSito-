@@ -23,6 +23,10 @@
     }
     else
     {
+        if (File.Exists(Server.MapPath("/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Evento_Id + "v.jpg")))
+        {
+            <a href="@Url.Content("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Evento_Id + "v.jpg")" target="_blank" class="btn btn-success"><span class="fa fa-id-card"> Volantino</span></a>
+        }
         @Html.Raw(Model.Descrizione)
 
     }

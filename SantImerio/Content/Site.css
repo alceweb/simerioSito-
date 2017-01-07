@@ -154,6 +154,39 @@ textarea {
         padding: 0;
         width: 100%;
 }
+.divArticoli{
+
+}
+.divArticoli titolo{
+    font-size:3em;
+    font-family:'Girls Have Many Secrets';
+}
+.divArticoli sottotitolo{
+    font-size:2em;
+    font-family:'Girls Have Many Secrets';
+
+}
+.divArticolo{
+    max-width:800px;
+    margin: auto;
+    text-align:justify;
+    padding: 15px 30px 15px 30px;
+    background-color:#dedee4;
+}
+
+.divArticolo img{
+    margin-right:20px;
+}
+
+.divCook {
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    background-color:#92a4ba;
+    z-index:9999;
+}
+
 .content {
     font-size: 0.9em;
     display: table;
@@ -307,10 +340,15 @@ textarea {
     height:100%;
     left:0px;
     bottom:0px;
-    background: -webkit-linear-gradient(#b1b1b1, #eeeef4); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#b1b1b1, #eeeef4); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#b1b1b1, #eeeef4); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#b1b1b1, #eeeef4); /* Standard syntax */  /*background: url(Immagini/LogoVerticale.png) no-repeat center left fixed;*/ 
+    background: -webkit-linear-gradient(#b1b1b1, #eeeef4); 
+    background: -o-linear-gradient(#b1b1b1, #eeeef4); 
+    background: -moz-linear-gradient(#b1b1b1, #eeeef4); 
+    background: linear-gradient(#b1b1b1, #eeeef4);
+  /*background: url(Immagini/GalleriaHome/Sfondo/Home1.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
     z-index:-10000;
 }
 

@@ -238,6 +238,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-datepicker3.css" />
     <Content Include="Content\bootstrap-datepicker3.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
@@ -256,6 +258,7 @@
     <Content Include="Content\Immagini\DonNevi.JPG" />
     <Content Include="Content\Immagini\eventi.jpg" />
     <Content Include="Content\Immagini\foto.jpg" />
+    <Content Include="Content\Immagini\GalleriaHome\Sfondo\Home1.jpg" />
     <Content Include="Content\Immagini\Intestazione.png" />
     <Content Include="Content\Immagini\Intestazione1.png" />
     <Content Include="Content\Immagini\loading.gif" />
@@ -283,6 +286,10 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
     <None Include="Properties\PublishProfiles\ArubaBusiness.pubxml" />
     <None Include="Properties\PublishProfiles\Azure.pubxml" />
     <None Include="Properties\PublishProfiles\simerio - Web Deploy.pubxml" />
@@ -637,6 +644,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.filtertable.js" />
     <Content Include="Scripts\jquery.filtertable.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -743,13 +751,13 @@
     <Content Include="Views\Articolis\EditImgP.cshtml" />
     <Content Include="Views\Articolis\IndexUt.cshtml" />
     <Content Include="Views\Articolis\Articolo.cshtml" />
+    <Content Include="Views\Home\InfoCookie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Documenti\" />
     <Folder Include="Content\Immagini\Articoli\" />
     <Folder Include="Content\Immagini\Eventi\" />
-    <Folder Include="Content\Immagini\GalleriaHome\Sfondo\" />
     <Folder Include="Content\Immagini\Incarichi\" />
     <Folder Include="Content\Immagini\Utenti\" />
     <Folder Include="Views\UserAdmin\" />
