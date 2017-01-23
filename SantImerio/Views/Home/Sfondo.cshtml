@@ -1,37 +1,42 @@
 ﻿@{
     ViewBag.Title = "Sfondo";
 }
-
 <h2>Sfondo</h2>
+
 <div class="row">
     <div class="col col-md-6">
-        <input id="btn1" type="button" value="Refresh" class="btn btn-xs btn-primary" />
+        <input id="btn1" type="button" value="Refresh per attivare il nuovo sfondo" class="btn btn-xs btn-primary" />
         <img class="img-thumbnail" src="~/Content/Immagini/GalleriaHome/Sfondo/Home.jpg" />
     </div>
+    <div class="col col-md-6">
+    </div>
+        @using (Html.BeginForm("Sfondo", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            <div class="well">
+                <input id="file" name="file" type="file" />
+                <button class="btn btn-link" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
+                <h4 class="text-danger pull-right">@ViewBag.Message</h4>
+            </div>
+        }
 </div>
-<div class="row">
+<hr/>
+<div class="div1 content">
     @foreach (var item in Model)
     {
         var filename = Path.GetFileName(item);
-        <div class="col col-md-2 galla1">
-            <a role="button" href="@Url.Action("ConfermaSfondo", "Home", new {nomefile = @filename })"><span class="text-success glyphicon glyphicon-ok"></span></a>
-            <a role="button" href="@Url.Action("DeleteSfondo", "Home", new {nomefile = @filename })"><span class="text-danger pull-right glyphicon glyphicon-remove"></span></a>
-                <a href="@Url.Content("~/Content/Immagini/GalleriaHome/" + @filename)" data-lightbox="example-set"><img class="example-image" src="@Url.Content("~/Content/Immagini/GalleriaHome/" + @filename)" alt="" /></a>
-</div>
-    }
-    @using (Html.BeginForm("Sfondo", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <div class="col col-md-4 galla1">
-            <input id="file" name="file" type="file" />
-            <h4 class="text-danger">@ViewBag.Message</h4>
-            <button class="btn btn-link" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
+        <div class="text-center">
+            <h4>
+                <a role="button" href="@Url.Action("ConfermaSfondo", "Home", new {nomefile = @filename })" class="text-success glyphicon glyphicon-ok" title="conferma come sfondo"></a>
+                <a role="button" href="@Url.Action("DeleteSfondo", "Home", new {nomefile = @filename })" class="text-danger pull-right glyphicon glyphicon-remove" title="Cancella immagine"></a>
+            </h4>
+            <a href="@Url.Content("~/Content/Immagini/GalleriaHome/" + @filename)" data-lightbox="example-set"><img class="example-image" src="@Url.Content("~/Content/Immagini/GalleriaHome/" + @filename)" alt="" /></a>
         </div>
     }
-@Scripts.Render("~/bundles/jquery")
-<script>
-    $('#btn1').click(function(){
-        window.location.reload(true);
-    });
-</script>
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        $('#btn1').click(function () {
+            window.location.reload(true);
+        });
+    </script>
 
 </div>

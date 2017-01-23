@@ -1,0 +1,56 @@
+﻿@model SantImerio.Models.Commenti
+
+@{
+    ViewBag.Title = "DeleteUt";
+}
+
+<h2>Cancella commento</h2>
+
+<h3>Sei sicuro di voler eliminare questo commento?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+        </dt>
+
+        <dd>
+            @if (File.Exists(Server.MapPath("/Content/Immagini/Utenti/" + Model.UId + ".jpg")))
+            {
+                <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/" + Model.UId + ".jpg")" />
+            }
+            else
+            {
+                <img src="@Url.Content("~/Content/Immagini/Utenti/aninimous.jpg")" />
+
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Commento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commento)
+        </dd>
+
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            @Html.ActionLink("Annulla", "Evento", "Eventis", new { id = Request.QueryString["EId"]}, new { @class= "btn btn-success"})
+        </div>
+    }
+</div>
+

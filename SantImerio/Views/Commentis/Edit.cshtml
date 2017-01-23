@@ -1,0 +1,38 @@
+﻿@model SantImerio.Models.Commenti
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Commenti</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Commento_Id)
+        @Html.HiddenFor(model => model.Data)
+        @Html.HiddenFor(model => model.UId)
+        @Html.HiddenFor(model => model.Evento_Id)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Commento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Commento, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Commento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salva" class="btn btn-primary" />
+                @Html.ActionLink("Annulla", "Evento", "Eventis", new { id = Request.QueryString["EId"] }, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+}

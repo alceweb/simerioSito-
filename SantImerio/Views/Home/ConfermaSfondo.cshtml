@@ -3,29 +3,26 @@
     ViewBag.Title = "Sfondo";
 }
 
-<h2>Sfondo</h2>
 @using (Html.BeginForm())
 {
-    <div class="row">
+    <h2>Sfondo</h2>
+    <h3>
+        Confermi il cambio di sfondo della home page?<br/>
+        <button class="btn btn-success" type="submit">Conferma</button>
+        <a href="@Url.Action("Sfondo", "Home")" class="btn btn-danger">Annulla</a>
+    </h3>
+    <hr/>
+   <div class="row">
         <div class="col col-md-6">
+            <div class="badge">Sfondo attuale</div>
             <img class="img-thumbnail" src="~/Content/Immagini/GalleriaHome/Sfondo/Home.jpg" />
         </div>
         <div class="col col-md-6">
-            <h3>Confermi il cambio di sfondo della home page?</h3>
-            <button class="btn btn-success" type="submit">Conferma</button>
-            <a href="@Url.Action("Sfondo", "Home")" class="btn btn-danger pull-right">Annulla</a><br/>
+            <div class="badge">Nuovo sfondo</div>
             <img class="img-thumbnail" src="~/Content/Immagini/GalleriaHome/@Request.QueryString["nomefile"]" />
         </div>
     </div>
 
 }
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            var filename = Path.GetFileName(item);
-            <div class="col col-md-2 galla1">
-                <span class="text-danger pull-right glyphicon glyphicon-remove"></span>
-            </div>
-        }
-
-    </div>
+<input id="btn1" type="button" value="refresh" />
+<hr />

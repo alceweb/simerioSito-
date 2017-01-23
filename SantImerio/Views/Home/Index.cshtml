@@ -4,7 +4,9 @@
     ViewBag.Title = "Home";
 }
     <div class="div5">
-    <div >
+        <span class="fa fa-angle-double-down fa-3x sin"></span>
+        <span class="fa fa-angle-double-down fa-3x des"></span>
+  <div >
 
         @if (User.IsInRole("Admin") || User.IsInRole("Collaboratore"))
             {
@@ -22,7 +24,7 @@
         }
     </div>
     <div class="div4 text-left">
-        <h1 class="text-center">Anno pastorale corrente</h1><hr class="hr1" />
+        <h1 id="h" class="text-center">Anno pastorale corrente</h1><hr class="hr1" />
         <div class="div1 content">
 
             @foreach (var item in ViewBag.Eventi)
@@ -41,7 +43,4 @@
             </div>
         </div>
 </div>
-
-
-
 

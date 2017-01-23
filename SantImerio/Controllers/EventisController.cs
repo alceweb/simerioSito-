@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using SantImerio.Models;
 using System.IO;
 using System.Web.Helpers;
+using Microsoft.AspNet.Identity;
 
 namespace SantImerio.Controllers
 {
@@ -38,6 +39,10 @@ namespace SantImerio.Controllers
             var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Eventi/" + id + "/"));
             ViewBag.Immagini = immagini.ToList();
             Eventi eventi = db.Eventis.Find(id);
+            var commenti = db.Commentis.Where(e => e.Evento_Id == id).OrderByDescending(e=>e.Data);
+            ViewBag.Commenti = commenti;
+            ViewBag.CommentiCount = commenti.Count();
+            ViewBag.UId = User.Identity.GetUserId();
             if (eventi == null)
             {
                 return HttpNotFound();

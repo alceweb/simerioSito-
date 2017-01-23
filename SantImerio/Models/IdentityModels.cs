@@ -5,6 +5,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace SantImerio.Models
 {
@@ -58,6 +60,7 @@ namespace SantImerio.Models
         public bool Volantino { get; set; }
         [Display(Name = "Evento dell'anno pastorale")]
         public bool Pastorale { get; set; }
+        public virtual ICollection<Commenti> Commentis { get; set; }
     }
 
     public class OrariMesseBar
@@ -124,6 +127,20 @@ namespace SantImerio.Models
         public string Autore { get; set; }
     }
 
+    public class Commenti
+    {
+        [Key]
+        public int Commento_Id { get; set; }
+        [Display(Name ="Data commento")]
+        public DateTime Data { get; set; }
+        public int Evento_Id { get; set; }
+        public virtual Eventi Titolo { get; set;}
+        [Display(Name ="Commento")]
+        public string Commento { get; set; }
+        public string UId { get; set; }
+        public string Utente { get; set; }
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -140,6 +157,7 @@ namespace SantImerio.Models
         public DbSet<SantImerio.Models.Documenti> Documentis { get; set; }
         public DbSet<SantImerio.Models.Incarichi> Incarichis { get; set; }
         public DbSet<SantImerio.Models.Articoli> Articolis { get; set; }
+        public DbSet<SantImerio.Models.Commenti> Commentis { get; set; }
 
     }
 }

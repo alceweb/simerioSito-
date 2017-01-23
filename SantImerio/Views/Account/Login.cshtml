@@ -41,8 +41,10 @@
                         <input type="submit" value="Accedi" class="btn btn-primary" />
                     </div>
                 </div>
+                <hr />
                 <p>
-                    @Html.ActionLink("Registrati", "Register", null, new {@class="btn btn-danger" })
+                    Se non sei ancora registrato... 
+                    @Html.ActionLink("Registrati", "Register", null, new {@class="btn btn-xs btn-danger" })
                 </p>
                 @* Abilitare questa opzione dopo aver abilitato la conferma dell'account per la funzionalità di reimpostazione della password
                     <p>

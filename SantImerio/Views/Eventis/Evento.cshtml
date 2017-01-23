@@ -14,7 +14,7 @@
 </div>
 <div class="div6">
 
-    @if (Model.Volantino == true)
+    @if (Model.Data > DateTime.Today && File.Exists("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Evento_Id + "v.jpg"))
     {
         <div class="divVol">
             <img src="@Url.Content("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Evento_Id + "v.jpg")" />
@@ -27,11 +27,50 @@
         {
             <a href="@Url.Content("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Evento_Id + "v.jpg")" target="_blank" class="btn btn-success"><span class="fa fa-id-card"> Volantino</span></a>
         }
+        <a href="@Url.Action("Create", "Commentis", new {EId = Model.Evento_Id})" class="btn btn-success"><span class="fa fa-comment"> Lascia un commento</span></a>
         @Html.Raw(Model.Descrizione)
 
     }
 </div>
 <hr class="hr1" />
+@if (ViewBag.CommentiCount > 0)
+{
+    <!---Trigger modal commento-->
+    <a href="#1" data-toggle="collapse" class="btn btn-primary">Commenti <span class="badge">@ViewBag.CommentiCount</span></a>
+    <div class="row">
+        <div class="col col-md-12">
+            <div class="collapse" id="1">
+                <!---Modal commento-->
+                <div class="well">
+                    @foreach (var item in ViewBag.Commenti)
+                    {
+                        <span class="badge">@item.Data</span>
+                        <!---Abilito la modifica e la cancellazione per il proprietario del commento-->
+                        if (ViewBag.UId == item.UId || User.IsInRole("Admin"))
+                        {
+                            <a href="@Url.Action("DeleteUt", "Commentis", new {id = item.Commento_Id, EId = item.Evento_Id})" ><span class="fa fa-scissors btn btn-xs btn-danger" title="Cancella"></span></a>
+                            <a href="@Url.Action("Edit", "Commentis", new {id = item.Commento_Id, EId = item.Evento_Id})"><span class="glyphicon glyphicon-pencil btn btn-xs btn-success" title="Modifica"></span></a>
+                        }
+                        <br />
+                        if (File.Exists(Server.MapPath("~/Content/Immagini/Utenti/" + item.UId + ".jpg")))
+                        {
+                            <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/" + item.UId + ".jpg")" />
+
+                        }
+                        else
+                        {
+                            <img class="img-login" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
+                        }
+                        <em>@item.Utente - </em>
+                        <label>@item.Commento</label>
+                        <hr class="hr1" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="hr1" />
+}
 <div class="galla">
     @foreach (var item in ViewBag.Immagini)
     {

@@ -80,7 +80,7 @@ namespace SantImerio.Controllers
             var orari = db.OrariMesseBars;
             ViewBag.Orari = orari.Where(o=>o.Messe_Id == 1);
             ViewBag.Orari1 = orari.Where(o => o.Messe_Id == 2);
-            var eventi = db.Eventis.Where(d => d.DataI < oggi && d.DataF > oggi && d.Data > oggi && d.Pubblica==true).OrderBy(d => d.Data);
+            var eventi = db.Eventis.Where(d => d.DataI <= oggi && d.DataF >= oggi && d.Data >= oggi && d.Pubblica==true).OrderBy(d => d.Data);
             if (eventi == null)
             {
                 return HttpNotFound();
@@ -151,6 +151,7 @@ namespace SantImerio.Controllers
                         }
                         else
                         {
+                            ViewBag.Message = "Attendi la fine del download...";
                             img.Resize(800 / rapportoV, 800);
                             img.Save(path);
                         }
@@ -168,18 +169,16 @@ namespace SantImerio.Controllers
                             img.Save(path);
                         }
                     }
-
                     ViewBag.Message = "Immagine caricata correttamente";
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                    ViewBag.Message = "ERROR:";
                 }
             else
             {
                 ViewBag.Message = "Devi scegliere un file";
             }
-
             return RedirectToAction("Sfondo", "Home");
         }
 

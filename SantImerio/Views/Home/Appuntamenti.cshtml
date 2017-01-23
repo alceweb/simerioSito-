@@ -63,17 +63,18 @@
         <tr>
             <td>
                 <!-- Button trigger modal -->
-               <button class="btn btn-circle btn-primary" id="Button1" type="button" data-toggle="modal" data-target="#@item.Evento_Id">
-                    <i class="glyphicon glyphicon-ok"></i>
-                </button>
-                @item.Data.ToString("dddd dd MMM yyyy")
-            </td>
-            <td>
-                <span class="h4">@Html.DisplayFor(modelItem => item.Titolo) </span><span class="fa fa-angle-double-right"></span><span class=""> @item.SottoTitolo</span>
-            </td>
-            <td class="text-left"></td>
+               <a href="#@item.Evento_Id" data-toggle="modal" data-target="#@item.Evento_Id">
+                   <div class="row">
+                       <div class="col col-md-2 text-danger">
+                           <strong>@item.Data.ToString("dddd dd MMM yyyy")</strong>
+                       </div>
+                       <div class="col col--md-10">
+                           <span class="h4 text-uppercase">@Html.DisplayFor(modelItem => item.Titolo) </span><span class=""> - @item.SottoTitolo</span>
+
+                       </div>
+                   </div>
+               </a>
             <!-- Modal -->
-            <td>
                 <div class="modal fade" id="@item.Evento_Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
