@@ -51,6 +51,14 @@
             <span>
                 <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>
             </span>
+            <h5>
+                @if (@item.Commentis.Count() > 0)
+                {
+                    <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><span class="fa fa-comment"> @item.Commentis.Count() commenti</span></a>
+                }
+                <a href="@Url.Action("Create", "Commentis", new {EId = item.Evento_Id, evento = item.Titolo})" class="btn btn-xs btn-success"><span class="fa fa-comment"> Dì la tua</span></a>
+            </h5>
+
             @if (User.IsInRole("Admin") || User.IsInRole("Admin"))
             {
                 <h4>

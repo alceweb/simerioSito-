@@ -139,8 +139,23 @@ namespace SantImerio.Models
         public string Commento { get; set; }
         public string UId { get; set; }
         public string Utente { get; set; }
+        public virtual ICollection<ComRisp> ComRisps { get; set; }
     }
 
+    public class ComRisp
+    {
+        [Key]
+        public int ComRisp_Id { get; set; }
+        [Display(Name = "Data risposta")]
+        public DateTime Data { get; set; }
+        public int Commento_Id { get; set; }
+        public virtual Commenti Commento { get; set; }
+        public string Risposta { get; set; }
+        public string UId { get; set; }
+        public string Utente { get; set; }
+
+
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -158,6 +173,7 @@ namespace SantImerio.Models
         public DbSet<SantImerio.Models.Incarichi> Incarichis { get; set; }
         public DbSet<SantImerio.Models.Articoli> Articolis { get; set; }
         public DbSet<SantImerio.Models.Commenti> Commentis { get; set; }
+        public DbSet<SantImerio.Models.ComRisp> ComRisps { get; set; }
 
     }
 }

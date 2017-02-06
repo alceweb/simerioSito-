@@ -1,0 +1,58 @@
+﻿@model SantImerio.Models.ComRisp
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ComRisp</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Commento.Commento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commento.Commento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Risposta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Risposta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utente)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ComRisp_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

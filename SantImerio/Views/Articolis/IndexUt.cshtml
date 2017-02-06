@@ -10,12 +10,12 @@
     <a href="@Url.Action("Create", "Articolis")" title="Aggiungi articolo"><span class="fa fa-plus fa-2x text-danger"></span></a>
 }
 <hr class="hr1" />
-<table class="">
+<table class="table table-responsive tblart">
 @foreach (var item in Model)
 {
     <tr>
         <td>
-            <div class="row galla divArticoli">
+            <div class="row gallart divArticoli">
                 @if (File.Exists(@Server.MapPath("/Content/Immagini/Articoli/" + item.Articolo_Id + "/" + item.Articolo_Id + ".jpg")))
                 {
                     <img class="img-usr" src="@Url.Content("~/Content/Immagini/Articoli/" + item.Articolo_Id + "/" + item.Articolo_Id + ".jpg")" />

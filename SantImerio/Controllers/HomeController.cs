@@ -47,10 +47,10 @@ namespace SantImerio.Controllers
 
         public ActionResult Index()
         {
-            var eventiH = db.Eventis.Where(p => p.Home == true).OrderByDescending(d => d.Data);
-            var eventi = db.Eventis.Where(g => g.Pastorale == true).OrderByDescending(d => d.Data);
-            ViewBag.Eventi = eventi;
-            return View(eventiH);
+            var eventiH = db.Eventis.Where(p => p.Home == true).OrderByDescending(d => d.Data).ToList();
+            var eventi = db.Eventis.Where(g => g.Pastorale == true).OrderByDescending(d => d.Data).ToList();
+            ViewBag.EventiH = eventiH;
+            return View(eventi);
         }
 
         public ActionResult Index1()

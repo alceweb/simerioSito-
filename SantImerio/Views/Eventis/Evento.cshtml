@@ -1,4 +1,5 @@
 ﻿@model SantImerio.Models.Eventi
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "Evento";
@@ -18,7 +19,6 @@
     {
         <div class="divVol">
             <img src="@Url.Content("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Evento_Id + "v.jpg")" />
-
         </div>
     }
     else
@@ -27,7 +27,7 @@
         {
             <a href="@Url.Content("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Evento_Id + "v.jpg")" target="_blank" class="btn btn-success"><span class="fa fa-id-card"> Volantino</span></a>
         }
-        <a href="@Url.Action("Create", "Commentis", new {EId = Model.Evento_Id})" class="btn btn-success"><span class="fa fa-comment"> Lascia un commento</span></a>
+        <a href="@Url.Action("Create", "Commentis", new {EId = Model.Evento_Id, evento=Model.Titolo})" class="btn btn-success"><span class="fa fa-comment"> Lascia un commento</span></a>
         @Html.Raw(Model.Descrizione)
 
     }
@@ -42,15 +42,16 @@
             <div class="collapse" id="1">
                 <!---Modal commento-->
                 <div class="well">
-                    @foreach (var item in ViewBag.Commenti)
+                    @foreach (var item in Model.Commentis)
                     {
                         <span class="badge">@item.Data</span>
-                        <!---Abilito la modifica e la cancellazione per il proprietario del commento-->
+                        <!---Abilito la modifica e la cancellazione per il proprietario del commento e la risposta per tutti-->
                         if (ViewBag.UId == item.UId || User.IsInRole("Admin"))
                         {
                             <a href="@Url.Action("DeleteUt", "Commentis", new {id = item.Commento_Id, EId = item.Evento_Id})" ><span class="fa fa-scissors btn btn-xs btn-danger" title="Cancella"></span></a>
                             <a href="@Url.Action("Edit", "Commentis", new {id = item.Commento_Id, EId = item.Evento_Id})"><span class="glyphicon glyphicon-pencil btn btn-xs btn-success" title="Modifica"></span></a>
                         }
+                        <a href="@Url.Action("Create", "ComRisps", new {id = item.Commento_Id, EID = item.Evento_Id})"><span class="fa fa-reply-all btn btn-xs btn-success" title="Rispondi"></span></a>
                         <br />
                         if (File.Exists(Server.MapPath("~/Content/Immagini/Utenti/" + item.UId + ".jpg")))
                         {
@@ -59,10 +60,51 @@
                         }
                         else
                         {
-                            <img class="img-login" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
+                            <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
                         }
                         <em>@item.Utente - </em>
                         <label>@item.Commento</label>
+                        //Inizio area risposte
+                        if (@item.ComRisps.Count > 0)
+                        {
+                            <button class="btn btn-xs btn-primary" type="button" data-toggle="collapse" data-target="#@Html.Raw("r" + @item.Commento_Id)" aria-expanded="false" aria-controls="@Html.Raw("r" + @item.Commento_Id)">
+                                <span class="badge">@item.ComRisps.Count()</span> Risposte
+                            </button>
+                            <div class="collapse" id="@Html.Raw("r" + @item.Commento_Id)">
+                                <table class="table table-condensed">
+
+                                    @foreach (var risp in item.ComRisps.OrderByDescending(r=>r.Data))
+                                    {
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <span class="label label-success">@risp.Data.ToString("dd MMM yy hh:mm")</span>
+                                                <!---Abilito la modifica e la cancellazione per il proprietario della risposta e per l'amminisratore-->
+                                                @if (risp.UId == User.Identity.GetUserId() | User.IsInRole("Admin"))
+                                                {
+                                                    <a href="@Url.Action("Delete", "ComRisps", new {id = risp.ComRisp_Id, EId = item.Evento_Id })"><span class="fa fa-scissors btn btn-xs btn-danger" title="Cancella"></span></a>
+                                                    <a href="@Url.Action("Edit", "ComRisps", new {id = risp.ComRisp_Id, EId = item.Evento_Id  })"><span class="glyphicon glyphicon-pencil btn btn-xs btn-success" title="Modifica"></span></a>
+                                                }
+                                                <br/>
+                                                @if (File.Exists(Server.MapPath("~/Content/Immagini/Utenti/" + risp.UId + ".jpg")))
+                                                {
+                                                <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/" + risp.UId + ".jpg")" />
+
+                                                }
+                                                else
+                                                {
+                                                <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
+                                                }
+
+                                                <span class="">@risp.Utente <strong><em>@risp.Risposta</em></strong></span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+
+                        }
+                        //Fine area risposte
                         <hr class="hr1" />
                     }
                 </div>
@@ -75,7 +117,10 @@
     @foreach (var item in ViewBag.Immagini)
     {
         var filename = Path.GetFileName(item);
-        <span><a href="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" data-lightbox="example-set"><img class="example-image" src="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" alt="" /></a></span>
+        <div>
+            <span><a href="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" data-lightbox="example-set"><img class="example-image" src="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" alt="" /></a></span>
+
+        </div>
     }
 
 </div>

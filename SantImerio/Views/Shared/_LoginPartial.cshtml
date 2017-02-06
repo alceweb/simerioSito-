@@ -13,7 +13,6 @@
                         @if (File.Exists(Server.MapPath("~/Content/Immagini/Utenti/" + @User.Identity.GetUserId() + ".jpg")))
                         {
                             <img class="img-login" src="@Url.Content("~/Content/Immagini/Utenti/" + @User.Identity.GetUserId() + ".jpg")" /><span>Gestisci profilo</span>
-
                         }
                         else
                         {

@@ -13,7 +13,7 @@
             <div><a href="@Url.Action("Sfondo", "Home")" title="modifica immagine di sfondo"><h2 class="glyphicon glyphicon-pencil pull-left text-danger"></h2></a></div>
 
         }
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.EventiH)
             {
 
             <div class="spot">@item.Titolo</div>
@@ -23,11 +23,11 @@
 
         }
     </div>
-    <div class="div4 text-left">
+    <div class="div4">
         <h1 id="h" class="text-center">Anno pastorale corrente</h1><hr class="hr1" />
         <div class="div1 content">
 
-            @foreach (var item in ViewBag.Eventi)
+            @foreach (var item in Model)
             {
                 <div class="text-center">
 
@@ -35,10 +35,19 @@
                         <h4 class="text-center">@item.Titolo</h4>
                     <h5 class="text-center">@item.Data.ToString("dddd dd MMM yyyy")</h5>
                 </a>
-                <span>
+                <div>
                     <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>
-                </span>
+                </div>
+                    <h5>
+                        @if (@item.Commentis.Count() > 0)
+                        {
+                            <span class="fa fa-comment"> @item.Commentis.Count() commenti</span>
+                            <a href="@Url.Action("Create", "Commentis", new {EId = item.Evento_Id, evento = item.Titolo})" class="btn btn-xs btn-success"><span class="fa fa-pencil-square-o"> Dì la tua</span></a>
+
+                        }
+                    </h5>
             </div>
+
             }
             </div>
         </div>

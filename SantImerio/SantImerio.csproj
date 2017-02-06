@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticolisController.cs" />
     <Compile Include="Controllers\CommentisController.cs" />
+    <Compile Include="Controllers\ComRispsController.cs" />
     <Compile Include="Controllers\DocumentisController.cs" />
     <Compile Include="Controllers\EventisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -231,6 +232,10 @@
     <Compile Include="Migrations\201701140941561_UtenteCommento.cs" />
     <Compile Include="Migrations\201701140941561_UtenteCommento.Designer.cs">
       <DependentUpon>201701140941561_UtenteCommento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702040959561_risposte.cs" />
+    <Compile Include="Migrations\201702040959561_risposte.Designer.cs">
+      <DependentUpon>201702040959561_risposte.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -419,6 +424,11 @@
     <Content Include="Views\Commentis\Edit.cshtml" />
     <Content Include="Views\Commentis\Index.cshtml" />
     <Content Include="Views\Commentis\DeleteUt.cshtml" />
+    <Content Include="Views\ComRisps\Create.cshtml" />
+    <Content Include="Views\ComRisps\Delete.cshtml" />
+    <Content Include="Views\ComRisps\Details.cshtml" />
+    <Content Include="Views\ComRisps\Edit.cshtml" />
+    <Content Include="Views\ComRisps\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -476,6 +486,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701140941561_UtenteCommento.resx">
       <DependentUpon>201701140941561_UtenteCommento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702040959561_risposte.resx">
+      <DependentUpon>201702040959561_risposte.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

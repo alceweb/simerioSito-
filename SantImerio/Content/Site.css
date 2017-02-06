@@ -50,7 +50,6 @@ textarea {
 
     .div1 div {
         float: left;
-        border: thin solid #E5E5E5;
         margin: 15px;
         padding: 5px;
         background-color: #F9FBFA;
@@ -98,10 +97,10 @@ textarea {
 }
 
     .div4 div {
+        min-height:220px
     }
 
     .div4 img {
-        float: left;
         -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
         -moz-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
         box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
@@ -303,36 +302,12 @@ textarea {
         border-radius: 1px;
     }
 
-.tbl1 {
-    width: 100%;
-    border: none;
-    border-collapse: unset !important;
-    border-spacing: 5px;
+.tblart {
+
 }
-
-    .tbl1 td {
-        vertical-align:top;
-        padding: 5px;
-        border-radius: 3px;
-        text-align: center;
-        font-size:1.3em;
-    }
-
-    .tbl1 img {
-        display: block;
-        width: 100%;
-        height:100%;
-    }
-    .tbl1 div{
-        position:relative;
-        display:block;
-        width:100%;
-    }
-    .tbl1 h1{
-        font-size:3em;
-    }
-
-
+.tblart tr{
+    border:hidden;
+}
 #bg{
     position:absolute;
     width:100%;
@@ -375,6 +350,7 @@ footer{
 .body-content{
     margin-top:5px;
 }
+
 .spot{
     color:#fff;
     font-size:3em;
@@ -382,28 +358,56 @@ footer{
 }
 .galla {
 }
-.galla span:hover img{
--webkit-transform:scale(1.1); /*Webkit: Scale up image to 1.2x original size*/
--moz-transform:scale(1.1); /*Mozilla scale version*/
--o-transform:scale(1.1); /*Opera scale version*/
-z-index:0;
- -ms-transform: scale(1.1); /* IE 9 */
- transition:all 1s ease;
-}
-.galla img {
-    height:120px;
+.galla div{
+    overflow:hidden;
+    border-radius:6px;
+    float:left;
     margin:5px;
-    text-align: center;
-    vertical-align: bottom;
-    border-radius:4px;
     -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.75);
     box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.75);
-    float:left;
- transition:all 1s ease;
 }
 
+.galla span:hover img{
+-webkit-transform:scale(1.8); /*Webkit: Scale up image to 1.2x original size*/
+-moz-transform:scale(1.8); /*Mozilla scale version*/
+-o-transform:scale(1.8); /*Opera scale version*/
+z-index:0;
+ -ms-transform: scale(1.8); /* IE 9 */
+ transition:all 0.7s ease-out;
+}
+.galla img {
+    height:120px;
+    text-align: center;
+    vertical-align: bottom;
+    border-radius:4px;
+ transition:all 1s ease;
+    float:left;
+}
+
+.gallart {
+}
+
+.gallart span:hover img{
+-webkit-transform:scale(1.8); /*Webkit: Scale up image to 1.2x original size*/
+-moz-transform:scale(1.8); /*Mozilla scale version*/
+-o-transform:scale(1.8); /*Opera scale version*/
+z-index:0;
+ -ms-transform: scale(1.8); /* IE 9 */
+ transition:all 0.7s ease-out;
+}
+.gallart img {
+    height:120px;
+    text-align: center;
+    vertical-align: bottom;
+    border-radius:4px;
+ transition:all 1s ease;
+    float:left;
+}
+
+
 .gallaDel{
+
 
 }
 .gallaDel img{
