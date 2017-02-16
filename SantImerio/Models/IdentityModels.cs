@@ -156,6 +156,17 @@ namespace SantImerio.Models
 
 
     }
+
+    public class Statistiche
+    {
+        [Key]
+        public int Statistiche_Id { get; set; }
+        public DateTime Data { get; set; }
+        public string Ip { get; set; }
+        public string Pagina { get; set; }
+        public string UId { get; set; }
+        public string UName { get; set; }
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -174,6 +185,7 @@ namespace SantImerio.Models
         public DbSet<SantImerio.Models.Articoli> Articolis { get; set; }
         public DbSet<SantImerio.Models.Commenti> Commentis { get; set; }
         public DbSet<SantImerio.Models.ComRisp> ComRisps { get; set; }
+        public DbSet<SantImerio.Models.Statistiche> Statistiches { get; set; }
 
     }
 }

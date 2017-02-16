@@ -1,17 +1,13 @@
 ﻿@model IEnumerable<SantImerio.Models.Eventi>
 
-@{
-    ViewBag.Title = "Home";
-}
-    <div class="div5">
+ <div class="div5">
         <span class="fa fa-angle-double-down fa-3x sin"></span>
         <span class="fa fa-angle-double-down fa-3x des"></span>
   <div >
 
         @if (User.IsInRole("Admin") || User.IsInRole("Collaboratore"))
-            {
+        {
             <div><a href="@Url.Action("Sfondo", "Home")" title="modifica immagine di sfondo"><h2 class="glyphicon glyphicon-pencil pull-left text-danger"></h2></a></div>
-
         }
         @foreach (var item in ViewBag.EventiH)
             {
@@ -41,7 +37,7 @@
                     <h5>
                         @if (@item.Commentis.Count() > 0)
                         {
-                            <span class="fa fa-comment"> @item.Commentis.Count() commenti</span>
+                            <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><span class="fa fa-comment"> @item.Commentis.Count() commenti</span></a>
                             <a href="@Url.Action("Create", "Commentis", new {EId = item.Evento_Id, evento = item.Titolo})" class="btn btn-xs btn-success"><span class="fa fa-pencil-square-o"> Dì la tua</span></a>
 
                         }

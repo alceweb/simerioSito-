@@ -5,9 +5,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using SantImerio.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Net.Mail;
 
 namespace SantImerio.Controllers
 {
@@ -48,17 +51,32 @@ namespace SantImerio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Commento_Id,Data,Commento,UId,Evento_Id,Utente")] Commenti commenti)
+        public async  Task<ActionResult> Create([Bind(Include = "Commento_Id,Data,Commento,UId,Evento_Id,Utente")] Commenti commenti)
         {
             if (ModelState.IsValid)
             {
+                ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
                 var uid = User.Identity.GetUserId();
-                commenti.Utente = User.Identity.Name;
+                commenti.Utente = user.Nome + " " + user.Cognome;
                 commenti.Data = DateTime.Now;
                 commenti.UId = uid;
-                commenti.Evento_Id = Convert.ToInt32(Request.QueryString["EId"]);
+                var eid = Convert.ToInt32(Request.QueryString["EId"]);
+                string link = "http://www.santimerio.it/Eventis/Evento/" + eid;
+                commenti.Evento_Id = eid;
                 db.Commentis.Add(commenti);
                 db.SaveChanges();
+                // Invio la mail per avvisare che si è stato scritto un commento
+                MailMessage message = new MailMessage(
+                    "webservice@santimerio.it", 
+                    "cesare@cr-consult.eu", 
+                    "Nuovo commento dal sito santimerio.it",
+                    "Il giorno <strong>" + DateTime.Now + "<br/>" + user.Nome + " " + user.Cognome + "</strong><br/> ha pubblicato un commento ad un evento<hr/><p>" + commenti.Commento + "</p><h3><a href=" + link + ">vai al sito</a></h3>");
+                message.IsBodyHtml = true;
+                using (var smtp = new SmtpClient())
+                {
+                    await smtp.SendMailAsync(message);
+                }
+
                 return RedirectToAction("Evento", "Eventis", new {id = Request.QueryString["EId"] });
             }
 
@@ -154,6 +172,16 @@ namespace SantImerio.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+    }
+
+    internal class MailAddress
+    {
+        private string v;
+
+        public MailAddress(string v)
+        {
+            this.v = v;
         }
     }
 }

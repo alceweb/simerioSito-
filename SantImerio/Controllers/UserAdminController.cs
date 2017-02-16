@@ -81,8 +81,6 @@ namespace SantImerio.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var ruoli = RoleManager.Roles.Where(r => r.Name.Contains("Squadra"));
-            ViewBag.Ruoli = ruoli;
             var user = await UserManager.FindByIdAsync(id);
             ViewBag.RoleNames = await UserManager.GetRolesAsync(user.Id);
             foreach (var rol in ViewBag.RoleNames)

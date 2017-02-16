@@ -403,6 +403,7 @@ z-index:0;
     border-radius:4px;
  transition:all 1s ease;
     float:left;
+    margin: 0px 10px 0px 10px;
 }
 
 
@@ -488,3 +489,25 @@ z-index:0;
   line-height: 1.33;
   border-radius: 35px;
 }
+/*bottoni a destra*/
+.docu{
+    position:fixed;
+    bottom:50%;
+    right:-20px;
+    transition: all ease 1s;
+}
+.docu ul{
+    list-style: none;
+}
+.docu img{
+    opacity:0.5;
+    right:-20px;
+    transition: all ease 1s;
+    height:60px
+}
+.docu img:hover {
+    opacity:1;
+    transform: translate(-2em,0);
+    right:-30px;
+}
+

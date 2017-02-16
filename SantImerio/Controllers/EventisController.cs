@@ -10,6 +10,7 @@ using SantImerio.Models;
 using System.IO;
 using System.Web.Helpers;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace SantImerio.Controllers
 {
@@ -25,11 +26,35 @@ namespace SantImerio.Controllers
             var eventi = db.Eventis.OrderByDescending(d => d.Data);
             return View(eventi);
         }
-        public ActionResult IndexUt()
+        public ActionResult IndexUt([Bind(Include = "Statistiche_Id,Data,Ip,Pagina,UId,UName")] Statistiche statistiche)
         {
+            ViewBag.Title = "Eventi";
+            if (ModelState.IsValid)
+            {
+                statistiche.Data = DateTime.Now;
+                statistiche.Ip = Request.UserHostAddress;
+                statistiche.Pagina = ViewBag.Title;
+                if (User.Identity.IsAuthenticated)
+                {
+                    ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
+                    statistiche.UName = user.Nome + user.Cognome;
+                    statistiche.UId = User.Identity.GetUserId();
+                }
+                else
+                {
+                    statistiche.UName = "anonimous";
+                }
+                db.Statistiches.Add(statistiche);
+                db.SaveChanges();
+            }
             return View(db.Eventis.Where(g=>g.Galleria == true).OrderByDescending(g=>g.Data).ToList());
         }
 
+        public ActionResult IndexComm()
+        {
+            var eventi = db.Eventis.OrderByDescending(d => d.Data).ToList();
+            return View(eventi);
+        }
         public ActionResult Evento(int? id)
         {
             if (id == null)
@@ -42,7 +67,6 @@ namespace SantImerio.Controllers
             var commenti = db.Commentis.Where(e => e.Evento_Id == id).OrderByDescending(e=>e.Data);
             ViewBag.Commenti = commenti;
             ViewBag.CommentiCount = commenti.Count();
-            ViewBag.UId = User.Identity.GetUserId();
             if (eventi == null)
             {
                 return HttpNotFound();

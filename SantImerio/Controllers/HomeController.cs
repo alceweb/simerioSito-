@@ -45,19 +45,35 @@ namespace SantImerio.Controllers
             }
         }
 
-        public ActionResult Index()
+        public ActionResult Index([Bind(Include ="Statistiche_Id,Data,Ip,Pagina,UId,UName")] Statistiche statistiche)
         {
+             ViewBag.Title = "Home";
+           if (ModelState.IsValid)
+            {
+                statistiche.Data = DateTime.Now;
+                statistiche.Ip = Request.UserHostAddress;
+                statistiche.Pagina = ViewBag.Title;
+                if (User.Identity.IsAuthenticated)
+                {
+                    ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
+                    statistiche.UName = user.Nome + user.Cognome;
+                    statistiche.UId = User.Identity.GetUserId();
+               }
+                else
+                {
+                    statistiche.UName = "anonimous";
+                }
+                db.Statistiches.Add(statistiche);
+                db.SaveChanges();
+            }
+            var dbeventi = db.Eventis;
             var eventiH = db.Eventis.Where(p => p.Home == true).OrderByDescending(d => d.Data).ToList();
             var eventi = db.Eventis.Where(g => g.Pastorale == true).OrderByDescending(d => d.Data).ToList();
+            ViewBag.UserIp = Request.UserHostAddress;
+            ViewBag.UserBrs = Request.Browser.Browser.ToString();
             ViewBag.EventiH = eventiH;
             return View(eventi);
         }
-
-        public ActionResult Index1()
-        {
-            return View();
-        }
-
 
         public ActionResult About()
         {
@@ -73,9 +89,27 @@ namespace SantImerio.Controllers
             return View();
         }
 
-        public ActionResult Appuntamenti()
+        public ActionResult Appuntamenti([Bind(Include = "Statistiche_Id,Data,Ip,Pagina,UId,UName")] Statistiche statistiche)
         {
-            ViewBag.Message = "Appuntamenti";
+            ViewBag.Title = "Attività e orari";
+            if (ModelState.IsValid)
+            {
+                statistiche.Data = DateTime.Now;
+                statistiche.Ip = Request.UserHostAddress;
+                statistiche.Pagina = ViewBag.Title;
+                if (User.Identity.IsAuthenticated)
+                {
+                    ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
+                    statistiche.UName = user.Nome + user.Cognome;
+                    statistiche.UId = User.Identity.GetUserId();
+                }
+                else
+                {
+                    statistiche.UName = "anonimous";
+                }
+                db.Statistiches.Add(statistiche);
+                db.SaveChanges();
+            }
             var oggi = DateTime.Today;
             var orari = db.OrariMesseBars;
             ViewBag.Orari = orari.Where(o=>o.Messe_Id == 1);
@@ -216,8 +250,28 @@ namespace SantImerio.Controllers
             return RedirectToAction("Sfondo", "Home");
         }
 
-        public ActionResult Download()
+        public ActionResult Download([Bind(Include = "Statistiche_Id,Data,Ip,Pagina,UId,UName")] Statistiche statistiche)
         {
+            ViewBag.Title = "Download";
+            if (ModelState.IsValid)
+            {
+                statistiche.Data = DateTime.Now;
+                statistiche.Ip = Request.UserHostAddress;
+                statistiche.Pagina = ViewBag.Title;
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
+                    statistiche.UName = user.Nome + user.Cognome;
+                    statistiche.UId = User.Identity.GetUserId();
+                }
+                else
+                {
+                    statistiche.UName = "anonimous";
+                }
+                db.Statistiches.Add(statistiche);
+                db.SaveChanges();
+            }
             ViewBag.DocumentiCount = db.Documentis.Count();
             var documenti = db.Documentis.OrderByDescending(d => d.Titolo);
             return View(documenti);

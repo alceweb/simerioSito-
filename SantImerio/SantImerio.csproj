@@ -44,11 +44,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Chart.Mvc, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Chart.Mvc.1.0.0.2\lib\net45\Chart.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -112,9 +120,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -177,6 +182,7 @@
     <Compile Include="Controllers\IncarichisController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\StatistichesController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -237,6 +243,10 @@
     <Compile Include="Migrations\201702040959561_risposte.Designer.cs">
       <DependentUpon>201702040959561_risposte.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702110653584_statistiche.cs" />
+    <Compile Include="Migrations\201702110653584_statistiche.Designer.cs">
+      <DependentUpon>201702110653584_statistiche.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -269,6 +279,7 @@
     <Content Include="Content\Immagini\eventi.jpg" />
     <Content Include="Content\Immagini\foto.jpg" />
     <Content Include="Content\Immagini\GalleriaHome\Sfondo\Home1.jpg" />
+    <Content Include="Content\Immagini\Grafico.png" />
     <Content Include="Content\Immagini\Intestazione.png" />
     <Content Include="Content\Immagini\Intestazione1.png" />
     <Content Include="Content\Immagini\loading.gif" />
@@ -301,15 +312,21 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <None Include="Properties\PublishProfiles\ArubaBusiness.pubxml" />
-    <None Include="Properties\PublishProfiles\Azure.pubxml" />
+    <None Include="Properties\PublishProfiles\santimerio - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\santimerio - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\simerio - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\canvasjs.min.js" />
+    <Content Include="Scripts\Chart.bundle.js" />
+    <Content Include="Scripts\Chart.bundle.min.js" />
+    <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
     <Content Include="Scripts\ckeditor\contents.css" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.filtertable.js" />
     <Content Include="Scripts\jquery.filtertable.min.js" />
@@ -320,6 +337,10 @@
     <Content Include="Scripts\lightbox-plus-jquery.min.js" />
     <Content Include="Scripts\lightbox.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -331,6 +352,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -378,7 +400,6 @@
     <Content Include="Views\Eventis\Index.cshtml" />
     <Content Include="Views\Eventis\IndexUt.cshtml" />
     <Content Include="Views\Eventis\Evento.cshtml" />
-    <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Home\OrariMesse.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Html.cshtml" />
     <Content Include="Views\Home\EditOrariMesse.cshtml" />
@@ -429,6 +450,14 @@
     <Content Include="Views\ComRisps\Details.cshtml" />
     <Content Include="Views\ComRisps\Edit.cshtml" />
     <Content Include="Views\ComRisps\Index.cshtml" />
+    <Content Include="Views\Eventis\IndexComm.cshtml" />
+    <Content Include="Views\Statistiches\Create.cshtml" />
+    <Content Include="Views\Statistiches\Delete.cshtml" />
+    <Content Include="Views\Statistiches\Details.cshtml" />
+    <Content Include="Views\Statistiches\Edit.cshtml" />
+    <Content Include="Views\Statistiches\Index.cshtml" />
+    <Content Include="Views\Statistiches\Grafico.cshtml" />
+    <Content Include="Views\Statistiches\IndexStat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -489,6 +518,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702040959561_risposte.resx">
       <DependentUpon>201702040959561_risposte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702110653584_statistiche.resx">
+      <DependentUpon>201702110653584_statistiche.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

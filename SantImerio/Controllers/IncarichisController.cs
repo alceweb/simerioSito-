@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
 using System.IO;
 using System.Web.Helpers;
+using Microsoft.AspNet.Identity;
 
 namespace SantImerio.Controllers
 {
@@ -36,8 +37,27 @@ namespace SantImerio.Controllers
             return View(db.Incarichis.ToList());
         }
 
-        public async Task<ActionResult> IndexUt()
+        public async Task<ActionResult> IndexUt([Bind(Include = "Statistiche_Id,Data,Ip,Pagina,UId,UName")] Statistiche statistiche)
         {
+            ViewBag.Title = "La nostra comunità";
+            if (ModelState.IsValid)
+            {
+                statistiche.Data = DateTime.Now;
+                statistiche.Ip = Request.UserHostAddress;
+                statistiche.Pagina = ViewBag.Title;
+                if (User.Identity.IsAuthenticated)
+                {
+                    ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
+                    statistiche.UName = user.Nome + user.Cognome;
+                    statistiche.UId = User.Identity.GetUserId();
+                }
+                else
+                {
+                    statistiche.UName = "Anonimous";
+                }
+                db.Statistiches.Add(statistiche);
+                db.SaveChanges();
+            }
             var incarichi = db.Incarichis.OrderBy(i=>i.Incarichi_Id).ToList();
             var iscritti = await UserManager.Users.ToListAsync();
             ViewBag.Iscritti = iscritti;

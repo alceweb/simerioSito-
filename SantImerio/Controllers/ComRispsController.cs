@@ -5,9 +5,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using SantImerio.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Net.Mail;
 
 namespace SantImerio.Controllers
 {
@@ -41,6 +44,8 @@ namespace SantImerio.Controllers
         // GET: ComRisps/Create
         public ActionResult Create()
         {
+            ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
+            ViewBag.NomeUtente = user.Nome + " " + user.Cognome;
             ViewBag.Commento_Id = new SelectList(db.Commentis, "Commento_Id", "Commento");
             return View();
         }
@@ -50,17 +55,32 @@ namespace SantImerio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int id, [Bind(Include = "ComRisp_Id,Data,Commento_Id,Risposta,UId,Utente")] ComRisp comRisp)
+        public async Task<ActionResult> Create(int id, [Bind(Include = "ComRisp_Id,Data,Commento_Id,Risposta,UId,Utente")] ComRisp comRisp)
         {
             if (ModelState.IsValid)
             {
+                ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
                 var uid = User.Identity.GetUserId();
-                comRisp.Utente = User.Identity.Name;
+                var eid = Convert.ToInt32(Request.QueryString["EId"]);
+                string link = "http://www.santimerio.it/Eventis/Evento/" + eid;
+                string utente = user.Nome + " " + user.Cognome;
+                comRisp.Utente = utente;
                 comRisp.Data = DateTime.Now;
                 comRisp.UId = uid;
                 comRisp.Commento_Id = id;
                 db.ComRisps.Add(comRisp);
                 db.SaveChanges();
+                // Invio la mail per avvisare che si è stata scritta una risposta
+                MailMessage message = new MailMessage(
+                    "webservice@santimerio.it",
+                    "cesare@cr-consult.eu",
+                    "Nuova risposta dal sito santimerio.it",
+                    "Il giorno <strong>" + DateTime.Now + "<br/>" + user.Nome + " " + user.Cognome + "</strong><br/> ha pubblicato una risposta ad un commento di " + utente + "<hr/><p>" + comRisp.Risposta + "</p><h3><a href=" + link + ">vai al sito</a></h3>");
+                message.IsBodyHtml = true;
+                using (var smtp = new SmtpClient())
+                {
+                    await smtp.SendMailAsync(message);
+                }
                 return RedirectToAction("Evento", "Eventis", new { id = Request.QueryString["EId"] });
             }
 

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<SantImerio.Models.Eventi>
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = "Commenti";
+}
+
+<h2>Tutti i commenti del sito</h2><hr/>
+<table class="table table-responsive">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Evento", "Eventis", new {id = item.Evento_Id})" title="Vai all'evento"><span class="fa fa-id-card-o"></span></a>
+                @if (@item.Commentis.Count() > 0)
+                {
+                    //Trigger collapse commenti
+                    <a class="fa fa-commenting text-danger" role="button" data-toggle="collapse" title="Commenti" href="#@item.Evento_Id" aria-expanded="false" aria-controls="@item.Evento_Id">
+                    </a>
+                }
+                <strong>@item.Data.ToString("dddd dd-MMM-yyyy")</strong>
+                <span class="text-uppercase text-success">
+                    <strong>@Html.DisplayFor(modelItem => item.Titolo)</strong></span>
+                <span> - @Html.DisplayFor(modelItem => item.SottoTitolo)<br />
+                </span>
+                @*Collapse commenti*@
+                <div class="collapse" id="@item.Evento_Id">
+                    <div class="">
+                            @foreach (var comm in item.Commentis)
+                            {
+                                //Inizio area risposte
+                                if (@comm.ComRisps.Count > 0)
+                                {
+                                    <a class="fa fa-comments" role="button" data-toggle="collapse" href="#@Html.Raw("r" + @comm.Commento_Id)" aria-expanded="false" aria-controls="@Html.Raw("r" + @comm.Commento_Id)">
+                                    </a>
+                                    <div class="collapse" id="@Html.Raw("r" + @comm.Commento_Id)">
+                                        <table class="table table-hover">
+
+                                            @foreach (var risp in comm.ComRisps.OrderByDescending(r => r.Data))
+                                            {
+                                                <tr>
+                                                    <td></td>
+                                                    <td class="fa-border">
+                                                        <span class="label label-success">@risp.Data.ToString("dd MMM yy hh:mm")</span>
+                                                        <!---Abilito la modifica e la cancellazione per il proprietario della risposta e per l'amminisratore-->
+                                                        @if (risp.UId == User.Identity.GetUserId() | User.IsInRole("Admin"))
+                                                        {
+                                                            <a href="@Url.Action("Delete", "ComRisps", new {id = risp.ComRisp_Id, EId = item.Evento_Id })"><span class="fa fa-scissors btn btn-xs btn-danger" title="Cancella"></span></a>
+                                                            <a href="@Url.Action("Edit", "ComRisps", new {id = risp.ComRisp_Id, EId = item.Evento_Id  })"><span class="glyphicon glyphicon-pencil btn btn-xs btn-success" title="Modifica"></span></a>
+                                                        }
+                                                        <span class="badge">@risp.Utente </span><br />
+
+                                                        @if (File.Exists(Server.MapPath("~/Content/Immagini/Utenti/" + risp.UId + ".jpg")))
+                                                        {
+                                                            <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/" + risp.UId + ".jpg")" />
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
+                                                        }
+
+                                                        <span class=""><strong><em>@risp.Risposta</em></strong></span>
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+
+                                }
+                                //Fine area risposte
+                                <a href="@Url.Action("Create", "ComRisps", new {id = comm.Commento_Id, EID = item.Evento_Id, utente = @comm.Utente})"><span class="fa fa-reply-all" title="Rispondi"></span></a>
+                                <span><strong>@item.Data.ToString("dd-MMM-yyy") - @comm.Utente</strong></span>
+                                <span class="text-danger">@comm.Commento</span>
+                        <!---Abilito la modifica e la cancellazione per il proprietario del commento e la risposta per tutti-->
+                                if (ViewBag.UId == comm.UId || User.IsInRole("Admin"))
+                                {
+                                    <a href="@Url.Action("DeleteUt", "Commentis", new {id = comm.Commento_Id, EId = item.Evento_Id})"><span class="fa fa-scissors" title="Cancella"></span></a>
+                                    <a href="@Url.Action("Edit", "Commentis", new {id = comm.Commento_Id, EId = item.Evento_Id})"><span class="glyphicon glyphicon-pencil" title="Modifica"></span></a>
+                                }
+                        <br/>
+                            }
+                        </div>
+                </div>
+
+
+            </td>
+        </tr>
+    }
+</table>

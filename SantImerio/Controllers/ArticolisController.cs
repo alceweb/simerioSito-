@@ -10,6 +10,8 @@ using SantImerio.Models;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web.Helpers;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace SantImerio.Controllers
 {
@@ -24,8 +26,27 @@ namespace SantImerio.Controllers
             var articoli = db.Articolis.OrderByDescending(d => d.Data);
             return View(articoli);
         }
-        public ActionResult IndexUt()
+        public ActionResult IndexUt([Bind(Include = "Statistiche_Id,Data,Ip,Pagina,UId,UName")] Statistiche statistiche)
         {
+            ViewBag.Title = "Editoriale";
+            if (ModelState.IsValid)
+            {
+                statistiche.Data = DateTime.Now;
+                statistiche.Ip = Request.UserHostAddress;
+                statistiche.Pagina = ViewBag.Title;
+                if (User.Identity.IsAuthenticated)
+                {
+                    ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
+                    statistiche.UName = user.Nome + user.Cognome;
+                    statistiche.UId = User.Identity.GetUserId();
+                }
+                else
+                {
+                    statistiche.UName = "anonimous";
+                }
+                db.Statistiches.Add(statistiche);
+                db.SaveChanges();
+            }
             var articoli = db.Articolis.Where(a=>a.Pubblica == true).OrderByDescending(a=>a.Data).ToList();
             return View(articoli);
         }

@@ -7,6 +7,9 @@
     <link href="~/Content/lightbox.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <title>@ViewBag.Title - Parrocchia Sant'Imerio</title>
+    <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-3.1.0.min.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -59,6 +62,21 @@
                   </div>
               </div>
     </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @*Menu destra fisso*@
+        <div class="docu">
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "Statistiches")" target="_blank" title="Statistiche sito">
+                        <img src="~/Content/Immagini/Grafico.png" />
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    }
+
     <div class="container body-content">
         @if (ViewBag.Title == "Home")
         {
@@ -91,19 +109,10 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/Scripts/lightbox-plus-jquery.min.js")
-    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
-    <script src="~/Scripts/jquery.filtertable.min.js"></script>
-    <script>
-	$(document).ready(function() {
-		$('table').filterTable();
-	});
-	$('#btnCook').on('click', function () {
-	    $.cookie('simerio', 'letto', { path: '/' });
-	    var valore = $.cookie('simerio');
-	});
-    </script>
+    @Scripts.Render("~/Scripts/jquery.filtertable.min.js")
 
 
-    @*<script src="~/Scripts/ckeditor/ckeditor.js"></script>*@
+
+
 </body>
 </html>

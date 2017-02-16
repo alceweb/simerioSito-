@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Grafico";
+}
+
+<h2>Grafico</h2>
+<script src="~/Scripts/canvasjs.min.js"></script>
+
+<div id="chartContainer"></div>
+@foreach (var group in Model)
+{
+    <span>@group.Key </span><br/>
+}
+
+<hr />
+<script type="text/javascript">
+	var result = @Html.Raw(ViewBag.DataPoints);
+	var dataPoints =[];
+	for(var i = 0; i < result.length; i++){
+		dataPoints.pu({label:result[i].Data, y:result[i].Pagina});
+	}
+
+	$(function () {
+		var chart = new CanvasJS.Chart("chartContainer", {
+			theme: "theme2",
+			zoomEnabled: true,
+			animationEnabled: true,
+			title: {
+				text: "Line Chart with Data-Points from DataBase"
+			},
+			data: [
+			{
+				type: "line",
+
+				dataPoints: dataPoints,
+			}
+			]
+		});
+		chart.render();
+	});
+</script>
