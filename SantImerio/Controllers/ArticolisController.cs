@@ -109,6 +109,7 @@ namespace SantImerio.Controllers
                 db.Articolis.Add(articoli);
                 db.SaveChanges();
                 Directory.CreateDirectory(Server.MapPath("~/Content/Immagini/Articoli/" + articoli.Articolo_Id));
+
                 return RedirectToAction("Index");
             }
 

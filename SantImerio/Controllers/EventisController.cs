@@ -28,12 +28,11 @@ namespace SantImerio.Controllers
         }
         public ActionResult IndexUt([Bind(Include = "Statistiche_Id,Data,Ip,Pagina,UId,UName")] Statistiche statistiche)
         {
-            ViewBag.Title = "Eventi";
             if (ModelState.IsValid)
             {
                 statistiche.Data = DateTime.Now;
                 statistiche.Ip = Request.UserHostAddress;
-                statistiche.Pagina = ViewBag.Title;
+                statistiche.Pagina = "Eventi";
                 if (User.Identity.IsAuthenticated)
                 {
                     ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
@@ -64,7 +63,7 @@ namespace SantImerio.Controllers
             var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Eventi/" + id + "/"));
             ViewBag.Immagini = immagini.ToList();
             Eventi eventi = db.Eventis.Find(id);
-            var commenti = db.Commentis.Where(e => e.Evento_Id == id).OrderByDescending(e=>e.Data);
+            var commenti = db.Commentis.Where(e => e.Evento_Id == id);
             ViewBag.Commenti = commenti;
             ViewBag.CommentiCount = commenti.Count();
             if (eventi == null)

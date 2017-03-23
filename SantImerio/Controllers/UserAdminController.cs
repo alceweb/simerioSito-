@@ -15,7 +15,6 @@ using System.Drawing;
 
 namespace SantImerio.Controllers
 {
-    [Authorize(Roles = "Admin")]
 
     public class UsersAdminController : Controller
     {
@@ -58,6 +57,7 @@ namespace SantImerio.Controllers
 
         //
         // GET: /Users/
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
             ViewBag.UtentiCount = UserManager.Users.Count();
@@ -92,6 +92,7 @@ namespace SantImerio.Controllers
 
         //
         // GET: /Users/Create
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create()
         {
             //Get the list of Roles
@@ -101,6 +102,7 @@ namespace SantImerio.Controllers
 
         //
         // POST: /Users/Create
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles)
         {
@@ -138,6 +140,7 @@ namespace SantImerio.Controllers
 
         //
         // GET: /Users/Edit/1
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string id)
         {
             if (id == null)
@@ -172,6 +175,7 @@ namespace SantImerio.Controllers
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Email,Nome,Cognome")] EditUserViewModel editUser, params string[] selectedRole)
         {
             if (ModelState.IsValid)
@@ -212,6 +216,7 @@ namespace SantImerio.Controllers
         }
 
 
+        [Authorize]
         public async Task<ActionResult> EditUs(string id)
         {
             if (id == null)
@@ -258,10 +263,6 @@ namespace SantImerio.Controllers
             ModelState.AddModelError("", "Something failed.");
             return View();
         }
-
-
-
-
 
         //
         // GET: /Users/Delete/5
@@ -310,6 +311,7 @@ namespace SantImerio.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult FotoProfilo()
         {
             var utente = User.Identity.GetUserId();
@@ -318,6 +320,7 @@ namespace SantImerio.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult FotoProfilo(HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
@@ -345,6 +348,7 @@ namespace SantImerio.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> FotoProfilo1(string id)
         {
             if (id == null)
@@ -355,6 +359,7 @@ namespace SantImerio.Controllers
             return View(user);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> FotoProfilo1(HttpPostedFileBase file, string id)
         {
                  var user = await UserManager.FindByIdAsync(id);

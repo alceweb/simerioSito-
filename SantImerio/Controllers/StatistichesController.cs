@@ -21,7 +21,7 @@ namespace SantImerio.Controllers
         public ActionResult Index()
         {
             var statistiche = db.Statistiches.ToList();
-            ViewBag.DataPoints = JsonConvert.SerializeObject(db.Statistiches.OrderByDescending(d => d.Data).GroupBy(d => d.UName).Select(s => new { x = s.Key, y = s.Count() }).OrderByDescending(s => s.y).ToList(), _jsonSetting);
+            ViewBag.DataPoints = JsonConvert.SerializeObject(db.Statistiches.Where(u => u.UName != "anonimous").OrderByDescending(d => d.Data).GroupBy(d => d.UName).Select(s => new { x = s.Key, y = s.Count() }).OrderByDescending(s => s.y).ToList(), _jsonSetting);
             ViewBag.DataPoints1 = JsonConvert.SerializeObject(db.Statistiches
                 .OrderByDescending(d => d.Data)
                 .GroupBy(d => d.Data.Month)

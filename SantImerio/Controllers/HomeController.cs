@@ -47,12 +47,11 @@ namespace SantImerio.Controllers
 
         public ActionResult Index([Bind(Include ="Statistiche_Id,Data,Ip,Pagina,UId,UName")] Statistiche statistiche)
         {
-             ViewBag.Title = "Home";
            if (ModelState.IsValid)
             {
                 statistiche.Data = DateTime.Now;
                 statistiche.Ip = Request.UserHostAddress;
-                statistiche.Pagina = ViewBag.Title;
+                statistiche.Pagina = "Home";
                 if (User.Identity.IsAuthenticated)
                 {
                     ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());

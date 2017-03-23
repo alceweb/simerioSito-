@@ -5,7 +5,7 @@
 }
 <h2>Statistiche utilizzo sito @Html.Raw(@ViewBag.DataPointsTot)</h2>
 <button id="btn3" class="btn btn-sm btn-primary"><span class="fa  fa-table"> Numeri</span></button>
-<button id="btn1" class="btn btn-sm btn-primary"><span class="fa  fa-bar-chart"> Utenti</span></button>
+<button id="btn1" class="btn btn-sm btn-primary"><span class="fa  fa-bar-chart"> Registrati</span></button>
 <button id="btn2" class="btn btn-sm btn-primary"><span class="fa  fa-line-chart"> Mesi</span></button>
 <a href="http://santimerio.it/plesk-stat/webstat/index.html" class="btn btn-sm btn-warning fa fa-podcast" target="_blank"> Avanzate</a><hr/>
 @*Visualizzazione statistiche numeriche*@
@@ -81,7 +81,6 @@
                     </tr>
                 }
             </table>
-
         </div>
         @*Visite per utente*@
         <div class="col col-md-4">
@@ -180,22 +179,25 @@
 @*Visualizzazione grafici*@
 <div id="chartContainer" ></div>
 <script type="text/javascript">
+    //Nascondo i grafici all'apertura della pagina
     $(document).ready(function(){
         $('#numeri').show();
         $('#chartContainer').hide();
     });
+    //btn3 visualizza grafico numeri
     $('#btn3').click(function(){
         $('#numeri').show();
         $('#chartContainer').hide();
     });
-    $('#btn1').click(function () {
+    //btn1 visualizza grafico registrati
+    $('#btn1').click(function(){
         $('#numeri').hide();
         $('#chartContainer').show();
         var result = @Html.Raw(ViewBag.DataPoints);
-    var dataPoints =[];
-    for(var i = 0; i < result.length; i++){
-        dataPoints.push({label:result[i].x, y:result[i].y});
-    }
+        var dataPoints =[];
+        for(var i = 0; i < result.length; i++){
+            dataPoints.push({label:result[i].x, y:result[i].y});
+        }
         var chart1 = new CanvasJS.Chart("chartContainer",{
             title:{
                 text: "Accessi per utente"
@@ -209,15 +211,15 @@
         });
         chart1.render();
     });
-
+    //btn2 visualizza grafico mesi
     $('#btn2').click(function () {
         $('#numeri').hide();
         $('#chartContainer').show();
         var result = @Html.Raw(ViewBag.DataPoints1);
-    var dataPoints =[];
-    for(var i = 0; i < result.length; i++){
-        dataPoints.push({label:result[i].x, y:result[i].y});
-    }
+        var dataPoints =[];
+        for(var i = 0; i < result.length; i++){
+            dataPoints.push({label:result[i].x, y:result[i].y});
+        }
         var chart1 = new CanvasJS.Chart("chartContainer",{
             title:{
                 text: "Accessi per mesi"

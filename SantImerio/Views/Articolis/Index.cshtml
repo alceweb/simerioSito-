@@ -11,6 +11,7 @@
 </p>
 <table class="table table-hover">
     <tr>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Titolo)
         </th>
@@ -32,6 +33,12 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @if (File.Exists(@Server.MapPath("/Content/Immagini/Articoli/" + item.Articolo_Id + "/" + item.Articolo_Id + ".jpg")))
+                {
+                <img class="img-usr" src="@Url.Content("~/Content/Immagini/Articoli/" + item.Articolo_Id + "/" + item.Articolo_Id + ".jpg")" />
+            }
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Titolo)
         </td>

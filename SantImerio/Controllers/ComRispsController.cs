@@ -55,32 +55,53 @@ namespace SantImerio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(int id, [Bind(Include = "ComRisp_Id,Data,Commento_Id,Risposta,UId,Utente")] ComRisp comRisp)
+        public async Task<ActionResult> Create(int id, [Bind(Include = "ComRisp_Id,Data,Commento_Id,Risposta,UId,Utente,Email")] ComRisp comRisp)
         {
             if (ModelState.IsValid)
             {
                 ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
                 var uid = User.Identity.GetUserId();
                 var eid = Convert.ToInt32(Request.QueryString["EId"]);
+                var email = Request.QueryString["email"];
                 string link = "http://www.santimerio.it/Eventis/Evento/" + eid;
-                string utente = user.Nome + " " + user.Cognome;
-                comRisp.Utente = utente;
+                //valorizzo l'utente che sta rispondendo al commento
+                string Utente = user.Nome + " " + user.Cognome;
+                //valorizzo l'utente proprietario del commento
+                string utente = Request.QueryString["utente"];
+                comRisp.Utente = Utente;
                 comRisp.Data = DateTime.Now;
                 comRisp.UId = uid;
+                comRisp.Email = User.Identity.Name;
                 comRisp.Commento_Id = id;
                 db.ComRisps.Add(comRisp);
                 db.SaveChanges();
-                // Invio la mail per avvisare che si è stata scritta una risposta
+                // Invio la mail alert al proprietario del commento
                 MailMessage message = new MailMessage(
                     "webservice@santimerio.it",
-                    "cesare@cr-consult.eu",
-                    "Nuova risposta dal sito santimerio.it",
-                    "Il giorno <strong>" + DateTime.Now + "<br/>" + user.Nome + " " + user.Cognome + "</strong><br/> ha pubblicato una risposta ad un commento di " + utente + "<hr/><p>" + comRisp.Risposta + "</p><h3><a href=" + link + ">vai al sito</a></h3>");
+                    email,
+                    "Nuovo commento dal sito santimerio.it",
+                    "Il giorno <strong>" + DateTime.Now + "<br/>" + Utente + "</strong><br/> ha pubblicato una risposta ad un commento di " + utente + "<hr/><p>" + comRisp.Risposta + "</p><h3><a href=" + link + ">vai al sito</a></h3>");
                 message.IsBodyHtml = true;
                 using (var smtp = new SmtpClient())
                 {
                     await smtp.SendMailAsync(message);
                 }
+                // Invio la mail alert ad ogni utente che ha risposto al commento
+                var elenco = db.ComRisps.Where(r => r.Commento_Id == id && r.Email != email).ToList();
+                foreach (var itemrisp in elenco)
+                {
+                    MailMessage message1 = new MailMessage(
+                        "webservice@santimerio.it",
+                        itemrisp.Email,
+                        "Nuovo commento dal sito santimerio.it",
+                        "Il giorno <strong>" + DateTime.Now + "<br/>" + Utente + "</strong><br/> ha pubblicato una risposta ad un commento di " + utente + "<hr/><p>" + comRisp.Risposta + "</p><h3><a href=" + link + ">vai al sito</a></h3>");
+                    message1.IsBodyHtml = true;
+                    using (var smtp = new SmtpClient())
+                    {
+                        await smtp.SendMailAsync(message1);
+                    }
+                }
+
                 return RedirectToAction("Evento", "Eventis", new { id = Request.QueryString["EId"] });
             }
 

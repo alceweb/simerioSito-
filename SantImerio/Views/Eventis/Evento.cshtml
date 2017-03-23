@@ -50,10 +50,11 @@
             <div class="collapse" id="1">
                 <!---Modal commento-->
                 <div class="well-sm" >
-                    @foreach (var item in Model.Commentis)
+                    @foreach (var item in Model.Commentis.OrderByDescending(d=>d.Data))
                     {
+                        var emailcom = User.Identity.GetUserName();
                         <hr class="hr1" />
-                        <span class="label label-success">@item.Data</span>
+                        <span class="badge">@item.Utente - @item.Data.ToString("dd MMM yyyy hh:mm")</span>
                         <!---Abilito la modifica e la cancellazione per il proprietario del commento e la risposta per tutti-->
                         if (User.Identity.GetUserId() == item.UId || User.IsInRole("Admin"))
                         {
@@ -63,8 +64,7 @@
                             }
                             <a href="@Url.Action("Edit", "Commentis", new {id = item.Commento_Id, EId = item.Evento_Id})"><span class="glyphicon glyphicon-pencil btn btn-xs btn-success" title="Modifica"></span></a>
                         }
-                        <a href="@Url.Action("Create", "ComRisps", new {id = item.Commento_Id, EID = item.Evento_Id, utente = @item.Utente})"><span class="fa fa-reply-all btn btn-xs btn-success" title="Rispondi"></span></a>
-                        <span class="badge">@item.Utente</span><br />
+                        <a href="@Url.Action("Create", "ComRisps", new {id = item.Commento_Id, EID = item.Evento_Id, utente = @item.Utente, email = @item.Email})"><span class="fa fa-reply-all btn btn-xs btn-success" title="Rispondi"></span></a><br />
                         if (File.Exists(Server.MapPath("~/Content/Immagini/Utenti/" + item.UId + ".jpg")))
                         {
                             <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/" + item.UId + ".jpg")" />
@@ -90,15 +90,14 @@
                                         <tr>
                                             <td></td>
                                             <td class="fa-border">
-                                                <span class="label label-success">@risp.Data.ToString("dd MMM yy hh:mm")</span>
+                                                <span class="badge">@risp.Utente - @risp.Data.ToString("dd MMM yyyy hh:mm")</span>
                                                 <!---Abilito la modifica e la cancellazione per il proprietario della risposta e per l'amminisratore-->
                                                 @if (risp.UId == User.Identity.GetUserId() | User.IsInRole("Admin"))
                                                 {
                                                     <a href="@Url.Action("Delete", "ComRisps", new {id = risp.ComRisp_Id, EId = item.Evento_Id })"><span class="fa fa-scissors btn btn-xs btn-danger" title="Cancella"></span></a>
                                                     <a href="@Url.Action("Edit", "ComRisps", new {id = risp.ComRisp_Id, EId = item.Evento_Id  })"><span class="glyphicon glyphicon-pencil btn btn-xs btn-success" title="Modifica"></span></a>
                                                 }
-                                                <span class="badge">@risp.Utente </span><br />
-
+                                                <br />
                                                 @if (File.Exists(Server.MapPath("~/Content/Immagini/Utenti/" + risp.UId + ".jpg")))
                                                 {
                                                     <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/" + risp.UId + ".jpg")" />

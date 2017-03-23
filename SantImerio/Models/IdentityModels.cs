@@ -139,6 +139,7 @@ namespace SantImerio.Models
         public string Commento { get; set; }
         public string UId { get; set; }
         public string Utente { get; set; }
+        public string Email { get; set; }
         public virtual ICollection<ComRisp> ComRisps { get; set; }
     }
 
@@ -153,8 +154,7 @@ namespace SantImerio.Models
         public string Risposta { get; set; }
         public string UId { get; set; }
         public string Utente { get; set; }
-
-
+        public string Email { get; set; }
     }
 
     public class Statistiche

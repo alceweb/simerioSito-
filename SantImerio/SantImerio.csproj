@@ -247,6 +247,14 @@
     <Compile Include="Migrations\201702110653584_statistiche.Designer.cs">
       <DependentUpon>201702110653584_statistiche.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703100705493_commemail.cs" />
+    <Compile Include="Migrations\201703100705493_commemail.Designer.cs">
+      <DependentUpon>201703100705493_commemail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703100734377_rispemail.cs" />
+    <Compile Include="Migrations\201703100734377_rispemail.Designer.cs">
+      <DependentUpon>201703100734377_rispemail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -521,6 +529,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702110653584_statistiche.resx">
       <DependentUpon>201702110653584_statistiche.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703100705493_commemail.resx">
+      <DependentUpon>201703100705493_commemail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703100734377_rispemail.resx">
+      <DependentUpon>201703100734377_rispemail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

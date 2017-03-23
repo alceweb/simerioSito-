@@ -51,15 +51,17 @@ namespace SantImerio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async  Task<ActionResult> Create([Bind(Include = "Commento_Id,Data,Commento,UId,Evento_Id,Utente")] Commenti commenti)
+        public async  Task<ActionResult> Create([Bind(Include = "Commento_Id,Data,Commento,UId,Evento_Id,Utente,Email")] Commenti commenti)
         {
             if (ModelState.IsValid)
             {
                 ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
                 var uid = User.Identity.GetUserId();
+                var email = User.Identity.GetUserName();
                 commenti.Utente = user.Nome + " " + user.Cognome;
                 commenti.Data = DateTime.Now;
                 commenti.UId = uid;
+                commenti.Email = email;
                 var eid = Convert.ToInt32(Request.QueryString["EId"]);
                 string link = "http://www.santimerio.it/Eventis/Evento/" + eid;
                 commenti.Evento_Id = eid;
@@ -67,8 +69,8 @@ namespace SantImerio.Controllers
                 db.SaveChanges();
                 // Invio la mail per avvisare che si è stato scritto un commento
                 MailMessage message = new MailMessage(
-                    "webservice@santimerio.it", 
-                    "cesare@cr-consult.eu", 
+                    "webservice@santimerio.it",
+                    "cesare@cr-consult.eu,mik.rock@hotmail.it", 
                     "Nuovo commento dal sito santimerio.it",
                     "Il giorno <strong>" + DateTime.Now + "<br/>" + user.Nome + " " + user.Cognome + "</strong><br/> ha pubblicato un commento ad un evento<hr/><p>" + commenti.Commento + "</p><h3><a href=" + link + ">vai al sito</a></h3>");
                 message.IsBodyHtml = true;
