@@ -7,6 +7,7 @@
 <button id="btn3" class="btn btn-sm btn-primary"><span class="fa  fa-table"> Numeri</span></button>
 <button id="btn1" class="btn btn-sm btn-primary"><span class="fa  fa-bar-chart"> Registrati</span></button>
 <button id="btn2" class="btn btn-sm btn-primary"><span class="fa  fa-line-chart"> Mesi</span></button>
+<button id="btn4" class="btn btn-sm btn-primary"><span class="fa  fa-line-chart"> Giorni</span></button>
 <a href="http://santimerio.it/plesk-stat/webstat/index.html" class="btn btn-sm btn-warning fa fa-podcast" target="_blank"> Avanzate</a><hr/>
 @*Visualizzazione statistiche numeriche*@
 <div id="numeri">
@@ -221,17 +222,58 @@
             dataPoints.push({label:result[i].x, y:result[i].y});
         }
         var chart1 = new CanvasJS.Chart("chartContainer",{
+            zoomEnabled: true,
             title:{
-                text: "Accessi per mesi"
+                text: "Accessi mensile"
             },
             animationEnabled: true,
+            axisX: {
+
+                gridColor: "Silver",
+                tickColor: "silver",
+                valueFormatString:"MMM"
+            },
             data: [
             {
-                type: "line",
+                type: "spline",
+                xValueFormatString: "Month MMM",
                 dataPoints: dataPoints,
             }
             ]
         });
         chart1.render();
     });
+    //btn4 visualizza grafico giorni
+    $('#btn4').click(function () {
+        $('#numeri').hide();
+        $('#chartContainer').show();
+        var result = @Html.Raw(ViewBag.DataPoints4);
+        var dataPoints =[];
+        for(var i = 0; i < result.length; i++){
+            dataPoints.push({label:result[i].x, y:result[i].y});
+        }
+        var chart1 = new CanvasJS.Chart("chartContainer",{
+            zoomEnabled: true,
+            title:{
+                text: "Accessi giornaliero",
+            },
+            animationEnabled: true,
+            axisX: {
+
+                gridColor: "Silver",
+                tickColor: "silver",
+                labelAngle: -50,
+                valueFormatString: "DDD",
+                labelFontSize: 12
+            },
+            data: [
+            {
+                type: "spline",
+                dataPoints: dataPoints,
+            }
+            ]
+        });
+        chart1.render();
+    });
+
 </script>

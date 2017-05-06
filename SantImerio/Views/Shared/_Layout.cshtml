@@ -62,10 +62,12 @@
                   </div>
               </div>
     </div>
-    @if (User.Identity.IsAuthenticated)
-    {
         @*Menu destra fisso*@
+
         <div class="docu">
+            <a href="#nogo" id="xdocu"><span class="glyphicon glyphicon-remove text-danger"></span></a>
+@if (User.Identity.IsAuthenticated)
+{
             <ul>
                 <li>
                     <a href="@Url.Action("Index", "Statistiches")" target="_blank" title="Statistiche sito">
@@ -74,8 +76,16 @@
 
                 </li>
             </ul>
+}
+            <ul>
+                <li>
+                    <a href="@Url.Action("permille", "Home")" title="5 per mille">
+                        <img src="~/Content/Immagini/5xmillep1.png" />
+                    </a>
+
+                </li>
+            </ul>
         </div>
-    }
 
     <div class="container body-content">
         @if (ViewBag.Title == "Home")
@@ -111,7 +121,12 @@
     @Scripts.Render("~/Scripts/lightbox-plus-jquery.min.js")
     @Scripts.Render("~/Scripts/jquery.filtertable.min.js")
     @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
-
+    <script type="text/javascript">
+        $('#xdocu').click(function () {
+            $('.docu ul li').toggle('normal');
+            $('#xdocu span').css('right', '0px');
+        });
+    </script>
 
 
 

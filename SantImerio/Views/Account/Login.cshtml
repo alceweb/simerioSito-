@@ -38,13 +38,18 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Accedi" class="btn btn-primary" />
+                        <input type="submit" value="Accedi" class="btn btn-primary" /><br />
                     </div>
                 </div>
-                <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        @Html.ActionLink("Password dimenticata", "ForgotPassword", "Account", null, new { @class = "btn btn-xs btn-danger" })
+                    </div>
+                </div>
+               <hr />
                 <p>
                     Se non sei ancora registrato... 
-                    @Html.ActionLink("Registrati", "Register", null, new {@class="btn btn-xs btn-danger" })
+                    @Html.ActionLink("Registrati", "Register", null, new {@class="btn btn-xs btn-success" })
                 </p>
                 @* Abilitare questa opzione dopo aver abilitato la conferma dell'account per la funzionalità di reimpostazione della password
                     <p>

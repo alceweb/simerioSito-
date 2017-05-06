@@ -273,6 +273,9 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Immagini\3.jpg" />
+    <Content Include="Content\Immagini\5x1000.png" />
+    <Content Include="Content\Immagini\5x1000p.png" />
+    <Content Include="Content\Immagini\5xmillep1.png" />
     <Content Include="Content\Immagini\Associazione.png" />
     <Content Include="Content\Immagini\bar.jpg" />
     <Content Include="Content\Immagini\calendario.jpg" />
@@ -466,6 +469,7 @@
     <Content Include="Views\Statistiches\Index.cshtml" />
     <Content Include="Views\Statistiches\Grafico.cshtml" />
     <Content Include="Views\Statistiches\IndexStat.cshtml" />
+    <Content Include="Views\Home\permille.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

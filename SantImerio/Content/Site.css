@@ -493,21 +493,24 @@ z-index:0;
 .docu{
     position:fixed;
     bottom:50%;
-    right:-20px;
+    right:-23px;
     transition: all ease 1s;
 }
 .docu ul{
     list-style: none;
 }
 .docu img{
-    opacity:0.5;
-    right:-20px;
     transition: all ease 1s;
-    height:60px
+    height:60px;
 }
 .docu img:hover {
-    opacity:1;
     transform: translate(-2em,0);
-    right:-30px;
 }
-
+#xdocu span{
+    right:-60px;
+    margin-bottom:20px;
+}
+.cf{
+    color:#dc2b1b;
+    font-weight:bolder;
+}

@@ -53,7 +53,7 @@ namespace SantImerio.Controllers
                 }
                 else
                 {
-                    statistiche.UName = "Anonimous";
+                    statistiche.UName = "anonimous";
                 }
                 db.Statistiches.Add(statistiche);
                 db.SaveChanges();

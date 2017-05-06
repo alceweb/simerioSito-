@@ -284,5 +284,10 @@ namespace SantImerio.Controllers
         {
             return View();
         }
+
+        public ActionResult permille()
+        {
+            return View();
+        }
     }
 }

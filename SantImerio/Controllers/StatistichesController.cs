@@ -16,23 +16,39 @@ namespace SantImerio.Controllers
    public class StatistichesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        JsonSerializerSettings _jsonSetting = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, DateFormatString = "dd/MMM/yy"};
+        JsonSerializerSettings _jsonSetting1 = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, DateFormatString = "MM/dd/yyyy" };
 
         // GET: Statistiches
         public ActionResult Index()
         {
             var statistiche = db.Statistiches.ToList();
-            ViewBag.DataPoints = JsonConvert.SerializeObject(db.Statistiches.Where(u => u.UName != "anonimous").OrderByDescending(d => d.Data).GroupBy(d => d.UName).Select(s => new { x = s.Key, y = s.Count() }).OrderByDescending(s => s.y).ToList(), _jsonSetting);
+            //DataView per grafico registrati
+            ViewBag.DataPoints = JsonConvert.SerializeObject(db.Statistiches
+                .Where(u => u.UName != "anonimous")
+                .GroupBy(d => d.UName)
+                .Select(s => new { x = s.Key, y = s.Count() })
+                .OrderByDescending(s => s.y)
+                .ToList(), _jsonSetting);
+            //DataView per grafico mensile
             ViewBag.DataPoints1 = JsonConvert.SerializeObject(db.Statistiches
-                .OrderByDescending(d => d.Data)
+                .OrderBy(d =>d.Data)
                 .GroupBy(d => d.Data.Month)
                 .Select(s => new { x = s.Key, y = s.Count() })
                 .ToList(), _jsonSetting);
-            ViewBag.DataPoints3 = JsonConvert.SerializeObject(db.Statistiches
-               .OrderByDescending(d => d.Data)
-               .GroupBy(d => d.Ip)
-               .Select(s => new { x = s.Key, y = s.Count() })
-               .ToList(), _jsonSetting);
+            //DataView per grafico giornaliero
+            ViewBag.DataPoints4 = JsonConvert.SerializeObject(db.Statistiches
+                .OrderByDescending(d => d.Data.Month)
+                .GroupBy(d => DbFunctions.TruncateTime(d.Data))
+                .Select(s => new { x = s.Key, y = s.Count() })
+                .ToList(), _jsonSetting);
             ViewBag.StatisticheCount = statistiche.Count();
+            ViewBag.DataPoints5 = db.Statistiches
+                .OrderByDescending(d => d.Data)
+                .GroupBy(d => d.Data.Month).
+                Select(s=> s.Key)
+                .ToList();
+
             return View(statistiche);
         }
 
@@ -58,7 +74,6 @@ namespace SantImerio.Controllers
             }
         }
 
-        JsonSerializerSettings _jsonSetting = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore };
         public ActionResult Grafico()
         {
             try
