@@ -178,6 +178,47 @@
     <hr />
 </div>
 @*Visualizzazione grafici*@
+<div>
+    <button type="button" id="myButton" class="btn btn-primary">
+        Schiaccia
+    </button>    <label id="dataP" />
+</div>
+
+<canvas id="myChart" ></canvas>
+<script>
+    var ctx = document.getElementById("myChart");
+    var result = @Html.Raw(ViewBag.DataPoints4);
+    var label = [];
+        var giorni = [];
+    for (var i = 0; i < result.length; i++) {
+        label.push(result[i].x);
+        giorni.push(result[i].y);
+        };
+        $('#myButton').click(function () {
+            $('#dataP').text(label);
+        });
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: label,
+            datasets: [{
+                data: giorni,
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+
 <div id="chartContainer" ></div>
 <script type="text/javascript">
     //Nascondo i grafici all'apertura della pagina

@@ -492,9 +492,10 @@ z-index:0;
 /*bottoni a destra*/
 .docu{
     position:fixed;
-    bottom:50%;
-    right:-23px;
+    bottom:20%;
+    right:0px;
     transition: all ease 1s;
+    z-index:1;
 }
 .docu ul{
     list-style: none;
@@ -504,11 +505,13 @@ z-index:0;
     height:60px;
 }
 .docu img:hover {
-    transform: translate(-2em,0);
+    transform: translate(-2em,2em) scale(2);
+    
 }
+
 #xdocu span{
-    right:-60px;
-    margin-bottom:20px;
+    float:right;
+    padding-right:20px;
 }
 .cf{
     color:#dc2b1b;

@@ -330,14 +330,20 @@
     <Content Include="Scripts\canvasjs.min.js" />
     <Content Include="Scripts\Chart.bundle.js" />
     <Content Include="Scripts\Chart.bundle.min.js" />
-    <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
     <Content Include="Scripts\ckeditor\contents.css" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.filtertable.js" />
     <Content Include="Scripts\jquery.filtertable.min.js" />
@@ -355,6 +361,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="test.html" />
+    <Content Include="Scripts\Chart.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -470,6 +478,7 @@
     <Content Include="Views\Statistiches\Grafico.cshtml" />
     <Content Include="Views\Statistiches\IndexStat.cshtml" />
     <Content Include="Views\Home\permille.cshtml" />
+    <Content Include="Views\Eventis\EditImgCel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using SantImerio.Models;
 using System.Web.Helpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace SantImerio.Controllers
 {
@@ -32,16 +33,19 @@ namespace SantImerio.Controllers
                 .ToList(), _jsonSetting);
             //DataView per grafico mensile
             ViewBag.DataPoints1 = JsonConvert.SerializeObject(db.Statistiches
-                .OrderBy(d =>d.Data)
+                .OrderByDescending(d =>d.Data)
                 .GroupBy(d => d.Data.Month)
                 .Select(s => new { x = s.Key, y = s.Count() })
                 .ToList(), _jsonSetting);
             //DataView per grafico giornaliero
-            ViewBag.DataPoints4 = JsonConvert.SerializeObject(db.Statistiches
-                .OrderByDescending(d => d.Data.Month)
+            var dati4 = db.Statistiches
+                .OrderByDescending(d => d.Statistiche_Id)
                 .GroupBy(d => DbFunctions.TruncateTime(d.Data))
                 .Select(s => new { x = s.Key, y = s.Count() })
-                .ToList(), _jsonSetting);
+                .ToList();
+            var dati5 = db.Statistiches.Select(s=> new {pagina = s.Pagina, data = s.Data }).ToList();
+            ViewBag.Dati4 = dati4;
+            ViewBag.DataPoints4 = JsonConvert.SerializeObject(dati4, Formatting.None, new IsoDateTimeConverter() { DateTimeFormat = "dd-MMM-yy" } );
             ViewBag.StatisticheCount = statistiche.Count();
             ViewBag.DataPoints5 = db.Statistiches
                 .OrderByDescending(d => d.Data)

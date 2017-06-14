@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "EditImgCell";
+}
+
+<h2>Gestione immagini cellulare</h2>
+<h4>Galleria fotografica <span class="badge">generale</span></h4>
+<hr />
+@using (Html.BeginForm("EditImgCel", "Servizis", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="files" id="file" multiple />
+    <p><span class="label label-success">Dimensione massima file o gruppo di file 4Mb</span></p>
+    <h4><span class="text-danger">@ViewBag.Message</span></h4>
+    <button class="btn btn-primary" type="submit"><span class="fa fa-arrow-circle-down fa-4x"></span></button>
+}
+<hr />
+

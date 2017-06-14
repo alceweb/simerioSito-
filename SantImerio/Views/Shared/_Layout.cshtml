@@ -7,9 +7,10 @@
     <link href="~/Content/lightbox.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <title>@ViewBag.Title - Parrocchia Sant'Imerio</title>
-    <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-3.1.0.min.js"></script>
+    <script src="~/Scripts/canvasjs.min.js"></script>
+    <script src="~/Scripts/Chart.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -65,7 +66,9 @@
         @*Menu destra fisso*@
 
         <div class="docu">
-            <a href="#nogo" id="xdocu"><span class="glyphicon glyphicon-remove text-danger"></span></a>
+            <p>
+                <a href="#nogo" id="xdocu"><span class="glyphicon glyphicon-remove text-danger"></span></a><br/>
+                </p>
 @if (User.Identity.IsAuthenticated)
 {
             <ul>
@@ -77,14 +80,18 @@
                 </li>
             </ul>
 }
-            <ul>
-                <li>
-                    <a href="@Url.Action("permille", "Home")" title="5 per mille">
-                        <img src="~/Content/Immagini/5xmillep1.png" />
-                    </a>
+else
+{
+    <ul>
+        <li>
+            <a href="@Url.Action("permille", "Home")" title="5 per mille">
+                <img src="~/Content/Immagini/5xmillep1.png" />
+            </a>
 
-                </li>
-            </ul>
+        </li>
+    </ul>
+
+}
         </div>
 
     <div class="container body-content">
@@ -124,7 +131,6 @@
     <script type="text/javascript">
         $('#xdocu').click(function () {
             $('.docu ul li').toggle('normal');
-            $('#xdocu span').css('right', '0px');
         });
     </script>
 
