@@ -1,0 +1,49 @@
+﻿@model SantImerio.Models.ImgTitoli
+
+@{
+    ViewBag.Title = "Cancella immagine";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<span class="gallaDel">
+    <img src="@Url.Content("~/Content/Immagini/Eventi/" + Model.Evento_Id + "/" + Model.Img)" />
+
+</span>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titolo.Titolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titolo.Titolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImgTitolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImgTitolo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <hr/>
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            @Html.ActionLink("Annulla", "EditImg", "Eventis", new { id = Model.Evento_Id }, new {@class = "btn btn-primary" })
+        </div>
+    }
+</div>

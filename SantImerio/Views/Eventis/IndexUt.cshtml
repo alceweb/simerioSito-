@@ -23,7 +23,7 @@
                     @Html.ActionLink(" ", "Edit", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-pencil", title = "Modifica testo" })
                     @Html.ActionLink(" ", "Delete", new { id = item.Evento_Id }, new { @class = "text-danger glyphicon glyphicon-remove", title = "Elimina" })
                     @Html.ActionLink(" ", "EditVol", new { id = item.Evento_Id }, new { @class = "fa fa-id-card-o", title = "Volantino" })
-                    @Html.ActionLink(" ", "EditImg", new { id = item.Evento_Id }, new { @class = "fa fa-camera", title = "Galleria" })
+                    @Html.ActionLink(" ", "Create", "ImgTitolis", new { id = item.Evento_Id }, new { @class = "fa fa-camera", title = "Galleria" })
                     @Html.ActionLink(" ", "EditImgP", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-picture", title = "Foto bacheca" })
                     @if (User.IsInRole("Fotografo") && Request.Browser.IsMobileDevice)
                     {
@@ -35,7 +35,7 @@
             @*Menu personalizzato Fotografo*@
             @if (User.IsInRole("Fotografo"))
             {
-                <h4>
+                <h4 >
                     @if (Request.Browser.IsMobileDevice)
                     {
                         @Html.ActionLink(" ", "EditImgCel", new { id = item.Evento_Id }, new { @class = "fa fa-mobile fa-2x", title = "Carica immagine da cellulare" })
@@ -82,7 +82,7 @@
                 <h4>
                     @Html.ActionLink(" ", "Edit", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-pencil", title = "Modifica testo" })
                     @Html.ActionLink(" ", "Delete", new { id = item.Evento_Id }, new { @class = "text-danger glyphicon glyphicon-remove", title = "Elimina" })
-                    @Html.ActionLink(" ", "EditImg", new { id = item.Evento_Id }, new { @class = "fa fa-camera", title = "Galleria" })
+                    @Html.ActionLink(" ", "Create", "ImgTitolis", new { id = item.Evento_Id }, new { @class = "fa fa-camera", title = "Galleria" })
                     @Html.ActionLink(" ", "EditImgP", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-picture", title = "Foto bacheca" })
                     @Html.ActionLink(" ", "EditVol", new { id = item.Evento_Id }, new { @class = "fa fa-id-card-o", title = "Volantino" })
 

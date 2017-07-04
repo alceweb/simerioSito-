@@ -1,0 +1,42 @@
+﻿@model SantImerio.Models.ImgTitoli
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ImgTitoli</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titolo.Titolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titolo.Titolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImgTitolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImgTitolo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ImgTitolo_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -5,7 +5,7 @@
 <h2>Gestione immagini cellulare</h2>
 <h4>Galleria fotografica <span class="badge">generale</span></h4>
 <hr />
-@using (Html.BeginForm("EditImgCel", "Servizis", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditImgCel", "Eventis", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <input type="file" name="files" id="file" multiple />
     <p><span class="label label-success">Dimensione massima file o gruppo di file 4Mb</span></p>

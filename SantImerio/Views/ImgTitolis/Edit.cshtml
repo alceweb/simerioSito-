@@ -1,0 +1,38 @@
+﻿@model SantImerio.Models.ImgTitoli
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Titolo immagine</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ImgTitolo_Id)
+        @Html.HiddenFor(model => model.Img)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImgTitolo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImgTitolo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ImgTitolo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+                @Html.ActionLink("Torna all'evento", "Evento", "Eventis", new { id = Model.Evento_Id}, new {@class= "btn btn-primary"})
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+</div>

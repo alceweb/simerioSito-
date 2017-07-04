@@ -33,11 +33,11 @@
 
                     <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })">
                         <h4 class="text-center">@item.Titolo</h4>
-                    <h5 class="text-center">@item.Data.ToString("dddd dd MMM yyyy")</h5>
-                </a>
-                <div>
-                    <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>
-                </div>
+                        <h5 class="text-center">@item.Data.ToString("dddd dd MMM yyyy")</h5>
+                    </a>
+                    <div>
+                        <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>
+                    </div>
                     <h5>
                         @if (@item.Commentis.Count() > 0)
                         {
@@ -46,7 +46,23 @@
 
                         }
                     </h5>
-            </div>
+                    @*Menu personalizzato Fotografo*@
+                    @if (User.IsInRole("Fotografo"))
+                    {
+                    <h4>
+                        @if (Request.Browser.IsMobileDevice)
+                        {
+                            @Html.ActionLink(" ", "EditImgCel", "Eventis", new { id = item.Evento_Id }, new { @class = "fa fa-mobile fa-2x", title = "Carica immagine da cellulare" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink(" ", "EditImg", "Eventis", new { id = item.Evento_Id }, new { @class = "fa fa-camera", title = "Galleria" })
+                        }
+                    </h4>
+
+                    }
+                </div>
+
 
             }
             </div>

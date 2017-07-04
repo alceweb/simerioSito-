@@ -25,17 +25,30 @@
 </div>
 <hr />
 <div class="row">
-    @foreach (var item in ViewBag.Immagini)
-    {
-        var filename = Path.GetFileName(item);
-        <div class="col col-md-2 text-center galla1">
-            <div>
-                <a href="@Url.Action("DeleteImg", "Eventis", new { id = Model.Evento_Id, file = @filename})"><span class="glyphicon glyphicon-remove pull-left text-danger">Cancella</span></a>
-                <a href="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" target="_blank"><span class="glyphicon glyphicon-download-alt">Scarica</span></a>
-                <a href="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" data-lightbox="example-set"><img class="example-image" src="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + @filename)" alt="" /></a>
+
+        @foreach (var item in Model.ImgTitolis)
+        {
+            <div class="col col-md-2 text-center galla1">
+                <div>
+                    <a href="@Url.Action("Delete", "ImgTitolis", new { id = item.ImgTitolo_Id, file = item.Img})" title="Cancella immagine"><span class="glyphicon glyphicon-remove pull-left text-danger"></span></a>
+                    <a href="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + item.Img)" target="_blank" title="scarica immagine"><span class="glyphicon glyphicon-download-alt"></span></a>
+                    <a href="@Url.Action("ImgRotateD", "Eventis", new {id = item.Evento_Id, file = Model.Evento_Id + "/" + item.Img })" title="ruota immagine"><span class="fa fa-undo fa-pull-right text-success"></span> </a><br />
+
+                </div>
+                <div>
+                    <span>
+                        <a href="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + item.Img)" data-lightbox="example-set" data-title="@item.ImgTitolo">
+                            <img class="example-image" src="@Url.Content("~/Content/Immagini/Eventi/" + Html.DisplayFor(model => model.Evento_Id) +"/" + item.Img)" alt="" />
+                        </a>
+                    </span>
+                </div>
+                <div>
+                    <a href="@Url.Action("Edit", "ImgTitolis", new {id = item.ImgTitolo_Id, file = Model.Evento_Id + "/" + item.Img, evento = Model.Evento_Id })" title="Aggiungi un titolo"><span class="fa fa-text-width text-success"></span>@item.ImgTitolo </a><br />
+
+                </div>
             </div>
-        </div>
-    }
+        }
+
 
 </div>
 <h3>

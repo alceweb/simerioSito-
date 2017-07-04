@@ -61,6 +61,7 @@ namespace SantImerio.Models
         [Display(Name = "Evento dell'anno pastorale")]
         public bool Pastorale { get; set; }
         public virtual ICollection<Commenti> Commentis { get; set; }
+        public virtual ICollection<ImgTitoli> ImgTitolis { get; set; }
     }
 
     public class OrariMesseBar
@@ -186,6 +187,7 @@ namespace SantImerio.Models
         public DbSet<SantImerio.Models.Commenti> Commentis { get; set; }
         public DbSet<SantImerio.Models.ComRisp> ComRisps { get; set; }
         public DbSet<SantImerio.Models.Statistiche> Statistiches { get; set; }
+        public DbSet<SantImerio.Models.ImgTitoli> ImgTitolis { get; set; }
 
     }
 }

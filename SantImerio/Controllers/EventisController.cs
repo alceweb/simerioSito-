@@ -19,7 +19,7 @@ namespace SantImerio.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Eventis
-        [Authorize(Roles = "Admin,Collaboratore")]
+        [Authorize(Roles = "Admin,Collaboratore,Fotografo")]
         public ActionResult Index()
         {
             ViewBag.EventiCount = db.Eventis.Count();
@@ -60,9 +60,12 @@ namespace SantImerio.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            Eventi eventi = db.Eventis.Find(id);
             var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Eventi/" + id + "/"));
             ViewBag.Immagini = immagini.ToList();
-            Eventi eventi = db.Eventis.Find(id);
+            var imgTitolo = db.ImgTitolis.Where(e => e.Evento_Id == id);
+            ViewBag.ImgTitolo = imgTitolo;
+            ViewBag.ImgTitoloCount = imgTitolo.Count();
             var commenti = db.Commentis.Where(e => e.Evento_Id == id);
             ViewBag.Commenti = commenti;
             ViewBag.CommentiCount = commenti.Count();
@@ -323,13 +326,15 @@ namespace SantImerio.Controllers
 
 
         //Gestione immagini galleria fotografica
-        [Authorize(Roles = "Admin,Collaboratore")]
+        [Authorize(Roles = "Admin,Collaboratore,Fotografo")]
         public ActionResult EditImg(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var imgTitolo = db.ImgTitolis.Where(e => e.Evento_Id == id);
+            ViewBag.ImgTitolo = imgTitolo;
             var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Eventi/" + id + "/"));
             ViewBag.Immagini = immagini.ToList();
             Eventi eventi = db.Eventis.Find(id);
@@ -341,7 +346,7 @@ namespace SantImerio.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Collaboratore")]
+        [Authorize(Roles = "Admin,Collaboratore,Fotografo")]
         public ActionResult EditImg(IEnumerable<HttpPostedFileBase> files, int? id)
         {
             foreach (var file in files)
@@ -409,6 +414,7 @@ namespace SantImerio.Controllers
 
         }
 
+        [Authorize(Roles = "Admin,Collaboratore,Fotografo")]
         public ActionResult EditImgCel(int? id)
         {
             var immagini = Directory.GetFiles(Server.MapPath("/Content/Immagini/Eventi/" + id + "/"));
@@ -417,6 +423,7 @@ namespace SantImerio.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Collaboratore,Fotografo")]
         public ActionResult EditImgCel(IEnumerable<HttpPostedFileBase> files, int? id)
         {
             foreach (var file in files)
@@ -478,6 +485,18 @@ namespace SantImerio.Controllers
             return View();
 
         }
+
+        public ActionResult ImgRotateD(string file, int id)
+        {
+            string path = Server.MapPath("~/Content/Immagini/Eventi/" + file);
+            System.Drawing.Image img = System.Drawing.Image.FromFile(path);
+            img.RotateFlip(System.Drawing.RotateFlipType.Rotate90FlipXY);
+            img.Save(path);
+            img.Dispose();
+            return RedirectToAction("EditImg", "Eventis", new { id = id });
+        }
+
+
 
         // GET: Eventis/Delete/5
         [Authorize(Roles = "Admin,Collaboratore")]

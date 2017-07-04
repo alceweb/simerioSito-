@@ -18,7 +18,7 @@ namespace SantImerio.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         JsonSerializerSettings _jsonSetting = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, DateFormatString = "dd/MMM/yy"};
-        JsonSerializerSettings _jsonSetting1 = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, DateFormatString = "MM/dd/yyyy" };
+        JsonSerializerSettings _jsonSetting1 = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, DateFormatString = "MMM yy" };
 
         // GET: Statistiches
         public ActionResult Index()
@@ -26,33 +26,24 @@ namespace SantImerio.Controllers
             var statistiche = db.Statistiches.ToList();
             //DataView per grafico registrati
             ViewBag.DataPoints = JsonConvert.SerializeObject(db.Statistiches
-                .Where(u => u.UName != "anonimous")
+                .Where(u => u.UName != "CesareRocchetti" && u.UName != "DonMicheleRocchetti" && u.UName != "anonimous")
                 .GroupBy(d => d.UName)
                 .Select(s => new { x = s.Key, y = s.Count() })
-                .OrderByDescending(s => s.y)
+                .OrderBy(s => s.x)
                 .ToList(), _jsonSetting);
             //DataView per grafico mensile
             ViewBag.DataPoints1 = JsonConvert.SerializeObject(db.Statistiches
-                .OrderByDescending(d =>d.Data)
                 .GroupBy(d => d.Data.Month)
                 .Select(s => new { x = s.Key, y = s.Count() })
-                .ToList(), _jsonSetting);
+                .OrderBy(s =>s.x)
+                .ToList(), _jsonSetting1);
             //DataView per grafico giornaliero
-            var dati4 = db.Statistiches
-                .OrderByDescending(d => d.Statistiche_Id)
+            ViewBag.DataPoints2 = JsonConvert.SerializeObject(db.Statistiches
                 .GroupBy(d => DbFunctions.TruncateTime(d.Data))
-                .Select(s => new { x = s.Key, y = s.Count() })
-                .ToList();
-            var dati5 = db.Statistiches.Select(s=> new {pagina = s.Pagina, data = s.Data }).ToList();
-            ViewBag.Dati4 = dati4;
-            ViewBag.DataPoints4 = JsonConvert.SerializeObject(dati4, Formatting.None, new IsoDateTimeConverter() { DateTimeFormat = "dd-MMM-yy" } );
-            ViewBag.StatisticheCount = statistiche.Count();
-            ViewBag.DataPoints5 = db.Statistiches
-                .OrderByDescending(d => d.Data)
-                .GroupBy(d => d.Data.Month).
-                Select(s=> s.Key)
-                .ToList();
-
+                .Select(s => new { x = s.Key, y = s.Count()})
+                .OrderBy(s => s.x)
+                .ToList(), _jsonSetting);
+            
             return View(statistiche);
         }
 

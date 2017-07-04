@@ -4,317 +4,301 @@
     ViewBag.Title = "Index";
 }
 <h2>Statistiche utilizzo sito @Html.Raw(@ViewBag.DataPointsTot)</h2>
-<button id="btn3" class="btn btn-sm btn-primary"><span class="fa  fa-table"> Numeri</span></button>
-<button id="btn1" class="btn btn-sm btn-primary"><span class="fa  fa-bar-chart"> Registrati</span></button>
-<button id="btn2" class="btn btn-sm btn-primary"><span class="fa  fa-line-chart"> Mesi</span></button>
-<button id="btn4" class="btn btn-sm btn-primary"><span class="fa  fa-line-chart"> Giorni</span></button>
-<a href="http://santimerio.it/plesk-stat/webstat/index.html" class="btn btn-sm btn-warning fa fa-podcast" target="_blank"> Avanzate</a><hr/>
-@*Visualizzazione statistiche numeriche*@
-<div id="numeri">
-    @*Numero visite per utente*@
-    <div class="row">
-        @*Numero visite per mese*@
-        <div class="col col-md-4">
-            <h3>Visite per mese</h3>
-            <table class="table table-hover">
-                @foreach (var item in Model.OrderByDescending(d => d.Data).GroupBy(d => d.Data.ToString("MMM-yyyy")))
-            {
-                    <tr>
-                        <td>
-                            <!-- Button trigger modal -->
-                            <a href="#nogo" data-toggle="modal" data-target="#@item.Key"><span class="badge">@item.Count()</span><span> @item.Key </span></a>
-                            <!-- Modal -->
-                            <div class="modal fade" id="@item.Key" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h3 class="modal-title text-center" id="myModalLabel">@item.Key <span class="text-danger">@item.Count() accessi</span></h3>
-                                            <h6>Classifica pagine più visitate</h6>
-                                        </div>
-                                        <div class="modal-body">
-                                            <table class="table table-hover">
-                                                @foreach (var item1 in Model.Where(d => d.Data.ToString("MMM-yyyy") == item.Key).OrderByDescending(d => d.Data).GroupBy(d => d.Data.ToLongDateString()).Select(x => new { giorno = x.Key, count = x.Count() }).OrderByDescending(x => x.count))
-                {
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-default">@item1.giorno - @item1.count accessi</span>
-                                                            <table class="table table-hover">
 
-                                                                @foreach (var group in Model.Where(d => d.Data.ToLongDateString() == item1.giorno).GroupBy(p => p.Pagina).Select(x => new { pagina = x.Key, count = x.Count() }).OrderByDescending(x => x.count))
-                                                                {
+<div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#numeri" aria-controls="home" role="tab" data-toggle="tab"><span class="fa  fa-table"> Numeri</span></a></li>
+        <li role="presentation"><a href="#registrati" aria-controls="registrati" role="tab" data-toggle="tab"><span class="fa  fa-bar-chart"> Registrati</span></a></li>
+        <li role="presentation"><a href="#mesi" aria-controls="messages" role="tab" data-toggle="tab"><span class="fa  fa-line-chart"> Mesi</span></a></li>
+        <li role="presentation"><a href="#giorni" aria-controls="giorni" role="tab" data-toggle="tab"><span class="fa  fa-line-chart"> Giorni</span></a></li>
+        <li ><a href="http://santimerio.it/plesk-stat/webstat/index.html" aria-controls="Avanzate" class="btn btn-sm btn-warning fa fa-podcast" >Avanzate</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="numeri">
+            <div id="numeri">
+                @*Numero visite per utente*@
+                <div class="row">
+                    @*Numero visite per mese*@
+                    <div class="col col-md-4">
+                        <h3>Visite per mese</h3>
+                        <table class="table table-hover">
+                            @foreach (var item in Model.OrderByDescending(d => d.Data).GroupBy(d => d.Data.ToString("MMM-yyyy")))
+            {
+                                <tr>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <a href="#nogo" data-toggle="modal" data-target="#@item.Key"><span class="badge">@item.Count()</span><span> @item.Key </span></a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="@item.Key" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h3 class="modal-title text-center" id="myModalLabel">@item.Key <span class="text-danger">@item.Count() accessi</span></h3>
+                                                        <h6>Classifica pagine più visitate</h6>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-hover">
+                                                            @foreach (var item1 in Model.Where(d => d.Data.ToString("MMM-yyyy") == item.Key).OrderByDescending(d => d.Data).GroupBy(d => d.Data.ToLongDateString()).Select(x => new { giorno = x.Key, count = x.Count() }).OrderByDescending(x => x.count))
+                {
+                                                                <tr>
+                                                                    <td>
+                                                                        <span class="label label-default">@item1.giorno - @item1.count accessi</span>
+                                                                        <table class="table table-hover">
+
+                                                                            @foreach (var group in Model.Where(d => d.Data.ToLongDateString() == item1.giorno).GroupBy(p => p.Pagina).Select(x => new { pagina = x.Key, count = x.Count() }).OrderByDescending(x => x.count))
+                                                                            {
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <span><label class="label label-danger">@group.count</label></span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <span>@group.pagina</span>
+
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+
+
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+
+
+                                                            @foreach (var group in Model.Where(d => d.Data.Month.ToString("MMM yyyy") == item.Key).GroupBy(p => p.Pagina).OrderByDescending(o => o.Key))
+                {
+                                                                <tr>
+                                                                    <td class="label label-danger">
+                                                                        @group.Count()
+                                                                        <span class="h6">@group.Key</span>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                    @*Visite per utente*@
+                    <div class="col col-md-4">
+                        <h3>Visite per utente</h3>
+                        <table class="table table-hover">
+
+                            @foreach (var item in Model.OrderByDescending(d => d.Data).GroupBy(d => d.UName).Select(x => new { utente = x.Key, count = x.Count() }).OrderByDescending(x => x.count))
+                            {
+                                <tr>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <a href="#nogo" data-toggle="modal" data-target="#@Html.Raw(@item.utente)"><span class="badge"> @item.count</span><span> @Html.Raw(@item.utente) </span></a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="@Html.Raw(@item.utente)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <div class="modal-body">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h3 class="modal-title text-center" id="myModalLabel">@item.utente <span class="text-danger">@item.count accessi</span></h3>
+                                                            <h6>Accessi mensili</h6>
+                                                            <table class="table table-hover">
+                                                                @foreach (var group in Model.Where(u => u.UName == item.utente).OrderByDescending(d => d.Data).GroupBy(d => d.Data.ToString("MMM-yyyy")))
+                {
                                                                     <tr>
                                                                         <td>
-                                                                            <span><label class="label label-danger">@group.count</label></span>
+                                                                            <span class="label label-danger">@group.Count()</span>
+
                                                                         </td>
                                                                         <td>
-                                                                            <span>@group.pagina</span>
+                                                                            <span class="h6">@group.Key</span>
 
                                                                         </td>
                                                                     </tr>
                                                                 }
-
-
                                                             </table>
-                                                        </td>
-                                                    </tr>
-                                                }
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-
-                                                @foreach (var group in Model.Where(d => d.Data.Month.ToString("MMM yyyy") == item.Key).GroupBy(p => p.Pagina).OrderByDescending(o => o.Key))
-                {
-                                                    <tr>
-                                                        <td class="label label-danger">
-                                                            @group.Count()
-                                                            <span class="h6">@group.Key</span>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </table>
+                                            </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </table>
-        </div>
-        @*Visite per utente*@
-        <div class="col col-md-4">
-            <h3>Visite per utente</h3>
-            <table class="table table-hover">
 
-                @foreach (var item in Model.OrderByDescending(d => d.Data).GroupBy(d => d.UName).Select(x => new { utente = x.Key, count = x.Count() }).OrderByDescending(x => x.count))
-                {
-                    <tr>
-                        <td>
-                            <!-- Button trigger modal -->
-                            <a href="#nogo" data-toggle="modal" data-target="#@Html.Raw(@item.utente)"><span class="badge"> @item.count</span><span> @Html.Raw(@item.utente) </span></a>
-                            <!-- Modal -->
-                            <div class="modal fade" id="@Html.Raw(@item.utente)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="modal-body">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h3 class="modal-title text-center" id="myModalLabel">@item.utente <span class="text-danger">@item.count accessi</span></h3>
-                                                <h6>Accessi mensili</h6>
-                                                <table class="table table-hover">
-                                                    @foreach (var group in Model.Where(u => u.UName == item.utente).OrderByDescending(d => d.Data).GroupBy(d => d.Data.ToString("MMM-yyyy")))
-                {
-                                                        <tr>
-                                                            <td>
-                                                                <span class="label label-danger">@group.Count()</span>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
 
-                                                            </td>
-                                                            <td>
-                                                                <span class="h6">@group.Key</span>
+                    </div>
+                    @*Visite per IP*@
+                    <div class="col col-md-4">
+                        <h3>Visitatori totali </h3>
+                        <table class="table table-hover">
+                            <tr>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <a href="#nogo" data-toggle="modal" data-target="#myModal">
+                                        <span class="badge">@ViewBag.StatisticheCount</span><span> Da febbraio 2017 </span>
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h3 class="modal-title text-center" id="myModalLabel">Accessi da febbraio 2017 <span class="text-danger">@ViewBag.StatisticheCount</span></h3>
+                                                    <h6>Visitatori identificati per IP</h6>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <table class="table table-hover">
 
-                                                            </td>
-                                                        </tr>
-                                                    }
-                                                </table>
+                                                        @foreach (var item in Model.OrderByDescending(d => d.Data).GroupBy(d => d.Ip).Select(x => new { utente = x.Key, count = x.Count() }).OrderByDescending(x => x.count))
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="badge">@item.count</span><span> @item.utente</span>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </table>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-                            </div>
-
-                        </td>
-                    </tr>
-                }
-            </table>
+                                </td>
+                            </tr>
+                            <tr><td></td></tr>
+                        </table>
+                    </div>
+                </div>
+                <hr />
+            </div>
 
         </div>
-        @*Visite per IP*@
-        <div class="col col-md-4">
-            <h3>Visitatori totali </h3>
-            <table class="table table-hover">
-                <tr>
-                    <td>
-                        <!-- Button trigger modal -->
-                        <a href="#nogo" data-toggle="modal" data-target="#myModal">
-                            <span class="badge">@ViewBag.StatisticheCount</span><span> Da febbraio 2017 </span>
-                        </a>
-                        <!-- Modal -->
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h3 class="modal-title text-center" id="myModalLabel">Accessi da febbraio 2017 <span class="text-danger">@ViewBag.StatisticheCount</span></h3>
-                                        <h6>Visitatori identificati per IP</h6>
-                                    </div>
-                                    <div class="modal-body">
-                                        <table class="table table-hover">
-
-                                            @foreach (var item in Model.OrderByDescending(d => d.Data).GroupBy(d => d.Ip).Select(x => new { utente = x.Key, count = x.Count() }).OrderByDescending(x => x.count))
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        <span class="badge">@item.count</span><span> @item.utente</span>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr><td></td></tr>
-            </table>
+        <div role="tabpanel" class="tab-pane" id="registrati">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="mesi">
+            <canvas id="myChart1"></canvas>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="giorni">
+            <canvas id="myChart2"></canvas>
         </div>
     </div>
-    <hr />
-</div>
-@*Visualizzazione grafici*@
-<div>
-    <button type="button" id="myButton" class="btn btn-primary">
-        Schiaccia
-    </button>    <label id="dataP" />
-</div>
 
-<canvas id="myChart" ></canvas>
+</div>
+@*Visualizzazione statistiche numeriche*@
 <script>
-    var ctx = document.getElementById("myChart");
-    var result = @Html.Raw(ViewBag.DataPoints4);
-    var label = [];
-        var giorni = [];
-    for (var i = 0; i < result.length; i++) {
-        label.push(result[i].x);
-        giorni.push(result[i].y);
-        };
-        $('#myButton').click(function () {
-            $('#dataP').text(label);
-        });
-
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: label,
-            datasets: [{
-                data: giorni,
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-</script>
-
-
-<div id="chartContainer" ></div>
-<script type="text/javascript">
-    //Nascondo i grafici all'apertura della pagina
-    $(document).ready(function(){
-        $('#numeri').show();
-        $('#chartContainer').hide();
-    });
-    //btn3 visualizza grafico numeri
-    $('#btn3').click(function(){
-        $('#numeri').show();
-        $('#chartContainer').hide();
-    });
-    //btn1 visualizza grafico registrati
-    $('#btn1').click(function(){
-        $('#numeri').hide();
-        $('#chartContainer').show();
+    $(document).ready(function () {
+      //grafico mesi
+       var ctx = document.getElementById("myChart");
         var result = @Html.Raw(ViewBag.DataPoints);
-        var dataPoints =[];
-        for(var i = 0; i < result.length; i++){
-            dataPoints.push({label:result[i].x, y:result[i].y});
-        }
-        var chart1 = new CanvasJS.Chart("chartContainer",{
-            title:{
-                text: "Accessi per utente"
+        var label = [];
+        var nomi = [];
+        for (var i = 0; i < result.length; i++) {
+            label.push(result[i].x);
+            nomi.push(result[i].y);
+        };
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: label,
+                datasets: [{
+                    data: nomi,
+                    backgroundColor: 'rgba(255,0,0,0.6)',
+                }]
             },
-            animationEnabled: true,
-            data: [
-            {
-                dataPoints: dataPoints,
+            options: {
+                legend: {
+                    display: false,
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
             }
-            ]
         });
-        chart1.render();
-    });
-    //btn2 visualizza grafico mesi
-    $('#btn2').click(function () {
-        $('#numeri').hide();
-        $('#chartContainer').show();
+     //grafico mesi
+        var ctx1 = document.getElementById("myChart1");
         var result = @Html.Raw(ViewBag.DataPoints1);
-        var dataPoints =[];
-        for(var i = 0; i < result.length; i++){
-            dataPoints.push({label:result[i].x, y:result[i].y});
-        }
-        var chart1 = new CanvasJS.Chart("chartContainer",{
-            zoomEnabled: true,
-            title:{
-                text: "Accessi mensile"
+        var label = [];
+        var mesi = [];
+        for (var i = 0; i < result.length; i++) {
+            label.push(result[i].x);
+            mesi.push(result[i].y);
+        };
+        var myChart1 = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: label,
+                datasets: [{
+                    data: mesi,
+                    fill: false,
+                    borderColor: 'rgba(255,0,0,0.6)',
+                }],
             },
-            animationEnabled: true,
-            axisX: {
-
-                gridColor: "Silver",
-                tickColor: "silver",
-                valueFormatString:"MMM"
-            },
-            data: [
-            {
-                type: "spline",
-                xValueFormatString: "Month MMM",
-                dataPoints: dataPoints,
+            options: {
+                legend: {
+                    display: false,
+                },
+               scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                   }],
+                }
             }
-            ]
         });
-        chart1.render();
-    });
-    //btn4 visualizza grafico giorni
-    $('#btn4').click(function () {
-        $('#numeri').hide();
-        $('#chartContainer').show();
-        var result = @Html.Raw(ViewBag.DataPoints4);
-        var dataPoints =[];
-        for(var i = 0; i < result.length; i++){
-            dataPoints.push({label:result[i].x, y:result[i].y});
-        }
-        var chart1 = new CanvasJS.Chart("chartContainer",{
-            zoomEnabled: true,
-            title:{
-                text: "Accessi giornaliero",
+    //grafico giorni
+        var ctx2 = document.getElementById("myChart2");
+        var result = @Html.Raw(ViewBag.DataPoints2);
+        var label = [];
+        var giorni = [];
+        for (var i = 0; i < result.length; i++) {
+            label.push(result[i].x);
+            giorni.push(result[i].y);
+        };
+        var myChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: label,
+                datasets: [{
+                    data: giorni,
+                    pointRadius: 0,
+                    fill: false,
+                    borderColor: 'rgba(255,0,0,0.6)',
+               }]
             },
-            animationEnabled: true,
-            axisX: {
-
-                gridColor: "Silver",
-                tickColor: "silver",
-                labelAngle: -50,
-                valueFormatString: "DDD",
-                labelFontSize: 12
-            },
-            data: [
-            {
-                type: "spline",
-                dataPoints: dataPoints,
+            options: {
+                legend: {
+                    display: false,
+                },
+               scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    }]
+                }
             }
-            ]
         });
-        chart1.render();
-    });
 
+  });
 </script>
