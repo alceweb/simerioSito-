@@ -49,6 +49,7 @@ namespace SantImerio.Controllers
         {
            if (ModelState.IsValid)
             {
+                HttpContext.Request.Cookies.Get("simerio");
                 statistiche.Data = DateTime.Now;
                 statistiche.Ip = Request.UserHostAddress;
                 statistiche.Pagina = "Home";

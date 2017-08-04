@@ -8,17 +8,20 @@
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <title>@ViewBag.Title - Parrocchia Sant'Imerio</title>
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
-    <script src="~/Scripts/jquery-3.1.0.min.js"></script>
     <script src="~/Scripts/canvasjs.min.js"></script>
     <script src="~/Scripts/Chart.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body id="bod" >
 
-          <div class="navbar navbar-default navbar-fixed-top">
+          <div class="navbar navbar-default navbar-fixed-top"><label id="lblCookD" >qui</label>
+
               <div class="container">
+
+
                   @if (ViewBag.Title == "Home")
                   {
                       <img class="img-responsive img-int" src="~/Content/Immagini/Intestazione.png" />
@@ -52,7 +55,7 @@
                               <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag text-success"><span>Gestione ruoli</span></a></div></li>
                               <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user text-success"><span>Gestione utenti</span></a></div></li>
                           }
-                          @if (User.IsInRole("Admin")|| User.IsInRole("Collaboratore"))
+                          @if (User.IsInRole("Admin") || User.IsInRole("Collaboratore"))
                           {
                             <li><div><a href="@Url.Action("Index", "Eventis")" class="glyphicon glyphicon-list-alt text-success"><span>Gestione eventi</span></a></div></li>
                             <li><div><a href="@Url.Action("Index", "Articolis")" class="glyphicon glyphicon-file text-success"><span>Gestione editoriale</span></a></div></li>
@@ -95,6 +98,7 @@ else
         </div>
 
     <div class="container body-content">
+
         @if (ViewBag.Title == "Home")
         {
             <div id="bg">
@@ -107,30 +111,58 @@ else
             </div>
         }
 
+
         @RenderBody()
         @*<footer >
             <p>&copy; @DateTime.Now.Year - Parrocchia Sant'Imerio via Realdo Colombo, 6 CREMONA tel.037229436</p>
         </footer>*@
     </div>
-        @*<div class="divCook">
-            <span>
-                Questo sito utilizza cookie di profilazione, propri o di altri. Se accedi a un qualunque elemento del sito acconsenti all'uso del cookie.
-                <a href="@Url.Action("InfoCookie", "Home")" class="btn btn-lg btn-warning">Informazioni</a>
-                <input type="button" id="btnCook" value="acc" />
-                <button id="btnCook" type="button" class="btn btn-lg btn-primary">@Request.Cookies["simerio"] Acconsenti</button>
-                <label id="lblCook"></label>
-            </span>
-        </div>*@
+    @{
+        if (HttpContext.Current.Request.Cookies.Get("simerio") != null)
+        {
+            if (HttpContext.Current.Request.Cookies.Get("simerio").Value != "privacyOK")
+            {
+                <div class="divCook">
+                    <p>
+                        Questo sito utilizza cookie di profilazione, propri o di altri. Se accedi a un qualunque elemento del sito acconsenti all'uso del cookie.
+                    </p>
+                    <a href="@Url.Action("InfoCookie", "Home")" class="btn btn-xs btn-warning">Informazioni</a>
+                    <button id="btnCook" type="button" class="btn btn-xs btn-primary">Acconsenti</button>
+                    <h4></h4>
 
-    @Scripts.Render("~/bundles/jquery")
+                </div>
+
+            }
+        }
+        else
+        {
+            <div class="divCook">
+                <p>
+                    Questo sito utilizza cookie di profilazione, propri o di altri. Se accedi a un qualunque elemento del sito acconsenti all'uso del cookie.
+                </p>
+                <a href="@Url.Action("InfoCookie", "Home")" class="btn btn-xs btn-warning">Informazioni</a>
+                <button id="btnCook" type="button" class="btn btn-xs btn-primary">Acconsenti</button>
+                <h4></h4>
+
+            </div>
+        }
+    }
+
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/Scripts/lightbox-plus-jquery.min.js")
     @Scripts.Render("~/Scripts/jquery.filtertable.min.js")
-    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
+    @Scripts.Render("~/Scripts/jquery.cookie.js")
     <script type="text/javascript">
         $('#xdocu').click(function () {
             $('.docu ul li').toggle('normal');
+        });
+        $('#btnCook').click(function () {
+            $.cookie('simerio', 'privacyOK', { expires: 2 });
+            var valore = $.cookie('simerio');
+            $('#lblCook').text(valore);
+            $('.divCook').hide();
         });
     </script>
 
