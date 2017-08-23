@@ -18,42 +18,45 @@
     </div>
 </div>
 <table class="table table-hover">
-    <tr>
-        <th></th>
-        <th>
-            @Html.DisplayNameFor(model => model.Titolo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SottoTitolo)
-        </th>
-        <th>
-            Data evento prevista
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataI)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataF)
-        </th>
-        <th class="text-center">
-            @Html.DisplayNameFor(model => model.Pubblica)
-        </th>
-        <th class="text-center">
-            @Html.DisplayNameFor(model => model.Galleria)
-        </th>
-        <th class="text-center">
-            @Html.DisplayNameFor(model => model.Home)
-        </th>
-        <th class="text-center">
-            @Html.DisplayNameFor(model => model.Volantino)
-        </th>
-        <th class="text-center">
-            @Html.DisplayNameFor(model => model.Pastorale)
-        </th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
+    <thead>
+
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titolo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SottoTitolo)
+            </th>
+            <th>
+                Data evento prevista
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataF)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Pubblica)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Galleria)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Home)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Volantino)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Pastorale)
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
 
 @foreach (var item in Model) {
     <tr>

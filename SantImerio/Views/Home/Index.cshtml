@@ -33,7 +33,17 @@
 
                     <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })">
                         <h4 class="text-center">@item.Titolo</h4>
-                        <h5 class="text-center">@item.Data.ToString("dddd dd MMM yyyy")</h5>
+                        <h5 class="text-center">
+                        @*Menu personalizzato Amministratore*@
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <span>
+                                @Html.ActionLink(" ", "Edit", "Eventis", new { id = item.Evento_Id }, new { @class = "fa fa-pencil fa-2x", title = "Modifica evento" })
+                            </span>
+
+                        }
+                        @item.Data.ToString("dddd dd MMM yyyy")
+                        </h5>
                     </a>
                     <div>
                         <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>
@@ -57,6 +67,7 @@
                     </h4>
 
                     }
+
                 </div>
 
 

@@ -98,3 +98,11 @@
     }
 
 </table>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/Scripts/jquery.filtertable.min.js")
+<script>
+        $(document).ready(function () {
+            $('table').filterTable();
+        });
+</script>

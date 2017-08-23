@@ -53,41 +53,45 @@
 <hr class="hr1" />
 @*Visualizzo gli eventi già fatti*@
 <h3 class="text-danger">Già vissuti</h3>
-<div class="table table-responsive div1 content">
-    @foreach (var item in Model.Where(d => d.Data < DateTime.Today))
+    @foreach (var item in Model.Where(d => d.Data < DateTime.Today).GroupBy(a => a.Data.Year).Select(o => new { anno = o.Key, evento = o.OrderBy(e => e.Descrizione) }))
     {
-        <div class="text-center">
-
-            <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })">
-                <h4 class="text-center">@Html.DisplayFor(modelItem => item.Titolo)</h4>
-                <h5 class="text-center">@item.Data.ToString("dddd dd MMM yyyy")</h5>
-            </a>
-            <span>
-                <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>
-            </span>
-            <h5>
-                @if (@item.Commentis.Count() > 0)
-                {
-                    <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><span class="fa fa-comment"> @item.Commentis.Count() commenti</span></a>
-                }
-                <a href="@Url.Action("Create", "Commentis", new {EId = item.Evento_Id, evento = item.Titolo})" class="btn btn-xs btn-success"><span class="fa fa-comment"> Dì la tua</span></a>
-            </h5>
-
-            @if (User.IsInRole("Admin") || User.IsInRole("Admin"))
+        <h3 class="text-success">@item.anno</h3>
+        <div class="table table-responsive div1 content">
+            @foreach (var item1 in item.evento)
             {
-                <h4>
-                    @Html.ActionLink(" ", "Edit", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-pencil", title = "Modifica testo" })
-                    @Html.ActionLink(" ", "Delete", new { id = item.Evento_Id }, new { @class = "text-danger glyphicon glyphicon-remove", title = "Elimina" })
-                    @Html.ActionLink(" ", "Create", "ImgTitolis", new { id = item.Evento_Id }, new { @class = "fa fa-camera", title = "Galleria" })
-                    @Html.ActionLink(" ", "EditImgP", new { id = item.Evento_Id }, new { @class = "glyphicon glyphicon-picture", title = "Foto bacheca" })
-                    @Html.ActionLink(" ", "EditVol", new { id = item.Evento_Id }, new { @class = "fa fa-id-card-o", title = "Volantino" })
+            <div class="text-center">
+
+                <a href="@Url.Action("Evento", "Eventis", new { id = item1.Evento_Id })">
+                    <h4 class="text-center">@Html.DisplayFor(modelItem => item1.Titolo)</h4>
+                    <h5 class="text-center">@item1.Data.ToString("dddd dd MMM yyyy")</h5>
+                </a>
+                <span>
+                    <a href="@Url.Action("Evento", "Eventis", new { id = item1.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item1.Evento_Id + "/" + item1.Evento_Id + ".jpg")" alt="" /></a>
+                </span>
+                <h5>
+                    @if (@item1.Commentis.Count() > 0)
+                    {
+                        <a href="@Url.Action("Evento", "Eventis", new { id = item1.Evento_Id })"><span class="fa fa-comment"> @item1.Commentis.Count() commenti</span></a>
+                    }
+                    <a href="@Url.Action("Create", "Commentis", new {EId = item1.Evento_Id, evento = item1.Titolo})" class="btn btn-xs btn-success"><span class="fa fa-comment"> Dì la tua</span></a>
+                </h5>
+
+                @if (User.IsInRole("Admin") || User.IsInRole("Admin"))
+                {
+                    <h4>
+                        @Html.ActionLink(" ", "Edit", new { id = item1.Evento_Id }, new { @class = "glyphicon glyphicon-pencil", title = "Modifica testo" })
+                        @Html.ActionLink(" ", "Delete", new { id = item1.Evento_Id }, new { @class = "text-danger glyphicon glyphicon-remove", title = "Elimina" })
+                        @Html.ActionLink(" ", "Create", "ImgTitolis", new { id = item1.Evento_Id }, new { @class = "fa fa-camera", title = "Galleria" })
+                        @Html.ActionLink(" ", "EditImgP", new { id = item1.Evento_Id }, new { @class = "glyphicon glyphicon-picture", title = "Foto bacheca" })
+                        @Html.ActionLink(" ", "EditVol", new { id = item1.Evento_Id }, new { @class = "fa fa-id-card-o", title = "Volantino" })
 
 
-                </h4>
+                    </h4>
 
+                }
+            </div>
             }
         </div>
+        <hr class="hr1" />
     }
-</div>
-
 
