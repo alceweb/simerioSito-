@@ -12,74 +12,92 @@
 @foreach (var item in Model.Where(d => d.Incarico == "Parroco" || d.Incarico == "Vicario"))
 {
 
-    <div class="row galla">
-        @if (File.Exists(@Server.MapPath("/Content/Immagini/Incarichi/" + item.Incarichi_Id + ".jpg")))
+    <div class="row gallart">
+        <div class="col col-md-2">
+
+            @if (File.Exists(@Server.MapPath("/Content/Immagini/Incarichi/" + item.Incarichi_Id + ".jpg")))
                 {
-            <img class="img-usr" src="@Url.Content("~/Content/Immagini/Incarichi/" + item.Incarichi_Id + ".jpg")" />
-        }
-        else
-        {
-            <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
-        }
+                <img class="img-usr" src="@Url.Content("~/Content/Immagini/Incarichi/" + item.Incarichi_Id + ".jpg")" />
+            }
+            else
+            {
+                <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
+            }
+        </div>
+        <div class="col col-md-10">
+
 
         <h3>
         @if (User.IsInRole("Admin"))
         {
-            <a href="@Url.Action("EditImg", "Incarichis", new { id = item.Incarichi_Id })" title="Aggiungi persona"><span class="fa fa-address-book pull-left"></span></a>
+            <a href="@Url.Action("EditImg", "Incarichis", new { id = item.Incarichi_Id })" title="Foto profilo"><span class="fa fa-address-book pull-left"></span></a>
             <a href="@Url.Action("Edit", "Incarichis", new {id = item.Incarichi_Id })" title="Modifica dati"><span class="glyphicon glyphicon-pencil pull-left text-danger"></span></a>
         }
         @item.Incarico</h3>
         <h4>@item.Nome @item.Cognome</h4>
         <p>@item.Indirizzo <br /><span class="fa fa-phone">Tel. @item.Telefono</span>  -  <a href="@Url.Content("mail to:" + @item.Email)"><span class="glyphicon glyphicon-envelope">@item.Email</span></a></p>
+        </div>
     </div>
 }
 <hr class="hr1" />
 
 @foreach (var item in Model.Where(d => d.Incarico == "Segreteria Parrocchiale").OrderBy(d => d.Nome))
 {
-    <div class="row galla">
-        @if (File.Exists(@Server.MapPath("/Content/Immagini/Incarichi/" + item.Incarichi_Id + ".jpg")))
+    <div class="row gallart">
+        <div class="col col-md-2">
+            @if (File.Exists(@Server.MapPath("/Content/Immagini/Incarichi/" + item.Incarichi_Id + ".jpg")))
                 {
-            <img class="img-usr" src="@Url.Content("~/Content/Immagini/Incarichi/" + item.Incarichi_Id + ".jpg")" />
-        }
-        else
-        {
-            <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
-        }
-
-        <h3>
-            @if (User.IsInRole("Admin"))
-            {
-                <a href="@Url.Action("EditImg", "Incarichis", new { id = item.Incarichi_Id })" title="Aggiungi persona"><span class="fa fa-address-book pull-left"></span></a>
-                <a href="@Url.Action("Edit", "Incarichis", new {id = item.Incarichi_Id })" title="Modifica dati"><span class="glyphicon glyphicon-pencil pull-left text-danger"></span></a>
+                <img class="img-usr" src="@Url.Content("~/Content/Immagini/Incarichi/" + item.Incarichi_Id + ".jpg")" />
             }
-            @item.Incarico
-        </h3>
-        <h4>@item.Nome @item.Cognome</h4>
-        <p>@item.Indirizzo <br /><span class="fa fa-phone">Tel. @item.Telefono</span>  -  <a href="@Url.Content("mail to:" + @item.Email)"><span class="glyphicon glyphicon-envelope">@item.Email</span></a></p>
-    </div>
+            else
+            {
+                <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
+            }
+
+        </div>
+        <div class="col col-md-10">
+            <h3>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a href="@Url.Action("EditImg", "Incarichis", new { id = item.Incarichi_Id })" title="Aggiungi persona"><span class="fa fa-address-book pull-left"></span></a>
+                    <a href="@Url.Action("Edit", "Incarichis", new {id = item.Incarichi_Id })" title="Modifica dati"><span class="glyphicon glyphicon-pencil pull-left text-danger"></span></a>
+                }
+                @item.Incarico
+            </h3>
+            <h4>@item.Nome @item.Cognome</h4>
+            <p>@item.Indirizzo <br /><span class="fa fa-phone">Tel. @item.Telefono</span>  -  <a href="@Url.Content("mail to:" + @item.Email)"><span class="glyphicon glyphicon-envelope">@item.Email</span></a></p>
+        </div>
+   </div>
 }
 <hr class="hr1"/>
 @foreach (var item in Model.Where(d => d.Incarico != "Parroco" && d.Incarico != "Vicario" && d.Incarico != "Segreteria Parrocchiale").OrderBy(d=>d.Nome))
 {
-    <div class="row galla">
-        @if (File.Exists(@Server.MapPath("/Content/Immagini/Incarichi/" + item.Incarichi_Id + ".jpg")))
-        {
-        }
-        else
-        {
-            <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
-        }
-
-        <h3>
-            @if (User.IsInRole("Admin"))
+    <div class="row gallart">
+        <div class="col col-md-2">
+            @if (File.Exists(@Server.MapPath("/Content/Immagini/Incarichi/" + item.Incarichi_Id + ".jpg")))
             {
-                <a href="@Url.Action("EditImg", "Incarichis", new { id = item.Incarichi_Id })" title="Aggiungi persona"><span class="fa fa-address-book pull-left"></span></a>
-                <a href="@Url.Action("Edit", "Incarichis", new {id = item.Incarichi_Id })" title="Modifica dati"><span class="glyphicon glyphicon-pencil pull-left text-danger"></span></a>
+            }
+            else
+            {
+                <img class="img-usr" src="@Url.Content("~/Content/Immagini/Utenti/Anonimous.jpg")" />
             }
 
-        @item.Incarico</h3>
-        <h4>@item.Nome @item.Cognome</h4>
-        <p>@item.Indirizzo <br /><span class="fa fa-phone">Tel. @item.Telefono</span>  -  <a href="@Url.Content("mail to:" + @item.Email)"><span class="glyphicon glyphicon-envelope">@item.Email</span></a></p>
+        </div>
+        <div class="col col-md-10">
+            <h3>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a href="@Url.Action("EditImg", "Incarichis", new { id = item.Incarichi_Id })" title="Aggiungi persona"><span class="fa fa-address-book pull-left"></span></a>
+                    <a href="@Url.Action("Edit", "Incarichis", new {id = item.Incarichi_Id })" title="Modifica dati"><span class="glyphicon glyphicon-pencil pull-left text-danger"></span></a>
+                }
+
+                @item.Incarico
+            </h3>
+            <h4>@item.Nome @item.Cognome</h4>
+            <p>@item.Indirizzo <br /><span class="fa fa-phone">Tel. @item.Telefono</span>  -  <a href="@Url.Content("mail to:" + @item.Email)"><span class="glyphicon glyphicon-envelope">@item.Email</span></a></p>
+
+        </div>
+
     </div>
 }

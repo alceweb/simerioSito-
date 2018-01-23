@@ -28,7 +28,7 @@
                   }
                   else
                   {
-                      <img class="img-responsive img-int" src="~/Content/Immagini/Intestazione1.png" />
+                      <img class="img-responsive img-int1" src="~/Content/Immagini/Intestazione1.png" />
                   }
 
                   <div class="navbar-header">
@@ -50,7 +50,11 @@
                           {
                               <li><div><a href="@Url.Action("Download", "Home")" class="glyphicon glyphicon-download-alt"><span>Download</span></a></div></li>
                           }
-                          @if (User.IsInRole("Admin"))
+                          @if (User.IsInRole("Webmail"))
+                          {
+                              <li><div><a href="@Url.Content("http://webmail.santimerio.it")" target="_blank" class="fa fa-envelope-o"><span>WebMail</span></a></div></li>
+                          }
+                         @if (User.IsInRole("Admin"))
                           {
                               <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag text-success"><span>Gestione ruoli</span></a></div></li>
                               <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user text-success"><span>Gestione utenti</span></a></div></li>
@@ -72,7 +76,7 @@
             <p>
                 <a href="#nogo" id="xdocu"><span class="glyphicon glyphicon-remove text-danger"></span></a><br/>
                 </p>
-@if (User.Identity.IsAuthenticated)
+@if (User.IsInRole("Admin"))
 {
             <ul>
                 <li>
@@ -159,7 +163,7 @@ else
             $('.docu ul li').toggle('normal');
         });
         $('#btnCook').click(function () {
-            $.cookie('simerio', 'privacyOK', { expires: 2 });
+            $.cookie('simerio', 'privacyOK', { expires: 60 });
             var valore = $.cookie('simerio');
             $('#lblCook').text(valore);
             $('.divCook').hide();

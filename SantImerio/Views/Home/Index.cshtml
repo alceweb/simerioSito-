@@ -7,19 +7,20 @@
  <div class="div5">
         <span class="fa fa-angle-double-down fa-3x sin"></span>
         <span class="fa fa-angle-double-down fa-3x des"></span>
-  <div >
+  <div class="row" >
 
         @if (User.IsInRole("Admin") || User.IsInRole("Collaboratore"))
         {
             <div><a href="@Url.Action("Sfondo", "Home")" title="modifica immagine di sfondo"><h2 class="glyphicon glyphicon-pencil pull-left text-danger"></h2></a></div>
         }
-        @foreach (var item in ViewBag.EventiH)
+              @foreach (var item in ViewBag.EventiH)
             {
 
-            <div class="spot">@item.Titolo</div>
-            <h1>
-                <a href="@Url.Action("Evento", "Eventis", new {id = item.Evento_Id })" class="btn btn-lg btn-primary">@item.SottoTitolo<span class="glyphicon glyphicon-chevron-right"></span></a>
-            </h1><hr class="hr1" />
+                  <div class="spot col-md-12">
+                      @item.Titolo<br />
+                      <a href="@Url.Action("Evento", "Eventis", new {id = item.Evento_Id })" class="btn btn-primary">@item.SottoTitolo<span class="glyphicon glyphicon-chevron-right"></span></a>
+                      <hr class="hr1" />
+             </div>
 
         }
     </div>

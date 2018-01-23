@@ -26,7 +26,7 @@
             @Html.DisplayFor(modelItem => item.Titolo)
         </td>
         <td>
-            @Html.Raw(item.Descrizione.Replace(Environment.NewLine, "<br/>"))
+            @Html.Raw(item.Descrizione)
         </td>
         <td>
             @Html.ActionLink(" ", "Edit", new { id=item.Documenti_Id }, new {@class="glyphicon glyphicon-pencil", title="Modifica descrizione" })  

@@ -13,7 +13,7 @@ using Newtonsoft.Json.Converters;
 
 namespace SantImerio.Controllers
 {
-         [Authorize]
+   [Authorize(Roles ="Admin")]
    public class StatistichesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
