@@ -100,8 +100,17 @@ else
 
 }
         </div>
-
-    <div class="container body-content">
+    @{
+        var classhome = "";
+        if(ViewBag.Title == "Home")
+        {
+            classhome = "";
+        }
+        else
+        {
+            classhome = "container body-content";
+        }
+    <div class="@classhome">
 
         @if (ViewBag.Title == "Home")
         {
@@ -121,6 +130,9 @@ else
             <p>&copy; @DateTime.Now.Year - Parrocchia Sant'Imerio via Realdo Colombo, 6 CREMONA tel.037229436</p>
         </footer>*@
     </div>
+
+    }
+
     @{
         if (HttpContext.Current.Request.Cookies.Get("simerio") != null)
         {

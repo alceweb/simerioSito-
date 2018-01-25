@@ -4,9 +4,11 @@
     ViewBag.Title = "Home";
 }
 
+
  <div class="div5">
-        <span class="fa fa-angle-double-down fa-3x sin"></span>
-        <span class="fa fa-angle-double-down fa-3x des"></span>
+     <a href="#uno" class="btn btn-circle bottom">
+         <i class="fa fa-angle-double-down animated"></i>
+     </a>
   <div class="row" >
 
         @if (User.IsInRole("Admin") || User.IsInRole("Collaboratore"))
@@ -24,56 +26,80 @@
 
         }
     </div>
-    <div class="div4">
-        <h1 id="h" class="text-center">Anno pastorale corrente</h1><hr class="hr1" />
-        <div class="div1 content">
+     <section id="uno">
 
-            @foreach (var item in Model)
+         <div class="div4">
+             <h1 id="h" class="text-center">Anno pastorale corrente</h1><hr class="hr1" />
+             <div class="div1 content">
+
+                 @foreach (var item in Model)
             {
-                <div class="text-center">
+                     <div class="text-center">
 
-                    <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })">
-                        <h4 class="text-center">@item.Titolo</h4>
-                        <h5 class="text-center">
-                        @*Menu personalizzato Amministratore*@
-                        @if (User.IsInRole("Admin"))
+                         <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })">
+                             <h4 class="text-center">@item.Titolo</h4>
+                             <h5 class="text-center">
+                                 @*Menu personalizzato Amministratore*@
+                                 @if (User.IsInRole("Admin"))
                         {
-                            <span>
-                                @Html.ActionLink(" ", "Edit", "Eventis", new { id = item.Evento_Id }, new { @class = "fa fa-pencil fa-2x", title = "Modifica evento" })
-                            </span>
+                                     <span>
+                                         @Html.ActionLink(" ", "Edit", "Eventis", new { id = item.Evento_Id }, new { @class = "fa fa-pencil fa-2x", title = "Modifica evento" })
+                                     </span>
 
                         }
-                        @item.Data.ToString("dddd dd MMM yyyy")
-                        </h5>
-                    </a>
-                    <div>
-                        <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>
-                    </div>
-                    <h5>
-                            <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><span class="fa fa-comment"> @item.Commentis.Count() commenti</span></a>
-                            <a href="@Url.Action("Create", "Commentis", new {EId = item.Evento_Id, evento = item.Titolo})" class="btn btn-xs btn-success"><span class="fa fa-pencil-square-o"> Dì la tua</span></a>
-                    </h5>
-                    @*Menu personalizzato Fotografo*@
-                    @if (User.IsInRole("Fotografo"))
+                                 @item.Data.ToString("dddd dd MMM yyyy")
+                             </h5>
+                         </a>
+                         <div>
+                             <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><img src="@Url.Content("~/Content/Immagini/Eventi/" + item.Evento_Id + "/" + item.Evento_Id + ".jpg")" alt="" /></a>
+                         </div>
+                         <h5>
+                             <a href="@Url.Action("Evento", "Eventis", new { id = item.Evento_Id })"><span class="fa fa-comment"> @item.Commentis.Count() commenti</span></a>
+                             <a href="@Url.Action("Create", "Commentis", new {EId = item.Evento_Id, evento = item.Titolo})" class="btn btn-xs btn-success"><span class="fa fa-pencil-square-o"> Dì la tua</span></a>
+                         </h5>
+                         @*Menu personalizzato Fotografo*@
+                         @if (User.IsInRole("Fotografo"))
                     {
-                    <h4>
-                        @if (Request.Browser.IsMobileDevice)
+                             <h4>
+                                 @if (Request.Browser.IsMobileDevice)
                         {
-                            @Html.ActionLink(" ", "EditImgCel", "Eventis", new { id = item.Evento_Id }, new { @class = "fa fa-mobile fa-2x", title = "Carica immagine da cellulare" })
+                                     @Html.ActionLink(" ", "EditImgCel", "Eventis", new { id = item.Evento_Id }, new { @class = "fa fa-mobile fa-2x", title = "Carica immagine da cellulare" })
                         }
                         else
                         {
-                            @Html.ActionLink(" ", "EditImg", "Eventis", new { id = item.Evento_Id }, new { @class = "fa fa-camera", title = "Galleria" })
+                                     @Html.ActionLink(" ", "EditImg", "Eventis", new { id = item.Evento_Id }, new { @class = "fa fa-camera", title = "Galleria" })
                         }
-                    </h4>
+                             </h4>
 
                     }
 
-                </div>
+                     </div>
 
 
             }
-            </div>
-        </div>
-</div>
+             </div>
+         </div>
+     </section>
 
+
+</div>
+@Scripts.Render("~/Scripts/grayscale.js")
+@Scripts.Render("http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js")
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a[href^="#"]').on('click', function (e) {
+                e.preventDefault();
+
+                var target = this.hash;
+                var $target = $(target);
+
+                $('html, body').stop().animate({
+                    'scrollTop': $target.offset().top
+                }, 900, 'swing', function () {
+                    window.location.hash = target;
+                });
+            });
+        });
+    </script>
+    }
