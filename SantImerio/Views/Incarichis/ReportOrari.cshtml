@@ -1,0 +1,31 @@
+﻿@model SantImerio.Models.OrariMesseBar
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html style="background-color: #fff">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Report Orari</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        table{
+            margin-bottom:0px !important;
+        }
+    </style>
+</head>
+<body>
+    <div>
+
+        <h1 class="text-center">Unità pastorale Cattedrale Sant Imerio San Pietro</h1>
+        <hr />
+        <div>
+            @Html.Raw(Model.Descrizione)
+        </div>
+    </div>
+
+</body>
+</html>

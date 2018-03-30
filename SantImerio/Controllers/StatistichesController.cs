@@ -18,7 +18,7 @@ namespace SantImerio.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         JsonSerializerSettings _jsonSetting = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, DateFormatString = "dd/MMM/yy"};
-        JsonSerializerSettings _jsonSetting1 = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, DateFormatString = "MMM yy" };
+        JsonSerializerSettings _jsonSetting1 = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, DateFormatString = "MMM" };
 
         // GET: Statistiches
         public ActionResult Index()
@@ -36,7 +36,7 @@ namespace SantImerio.Controllers
                 .GroupBy(d => d.Data.Month)
                 .Select(s => new { x = s.Key, y = s.Count() })
                 .OrderBy(s =>s.x)
-                .ToList(), _jsonSetting1);
+                .ToList(), _jsonSetting);
             //DataView per grafico giornaliero
             ViewBag.DataPoints2 = JsonConvert.SerializeObject(db.Statistiches
                 .GroupBy(d => DbFunctions.TruncateTime(d.Data))

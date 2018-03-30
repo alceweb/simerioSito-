@@ -13,7 +13,7 @@
 
         @if (User.IsInRole("Admin") || User.IsInRole("Collaboratore"))
         {
-            <div><a href="@Url.Action("Sfondo", "Home")" title="modifica immagine di sfondo"><h2 class="glyphicon glyphicon-pencil pull-left text-danger"></h2></a></div>
+            <div><a href="@Url.Action("Sfondo", "Home")" title="modifica immagine di sfondo"><h2 class="glyphicon glyphicon-pencil pull-left text-danger btn-home"></h2></a></div>
         }
               @foreach (var item in ViewBag.EventiH)
             {
@@ -26,8 +26,8 @@
 
         }
     </div>
+     
      <section id="uno">
-
          <div class="div4">
              <h1 id="h" class="text-center">Anno pastorale corrente</h1><hr class="hr1" />
              <div class="div1 content">

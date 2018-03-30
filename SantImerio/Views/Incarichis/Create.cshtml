@@ -13,6 +13,38 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Incarico, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+
+                @{
+                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Cattedrale",
+                        Value = "Cattedrale"
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Sant Imerio",
+                        Value = "Sant Imerio",
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "San Pietro",
+                        Value = "San Pietro"
+                    });
+                }
+
+                @Html.DropDownListFor(model => model.Parrocchia, listItems, "Scegli la parrocchia...", new {@class="form-control" })
+
+                @Html.ValidationMessageFor(model => model.Parrocchia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
         <div class="form-group">
             @Html.LabelFor(model => model.Incarico, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

@@ -202,8 +202,9 @@
 </div>
 @*Visualizzazione statistiche numeriche*@
 @Scripts.Render("~/Scripts/jquery-1.10.2.js")
-
-
+@section Scripts{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="~/Scripts/Chart.js"></script>
 <script>
     $(document).ready(function () {
       //grafico mesi
@@ -266,6 +267,12 @@
                             beginAtZero: true
                         }
                    }],
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            month: 'MM'
+                        }
+                    }]
                 }
             }
         });
@@ -305,3 +312,6 @@
 
   });
 </script>
+    
+    }
+

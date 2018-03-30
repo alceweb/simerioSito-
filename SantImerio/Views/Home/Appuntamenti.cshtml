@@ -4,6 +4,8 @@
     <h2>Eventi ed orari</h2>
 </div>
 <hr class="hr1" />
+
+
 <div class="row text-center">
     <div class="col col-md-6">
         @if (User.IsInRole("Admin"))
@@ -29,6 +31,7 @@
     <div class="col col-md-12">
         <div class="collapse" id="messe">
             <div class="well">
+                <a href="@Url.Action("GeneraPDF", "Incarichis", new {id = 1 })" target="_blank"><span class="fa fa-file-pdf-o fa-3x text-danger pull-right"></span></a>
                 @foreach (var item in ViewBag.Orari)
                 {
                     @Html.Raw(item.Descrizione)
@@ -43,6 +46,7 @@
     <div class="col col-md-12">
         <div class="collapse" id="turnibar">
             <div class="well">
+                <a href="@Url.Action("GeneraPDF", "Incarichis", new {id = 2 })" target="_blank"><span class="fa fa-file-pdf-o fa-2x fa-3x text-danger pull-right"></span></a>
                 @foreach (var item in ViewBag.Orari1)
                 {
                     @Html.Raw(item.Descrizione)

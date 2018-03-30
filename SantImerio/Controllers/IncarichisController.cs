@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -12,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System.IO;
 using System.Web.Helpers;
 using Microsoft.AspNet.Identity;
+using Rotativa.Options;
 
 namespace SantImerio.Controllers
 {
@@ -90,7 +90,7 @@ namespace SantImerio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Incarichi_Id,Incarico,Nome,Cognome,Telefono,Email,Indirizzo,Città,Cap")] Incarichi incarichi)
+        public ActionResult Create([Bind(Include = "Incarichi_Id,Incarico,Nome,Cognome,Telefono,Email,Indirizzo,Città,Cap,Parrocchia")] Incarichi incarichi)
         {
             if (ModelState.IsValid)
             {
@@ -122,7 +122,7 @@ namespace SantImerio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Incarichi_Id,Incarico,Nome,Cognome,Telefono,Email,Indirizzo,Città,Cap")] Incarichi incarichi)
+        public ActionResult Edit([Bind(Include = "Incarichi_Id,Incarico,Nome,Cognome,Telefono,Email,Indirizzo,Città,Cap,Parrocchia")] Incarichi incarichi)
         {
             if (ModelState.IsValid)
             {
@@ -223,7 +223,37 @@ namespace SantImerio.Controllers
 
         }
 
+        public ActionResult ReportOrari(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            OrariMesseBar orari = db.OrariMesseBars.Find(id);
+            if (orari== null)
+            {
+                return HttpNotFound();
+            }
+            return View(orari);
+        }
 
+        public ActionResult GeneraPDF(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            string customSwitches = string.Format("--print-media-type --allow {0} --footer-html {0} --footer-spacing -10",
+                Url.Action("Footer", "Visites", new { area = "" }, "https"));
+            return new Rotativa.ActionAsPdf("ReportOrari", new { id = id })
+            {
+                PageSize = Size.A4,
+                PageOrientation = Orientation.Portrait,
+                PageMargins = new Rotativa.Options.Margins(5, 5, 5, 5),
+                PageWidth = 217,
+                PageHeight = 297,
+            };
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -16,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SantImerio</RootNamespace>
     <AssemblyName>SantImerio</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -28,6 +28,7 @@
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
     <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,18 +61,19 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -113,6 +115,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -263,6 +266,10 @@
     <Compile Include="Migrations\201707030805126_titoloimg1.Designer.cs">
       <DependentUpon>201707030805126_titoloimg1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803261041355_parrocchia.cs" />
+    <Compile Include="Migrations\201803261041355_parrocchia.Designer.cs">
+      <DependentUpon>201803261041355_parrocchia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -273,6 +280,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AccordionHorizontal.css" />
     <Content Include="Content\bootstrap-datepicker3.css" />
     <Content Include="Content\bootstrap-datepicker3.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -296,6 +304,7 @@
     <Content Include="Content\Immagini\demo3.jpg" />
     <Content Include="Content\Immagini\demo4.jpg" />
     <Content Include="Content\Immagini\DonNevi.JPG" />
+    <Content Include="Content\Immagini\Duomo.jpg" />
     <Content Include="Content\Immagini\eventi.jpg" />
     <Content Include="Content\Immagini\foto.jpg" />
     <Content Include="Content\Immagini\GalleriaHome\Sfondo\Home1.jpg" />
@@ -310,6 +319,8 @@
     <Content Include="Content\Immagini\next.png" />
     <Content Include="Content\Immagini\Oratorio2.jpg" />
     <Content Include="Content\Immagini\prev.png" />
+    <Content Include="Content\Immagini\SanImerio.jpg" />
+    <Content Include="Content\Immagini\SanPietro.jpg" />
     <Content Include="Content\Immagini\simerio.png" />
     <Content Include="Content\Immagini\storia.png" />
     <Content Include="Content\lightbox.css" />
@@ -318,6 +329,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="fonts\FontAwesome.otf" />
@@ -328,6 +343,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\sidebar.css.map" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\ArubaBusiness.pubxml" />
     <None Include="Properties\PublishProfiles\santimerio - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\santimerio - Web Deploy.pubxml" />
@@ -512,6 +529,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Incarichis\ReportOrari.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -580,6 +598,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707030805126_titoloimg1.resx">
       <DependentUpon>201707030805126_titoloimg1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803261041355_parrocchia.resx">
+      <DependentUpon>201803261041355_parrocchia.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

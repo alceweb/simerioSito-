@@ -88,6 +88,8 @@ namespace SantImerio.Models
     {
         [Key]
         public int Incarichi_Id { get; set; }
+        [Display]
+        public string Parrocchia { get; set; }
         [Display(Name ="Incarico")]
         public string Incarico { get; set; }
         [Display(Name ="Nome")]
